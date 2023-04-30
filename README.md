@@ -33,7 +33,11 @@ An app for listening to music with friends. Listening Roulette presents a fun wa
   * The wheel remains, but the "spin" button is replaced by "home" and a form for inputting messages appears below.
 
 ## Preview
-![Listening Roulette](https://drive.google.com/file/d/18Tz4dA9ZDuBM5q9XJLIw9AfTEICXJfk5/view)
+
+<p float="left">
+  <img alt="demo image" src="https://user-images.githubusercontent.com/76603041/235333458-fc702e3d-d464-4e60-a749-a7b8ab66036c.gif" width="49%"/>
+  <img alt="demo image2" src="https://user-images.githubusercontent.com/76603041/235333421-504245a9-74a4-49b3-9054-9fe3f244d491.gif" width="49%"/>
+</p>
 
 ## Run Locally
 ```bash
