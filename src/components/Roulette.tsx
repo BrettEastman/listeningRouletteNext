@@ -1,23 +1,23 @@
 'use client'
 import { useState } from 'react';
 import styled from 'styled-components';
-import AddMessage from '../addmessage/page';
+import AddMessage from './AddMessage';
+import { AlbumEntry } from './types';
 
 interface RouletteProps {
-  albums: {};
+  albums: AlbumEntry[];
   viewState: number;
   setViewState: any;
   currentUser: string;
   handleMessage: any;
 }
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 export default function Roulette({ albums, viewState, setViewState, currentUser, handleMessage }: RouletteProps) {
   const [ number, setNumber ] = useState(0);
   const [ spinningStopped, setSpinningStopped ] = useState(true)
-
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
 
   const btnOnClick = function () {
     setNumber(getRandomInt(3000, 10000));

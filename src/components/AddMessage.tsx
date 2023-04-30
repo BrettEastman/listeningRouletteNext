@@ -1,14 +1,24 @@
 'use client'
 import { useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
-import FormInput from '../form/FormInput';
+import FormInput from './form/FormInput';
 
-const initialFormInput = {
+interface AddMessageProps {
+  handleMessage: (obj: FormProps) => void;
+  currentUser: string;
+}
+
+interface FormProps {
+  name: string;
+  body: string;
+}
+
+const initialFormInput: FormProps = {
   name: 'Sean',
   body: '',
 };
 
-const AddMessage = function({ handleMessage, currentUser }) {
+const AddMessage = function({ handleMessage, currentUser }: AddMessageProps) {
   const [ formInput, setFormInput ] = useState(initialFormInput);
 
   const clearForm = () => {

@@ -4,14 +4,15 @@ import styled from "styled-components";
 import axios from 'axios';
 import addData from "@/firebase/firestore/addData";
 import GlobalStyles from '../GlobalStyles.js';
-import AlbumList from './albumlist/page';
-import Form from './form/page';
-import Feed from './feed/page';
-import Roulette from './roulette/page';
+import AlbumList from '../components/AlbumList';
+import Form from '../components/form/Form';
+import Feed from '../components/Feed';
+import Roulette from '../components/Roulette';
+import { AlbumEntry, Message } from '@/components/types.js';
 
 export default function Home() {
-  const [ messages, setMessages ] = useState([]);
-  const [ albums, setAlbums ] = useState({});
+  const [ messages, setMessages ] = useState<Message[]>([]);
+  const [ albums, setAlbums ] = useState<AlbumEntry[]>([]);
   const [ viewState, setViewState ] = useState(0);
   const [ currentUser, setCurrentUser ] = useState('Sean');
   const [ timeToSpin, setTimeToSpin ] = useState(false);

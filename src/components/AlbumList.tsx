@@ -1,7 +1,10 @@
 import styled from 'styled-components';
+import { AlbumEntry } from './types';
+
+
 
 interface AlbumProp {
-  albums: object;
+  albums: AlbumEntry[];
 }
 
 const AlbumList = ({ albums }: AlbumProp) => {
