@@ -2,16 +2,24 @@
 import React from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import GlobalStyles from "../../GlobalStyles.js";
 
-function Page() {
+export default function Page() {
   const { user } = useAuthContext();
   const router = useRouter();
 
   React.useEffect(() => {
-    if (user == null) router.push("/signin");
+    if (user == null) {
+      return router.push("/signin");
+    }
   }, [user]);
 
-  return <h1>Only logged in users can view this page</h1>;
+  return (
+    <div>
+      <GlobalStyles />
+      <h1>Only logged in users can view this page</h1>
+      <Link href="/home">Home</Link>
+    </div>
+  );
 }
-
-export default Page;
