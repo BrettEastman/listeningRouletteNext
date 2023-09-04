@@ -9,6 +9,7 @@ import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
 import Feed from "../../components/Feed";
 import Roulette from "../../components/Roulette";
+import SignOutOfApp from "../../firebase/auth/signout.js";
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -137,6 +138,7 @@ export default function Home() {
           />
         </RouletteWrapper>
       </Container>
+      <button onClick={() => SignOutOfApp()}>Sign Out</button>
     </div>
   );
 }
