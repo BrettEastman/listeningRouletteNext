@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import addData from "@/firebase/firestore/addData";
+import getData from "@/firebase/firestore/getData";
 import GlobalStyles from "../../GlobalStyles.js";
 import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
@@ -19,17 +20,17 @@ export default function Home() {
   const [timeToSpin, setTimeToSpin] = useState(false);
 
   // this is the function added later to show how one might use addData
-  const handleForm = async () => {
-    const data = {
-      name: "John snow",
-      house: "Stark",
-    };
-    const { result, error } = await addData("users", "user-id", data);
+  // const handleForm = async () => {
+  //   const data = {
+  //     name: "John snow",
+  //     house: "Stark",
+  //   };
+  //   const { result, error } = await addData("users", "user-id", data);
 
-    if (error) {
-      return console.log(error);
-    }
-  };
+  //   if (error) {
+  //     return console.log(error);
+  //   }
+  // };
 
   interface AlbumInfo {
     name: string;
@@ -69,18 +70,28 @@ export default function Home() {
     fetchAllMessages();
   }, []);
 
-  const handleAlbum = (obj: AlbumInfo) => {
-    axios({
-      method: "post",
-      url: "/lr",
-      data: obj,
-    })
-      .then((response) => {
-        fetchAll();
-      })
-      .catch((error) => {
-        console.error("post error: ", error);
-      });
+  // const handleAlbum = (obj: AlbumInfo) => {
+  //   axios({
+  //     method: "post",
+  //     url: "/lr",
+  //     data: obj,
+  //   })
+  //     .then((response) => {
+  //       fetchAll();
+  //     })
+  //     .catch((error) => {
+  //       console.error("post error: ", error);
+  //     });
+  // };
+
+  const handleAlbum = async (obj: AlbumInfo) => {
+    const { result, error } = await addData("users", "/lr", obj);
+
+    if (error) {
+      return console.log("add album error:", error);
+    } else {
+      fetchAll();
+    }
   };
 
   const handleMessage = (obj: AlbumInfo) => {
