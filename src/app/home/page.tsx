@@ -2,7 +2,6 @@
 import { AlbumEntry, Message } from "@/components/types";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import addData from "@/firebase/firestore/addData";
 import getData from "@/firebase/firestore/getData";
 import GlobalStyles from "../../GlobalStyles.js";
@@ -38,11 +37,11 @@ export default function Home() {
   }
 
   const getAll = () => {
-    return axios.get("/lr");
+    return getData("lr", null);
   };
 
   const getAllMessages = () => {
-    return axios.get("/messages");
+    return getData("messages", null);
   };
 
   const fetchAll = () => {
@@ -70,42 +69,26 @@ export default function Home() {
     fetchAllMessages();
   }, []);
 
-  // const handleAlbum = (obj: AlbumInfo) => {
-  //   axios({
-  //     method: "post",
-  //     url: "/lr",
-  //     data: obj,
-  //   })
-  //     .then((response) => {
-  //       fetchAll();
-  //     })
-  //     .catch((error) => {
-  //       console.error("post error: ", error);
-  //     });
-  // };
-
   const handleAlbum = async (obj: AlbumInfo) => {
-    const { result, error } = await addData("users", "/lr", obj);
-
+    const { result, error } = await addData("lr", null, obj); // null is the id
     if (error) {
-      return console.log("add album error:", error);
+      console.log("add album error:", error);
     } else {
       fetchAll();
     }
   };
 
-  const handleMessage = (obj: AlbumInfo) => {
-    axios({
-      method: "post",
-      url: "/messages",
-      data: obj,
-    })
-      .then((response) => {
-        fetchAllMessages();
-      })
-      .catch((error) => {
-        console.error("message error: ", error);
-      });
+  const handleMessage = async (obj: AlbumInfo) => {
+    const example = {
+      name: "Sean",
+      message: "This is a test message",
+    };
+    const { result, error } = await addData("messages", null, example); // null is the id
+    if (error) {
+      console.log("handle message error:", error);
+    } else {
+      fetchAllMessages();
+    }
   };
 
   const handleSubmit = (data: AlbumInfo) => {
