@@ -22,7 +22,7 @@ export default function Home() {
   // const handleForm = async () => {
   //   const data = {
   //     name: "John snow",
-  //     house: "Stark",
+  //     album: "Stark",
   //   };
   //   const { result, error } = await addData("users", "user-id", data);
 
@@ -70,7 +70,7 @@ export default function Home() {
   }, []);
 
   const handleAlbum = async (obj: AlbumInfo) => {
-    const { result, error } = await addData("lr", null, obj); // null is the id
+    const { result, error } = await addData("lr", "some-id", obj); // null is the id
     if (error) {
       console.log("add album error:", error);
     } else {
