@@ -20,31 +20,26 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// const FirebaseApp = initializeApp(firebaseConfig);
-
-// const db = getFirestore(FirebaseApp);
-export const FirebaseApp = initializeApp(firebaseConfig);
-
-const firestore = getFirestore(FirebaseApp);
-
-const specialAlbum = doc(firestore, "lr/2021-09-14");
-
-function writeSpecialAlbum() {
-  const docData = {
-    name: "Special Album",
-    album: "greatest-hits",
-  };
-  setDoc(specialAlbum, docData);
-
-  console.log("Special album written");
-}
-
-writeSpecialAlbum();
-
 // Initialize Firebase - this is the initialized Firebase application instance
 // Once initialized, this instance can be used to access various Firebase services, such as Firestore, Authentication, Realtime Database, and more.
+export const FirebaseApp = initializeApp(firebaseConfig);
 
-// By initializing Firebase with initializeApp, you set up a connection between your web application and Firebase services, allowing you to interact with Firebase features like real-time data synchronization, user authentication, and cloud functions.
+const db = getFirestore(FirebaseApp);
+
+// // this function does work when loading on refresh
+// const specialAlbum = doc(db, "lr/2021-09-14");
+
+// function writeSpecialAlbum() {
+//   const docData = {
+//     name: "Special Album1",
+//     album: "greatest-hits1",
+//   };
+//   setDoc(specialAlbum, docData);
+
+//   console.log("Special album1 written");
+// }
+
+// writeSpecialAlbum();
 
 // Get analytics
 // export const analytics = getAnalytics(FirebaseApp);
