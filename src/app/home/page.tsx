@@ -48,6 +48,7 @@ export default function Home() {
     getAll()
       .then(({ data }) => {
         setAlbums(data);
+        console.log("albums:", albums);
       })
       .catch((error) => {
         console.error("fetch error: ", error);
@@ -70,7 +71,7 @@ export default function Home() {
   }, []);
 
   const handleAlbum = async (obj: AlbumInfo) => {
-    const { result, error } = await addData("lr", "some-id", obj); // null is the id
+    const { result, error } = await addData("lr", "lr-id", obj);
     if (error) {
       console.log("add album error:", error);
     } else {
@@ -79,11 +80,11 @@ export default function Home() {
   };
 
   const handleMessage = async (obj: AlbumInfo) => {
-    const example = {
-      name: "Sean",
-      message: "This is a test message",
-    };
-    const { result, error } = await addData("messages", null, example); // null is the id
+    // const example = {
+    //   name: "Sean",
+    //   message: "This is a test message",
+    // };
+    const { result, error } = await addData("messages", "messages-id", obj);
     if (error) {
       console.log("handle message error:", error);
     } else {
