@@ -12,9 +12,9 @@ export default function RootLayout(props: { children: ReactNode }) {
       */}
       <head />
       <body>
-        <h1>Fake header</h1>
+        {/* <h1>Fake header</h1> */}
         <AuthContextProvider>{props.children}</AuthContextProvider>
-        <h1>Fake footer</h1>
+        {/* <h1>Fake footer</h1> */}
       </body>
     </html>
   );

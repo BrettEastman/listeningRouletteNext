@@ -17,8 +17,6 @@ export default function SignIn() {
     if (error) {
       return console.log("signIn error:", error);
     }
-    // else successful
-    console.log("SignIn handleForm result", result);
     return router.push("/home");
   };
 

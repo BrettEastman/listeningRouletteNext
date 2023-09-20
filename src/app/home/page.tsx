@@ -37,9 +37,6 @@ export default function Home() {
     if (user) {
       setCurrentUser(user.email);
       setCurrentUserId(user.uid);
-      console.log("user from Home:", user);
-      console.log("userEmail from Home:", user.email);
-      console.log("userId from Home:", user.uid);
     }
   }, [user]);
 

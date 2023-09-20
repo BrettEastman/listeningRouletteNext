@@ -1,4 +1,3 @@
-// import { AuthContextProvider } from "@/context/AuthContext";
 "use client";
 import Link from "next/link.js";
 import GlobalStyles from "../GlobalStyles.js";

@@ -16,10 +16,9 @@ export default function SignUp() {
     if (error) {
       return console.log("signUp error:", error);
     }
-    // else successful
-    console.log("SignUp handleForm result", result);
     return router.push("/admin");
   };
+
   return (
     <div>
       <GlobalStyles />
