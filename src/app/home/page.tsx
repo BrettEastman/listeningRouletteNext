@@ -1,57 +1,65 @@
 "use client";
 import { AlbumEntry, Message } from "@/components/types";
 import { useState, useEffect } from "react";
+import { useAuthContext } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import addData from "@/firebase/firestore/addData";
-import getData from "@/firebase/firestore/getData";
+import getDocument from "@/firebase/firestore/getData";
 import GlobalStyles from "../../GlobalStyles.js";
 import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
 import Feed from "../../components/Feed";
 import Roulette from "../../components/Roulette";
-import SignOutOfApp from "../../firebase/auth/signout.js";
+import SignOut from "../../firebase/auth/signout.js";
 
 export default function Home() {
+  const { user } = useAuthContext();
   const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
   const [viewState, setViewState] = useState(0);
-  const [currentUser, setCurrentUser] = useState("Sean");
+  const [currentUser, setCurrentUser] = useState("");
+  const [currentUserId, setCurrentUserId] = useState("");
+
   const [timeToSpin, setTimeToSpin] = useState(false);
 
-  // this is the function added later to show how one might use addData
-  // const handleForm = async () => {
-  //   const data = {
-  //     name: "John snow",
-  //     house: "Stark",
-  //   };
-  //   const { result, error } = await addData("users", "user-id", data);
-
-  //   if (error) {
-  //     return console.log(error);
-  //   }
-  // };
+  const router = useRouter();
 
   interface AlbumInfo {
     name: string;
     album: string;
   }
 
+  useEffect(() => {
+    if (user == null) {
+      return router.push("/signin");
+    }
+    if (user) {
+      setCurrentUser(user.email);
+      setCurrentUserId(user.uid);
+    }
+  }, [user]);
+
   const getAll = () => {
-    return getData("lr", null);
+    console.log("start of getAll");
+    return getDocument("lr", null);
   };
 
   const getAllMessages = () => {
-    return getData("messages", null);
+    return getDocument("messages", null);
   };
 
   const fetchAll = () => {
+    console.log("start of fetchAll");
     getAll()
       .then(({ data }) => {
         setAlbums(data);
+        console.log("albums:", albums);
       })
       .catch((error) => {
         console.error("fetch error: ", error);
       });
+    console.log("end of fetchAll");
   };
 
   const fetchAllMessages = () => {
@@ -70,7 +78,7 @@ export default function Home() {
   }, []);
 
   const handleAlbum = async (obj: AlbumInfo) => {
-    const { result, error } = await addData("lr", null, obj); // null is the id
+    const { result, error } = await addData("lr", currentUserId, obj);
     if (error) {
       console.log("add album error:", error);
     } else {
@@ -79,11 +87,7 @@ export default function Home() {
   };
 
   const handleMessage = async (obj: AlbumInfo) => {
-    const example = {
-      name: "Sean",
-      message: "This is a test message",
-    };
-    const { result, error } = await addData("messages", null, example); // null is the id
+    const { result, error } = await addData("messages", currentUserId, obj);
     if (error) {
       console.log("handle message error:", error);
     } else {
@@ -98,6 +102,11 @@ export default function Home() {
     } else {
       handleAlbum(data);
     }
+  };
+
+  const signOutOfApp = () => {
+    SignOut();
+    router.push("/signin");
   };
 
   return (
@@ -132,7 +141,7 @@ export default function Home() {
           />
         </RouletteWrapper>
       </Container>
-      <button onClick={() => SignOutOfApp()}>Sign Out</button>
+      <button onClick={() => signOutOfApp()}>Sign Out</button>
     </div>
   );
 }

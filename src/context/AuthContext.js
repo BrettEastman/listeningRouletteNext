@@ -1,36 +1,32 @@
-import React from 'react';
-import {
-    onAuthStateChanged,
-    getAuth,
-} from 'firebase/auth';
-import FirebaseApp from '@/firebase/config';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import CreateAuthContext from "./CreateAuthContext";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { FirebaseApp } from "@/firebase/config";
 
 const auth = getAuth(FirebaseApp);
 
-export const AuthContext = React.createContext({});
-
-export const useAuthContext = () => React.useContext(AuthContext);
+export const useAuthContext = () => useContext(CreateAuthContext);
 
 export const AuthContextProvider = ({ children }) => {
-    const [user, setUser] = React.useState(null);
-    const [loading, setLoading] = React.useState(true);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    React.useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user);
-            } else {
-                setUser(null);
-            }
-            setLoading(false);
-        });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
 
-        return () => unsubscribe();
-    }, []);
+    return () => unsubscribe();
+  }, []);
 
-    return (
-        <AuthContext.Provider value={{ user }}>
-            {loading ? <div>Loading...</div> : children}
-        </AuthContext.Provider>
-    );
+  return (
+    <CreateAuthContext.Provider value={{ user }}>
+      {loading ? <div>Loading...</div> : children}
+    </CreateAuthContext.Provider>
+  );
 };
