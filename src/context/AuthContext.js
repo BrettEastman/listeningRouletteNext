@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import CreateAuthContext from "./CreateAuthContext";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { FirebaseApp } from "@/firebase/config";
-import { nanoid } from "nanoid";
 
 const auth = getAuth(FirebaseApp);
 
