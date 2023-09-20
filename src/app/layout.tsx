@@ -1,7 +1,7 @@
-'use client'
-import { ReactNode } from 'react';
-import './globals.css'
-import { AuthContextProvider } from '@/context/AuthContext'
+"use client";
+import { ReactNode } from "react";
+import "./globals.css";
+import { AuthContextProvider } from "@/context/AuthContext";
 
 export default function RootLayout(props: { children: ReactNode }) {
   return (
@@ -12,10 +12,10 @@ export default function RootLayout(props: { children: ReactNode }) {
       */}
       <head />
       <body>
-        <AuthContextProvider>
-          {props.children}
-        </AuthContextProvider>
+        <h1>Fake header</h1>
+        <AuthContextProvider>{props.children}</AuthContextProvider>
+        <h1>Fake footer</h1>
       </body>
     </html>
-  )
+  );
 }

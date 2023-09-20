@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import signIn from "@/firebase/auth/signin";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -7,23 +7,21 @@ import GlobalStyles from "../../GlobalStyles.js";
 import styled from "styled-components";
 
 export default function SignIn() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleForm = async (event) => {
     event.preventDefault();
-
     const { result, error } = await signIn(email, password);
-
     if (error) {
-      return console.log(error);
+      return console.log("signIn error:", error);
     }
-
     // else successful
-    console.log(result);
+    console.log("SignIn handleForm result", result);
     return router.push("/home");
   };
+
   return (
     <div>
       <GlobalStyles />

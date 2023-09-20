@@ -1,26 +1,23 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import signUp from "@/firebase/auth/signup";
 import { useRouter } from "next/navigation";
 import GlobalStyles from "../../GlobalStyles.js";
 import styled from "styled-components";
 
 export default function SignUp() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleForm = async (event) => {
     event.preventDefault();
-
     const { result, error } = await signUp(email, password);
-
     if (error) {
-      return console.log(error);
+      return console.log("signUp error:", error);
     }
-
     // else successful
-    console.log(result);
+    console.log("SignUp handleForm result", result);
     return router.push("/admin");
   };
   return (

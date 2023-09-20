@@ -11,7 +11,7 @@ export default async function addData(collection, id, data) {
     result = await setDoc(doc(db, collection, id), data, {
       merge: true,
     });
-    console.log("addData successful, result: ", result);
+    console.log("addData successful, data: ", data);
   } catch (e) {
     error = e;
   }
