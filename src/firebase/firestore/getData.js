@@ -4,17 +4,17 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 const db = getFirestore(FirebaseApp);
 
 export default async function getDocument(collection, id) {
-  let docRef = doc(db, collection, id);
-
-  let result = null;
-  let error = null;
-
   try {
-    result = await getDoc(docRef);
-    console.log("getDoc successful");
-  } catch (e) {
-    error = e;
-  }
+    const docRef = doc(db, collection, id);
+    const docSnap = await getDoc(docRef);
 
-  return { result, error };
+    if (docSnap.exists()) {
+      return { data: docSnap.data(), error: null };
+    } else {
+      return { data: null, error: "Document does not exist" };
+    }
+  } catch (error) {
+    console.error("Error from getDocument:", error);
+    return { data: null, error: error.message };
+  }
 }

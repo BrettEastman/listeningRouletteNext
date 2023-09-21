@@ -42,34 +42,39 @@ export default function Home() {
 
   const getAll = () => {
     console.log("start of getAll");
-    return getDocument("lr", null);
+    return getDocument("lr", currentUserId);
   };
 
   const getAllMessages = () => {
-    return getDocument("messages", null);
+    return getDocument("messages", currentUserId);
   };
 
-  const fetchAll = () => {
-    console.log("start of fetchAll");
-    getAll()
-      .then(({ data }) => {
+  const fetchAll = async () => {
+    try {
+      const { data, error } = await getAll();
+      if (error) {
+        console.error("fetch error: ", error);
+      } else {
         setAlbums(data);
-        console.log("albums:", albums);
-      })
-      .catch((error) => {
-        console.error("fetch error: ", error);
-      });
-    console.log("end of fetchAll");
+        console.log("albums after fetchAll req:", data);
+      }
+    } catch (error) {
+      console.error("fetch error: ", error);
+    }
   };
 
-  const fetchAllMessages = () => {
-    getAllMessages()
-      .then(({ data }) => {
-        setMessages(data);
-      })
-      .catch((error) => {
+  const fetchAllMessages = async () => {
+    try {
+      const { data, error } = await getAllMessages();
+      if (error) {
         console.error("fetch error: ", error);
-      });
+      } else {
+        setMessages(data);
+        console.log("messages after fetchAll req:", data);
+      }
+    } catch (error) {
+      console.error("fetch error: ", error);
+    }
   };
 
   useEffect(() => {
