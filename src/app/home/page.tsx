@@ -16,9 +16,17 @@ import Form from "../../components/form/Form";
 import Feed from "../../components/Feed";
 import Roulette from "../../components/Roulette";
 import SignOut from "../../firebase/auth/signout.js";
+import firebase from "firebase/app";
+
+// interface AuthContextType {
+//   user: firebase.User | null;
+// }
 
 export default function Home() {
   const { user } = useAuthContext();
+  // const { user } = useAuthContext<AuthContextType>();
+  // const { user } = useAuthContext<{ user: firebase.User | null }>();
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
   const [viewState, setViewState] = useState(0);
@@ -52,7 +60,7 @@ export default function Home() {
       if (error) {
         console.error("fetch error: ", error);
       } else {
-        setAlbums(data);
+        setAlbums(data as AlbumEntry[]); // add type assertion
         console.log("albums after fetchAll req:", data);
       }
     } catch (error) {
@@ -66,8 +74,10 @@ export default function Home() {
       if (error) {
         console.error("fetch error: ", error);
       } else {
-        setMessages(data);
-        console.log("messages after fetchAll req:", data);
+        if (data) {
+          setMessages(data as Message[]);
+          console.log("messages after fetchAll req:", data);
+        }
       }
     } catch (error) {
       console.error("fetch error: ", error);

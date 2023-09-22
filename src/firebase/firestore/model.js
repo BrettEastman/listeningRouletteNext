@@ -10,13 +10,6 @@ import {
 
 const db = getFirestore(FirebaseApp);
 
-// this prints out the entire collection of documents in the "lr" collection
-// const querySnapshot = await getDocs(collection(db, "lr"));
-// querySnapshot.forEach((doc) => {
-//   // doc.data() is never undefined for query doc snapshots
-//   console.log(doc.id, " => ", doc.data());
-// });
-
 export async function getAlbums() {
   try {
     const querySnapshot = await getDocs(collection(db, "lr"));
