@@ -4,28 +4,16 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import {
-  addData,
-  getDocument,
-  getAlbums,
-  getMessages,
-} from "@/firebase/firestore/model";
+import { addData, getAlbums, getMessages } from "@/firebase/firestore/model";
 import GlobalStyles from "../../GlobalStyles.js";
 import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
 import Feed from "../../components/Feed";
 import Roulette from "../../components/Roulette";
 import SignOut from "../../firebase/auth/signout.js";
-import firebase from "firebase/app";
-
-// interface AuthContextType {
-//   user: firebase.User | null;
-// }
 
 export default function Home() {
   const { user } = useAuthContext();
-  // const { user } = useAuthContext<AuthContextType>();
-  // const { user } = useAuthContext<{ user: firebase.User | null }>();
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
@@ -49,8 +37,6 @@ export default function Home() {
     if (user) {
       setCurrentUser(user.email);
       setCurrentUserId(user.uid);
-      // console.log("user:", user);
-      // console.log("Object.keys:", Object.keys(user));
     }
   }, [router, user]);
 
@@ -60,7 +46,7 @@ export default function Home() {
       if (error) {
         console.error("fetch error: ", error);
       } else {
-        setAlbums(data as AlbumEntry[]); // add type assertion
+        setAlbums(data as AlbumEntry[]);
         console.log("albums after fetchAll req:", data);
       }
     } catch (error) {
