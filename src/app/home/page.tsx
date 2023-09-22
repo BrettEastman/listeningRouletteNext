@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import { addData, getDocument } from "@/firebase/firestore/model";
+import {
+  addData,
+  getDocument,
+  getAlbums,
+  getMessages,
+} from "@/firebase/firestore/model";
 import GlobalStyles from "../../GlobalStyles.js";
 import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
@@ -41,22 +46,9 @@ export default function Home() {
     }
   }, [router, user]);
 
-  const getAll = () => {
-    // This returns a promise
-    console.log(
-      "getDocument(`lr/${currentUserId}`)",
-      getDocument(`lr/${currentUserId}`)
-    );
-    return getDocument(`lr/${currentUserId}`);
-  };
-
-  const getAllMessages = () => {
-    return getDocument(`messages/${currentUserId}`);
-  };
-
   const fetchAll = async () => {
     try {
-      const { data, error } = await getAll();
+      const { data, error } = await getAlbums();
       if (error) {
         console.error("fetch error: ", error);
       } else {
@@ -70,7 +62,7 @@ export default function Home() {
 
   const fetchAllMessages = async () => {
     try {
-      const { data, error } = await getAllMessages();
+      const { data, error } = await getMessages();
       if (error) {
         console.error("fetch error: ", error);
       } else {
@@ -158,6 +150,7 @@ export default function Home() {
       </Container>
       <button onClick={() => signOutOfApp()}>Sign Out</button>
       <button onClick={() => utilityFunction()}>Test</button>
+      <button onClick={() => getMessages()}>getMessages</button>
     </div>
   );
 }

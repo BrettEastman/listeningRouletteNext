@@ -17,6 +17,36 @@ const db = getFirestore(FirebaseApp);
 //   console.log(doc.id, " => ", doc.data());
 // });
 
+export async function getAlbums() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "lr"));
+    const data = [];
+    querySnapshot.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() });
+    });
+    console.log("data:", data);
+    return { data, error: null };
+  } catch (error) {
+    console.error("Error from getAlbums:", error);
+    return { data: null, error: error.message };
+  }
+}
+
+export async function getMessages() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "messages"));
+    const data = [];
+    querySnapshot.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() });
+    });
+    console.log("data:", data);
+    return { data, error: null };
+  } catch (error) {
+    console.error("Error from getMessages:", error);
+    return { data: null, error: error.message };
+  }
+}
+
 export async function getDocument(filepath) {
   try {
     const docRef = doc(db, filepath);
