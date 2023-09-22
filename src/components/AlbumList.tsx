@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AlbumEntry } from "./types";
+import { AlbumEntry } from "../types";
 
 interface AlbumProp {
   albums: AlbumEntry[];

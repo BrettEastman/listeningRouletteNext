@@ -13,7 +13,7 @@ export default function Page() {
     if (user == null) {
       return router.push("/signin");
     }
-  }, [user]);
+  }, [router, user]);
 
   return (
     <div>

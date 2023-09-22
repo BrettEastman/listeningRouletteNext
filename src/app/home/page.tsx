@@ -1,11 +1,10 @@
 "use client";
-import { AlbumEntry, Message } from "@/components/types";
+import { AlbumEntry, Message } from "@/types.js";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import addData from "@/firebase/firestore/addData";
-import getDocument from "@/firebase/firestore/getData";
+import { addData, getDocument } from "@/firebase/firestore/model";
 import GlobalStyles from "../../GlobalStyles.js";
 import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
@@ -37,16 +36,22 @@ export default function Home() {
     if (user) {
       setCurrentUser(user.email);
       setCurrentUserId(user.uid);
+      // console.log("user:", user);
+      // console.log("Object.keys:", Object.keys(user));
     }
-  }, [user]);
+  }, [router, user]);
 
   const getAll = () => {
-    console.log("start of getAll");
-    return getDocument("lr", currentUserId);
+    // This returns a promise
+    console.log(
+      "getDocument(`lr/${currentUserId}`)",
+      getDocument(`lr/${currentUserId}`)
+    );
+    return getDocument(`lr/${currentUserId}`);
   };
 
   const getAllMessages = () => {
-    return getDocument("messages", currentUserId);
+    return getDocument(`messages/${currentUserId}`);
   };
 
   const fetchAll = async () => {
@@ -82,7 +87,7 @@ export default function Home() {
     fetchAllMessages();
   }, []);
 
-  const handleAlbum = async (obj: AlbumInfo) => {
+  const handleAlbum = async (obj: AlbumInfo[]) => {
     const { result, error } = await addData("lr", currentUserId, obj);
     if (error) {
       console.log("add album error:", error);
@@ -91,7 +96,7 @@ export default function Home() {
     }
   };
 
-  const handleMessage = async (obj: AlbumInfo) => {
+  const handleMessage = async (obj: AlbumInfo[]) => {
     const { result, error } = await addData("messages", currentUserId, obj);
     if (error) {
       console.log("handle message error:", error);
@@ -100,7 +105,7 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = (data: AlbumInfo) => {
+  const handleSubmit = (data: AlbumInfo[]) => {
     if (Object.keys(albums).length >= 5) {
       handleAlbum(data);
       setTimeToSpin(true);
@@ -112,6 +117,11 @@ export default function Home() {
   const signOutOfApp = () => {
     SignOut();
     router.push("/signin");
+  };
+
+  const utilityFunction = () => {
+    console.log("albums:", albums);
+    console.log("messages:", messages);
   };
 
   return (
@@ -147,6 +157,7 @@ export default function Home() {
         </RouletteWrapper>
       </Container>
       <button onClick={() => signOutOfApp()}>Sign Out</button>
+      <button onClick={() => utilityFunction()}>Test</button>
     </div>
   );
 }
