@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 // import { getAnalytics } from "firebase/compat/analytics";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -25,21 +25,6 @@ const firebaseConfig = {
 export const FirebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore(FirebaseApp);
-
-// // this function does work when loading on refresh
-// const specialAlbum = doc(db, "lr/2021-09-14");
-
-// function writeSpecialAlbum() {
-//   const docData = {
-//     name: "Special Album1",
-//     album: "greatest-hits1",
-//   };
-//   setDoc(specialAlbum, docData);
-
-//   console.log("Special album1 written");
-// }
-
-// writeSpecialAlbum();
 
 // Get analytics
 // export const analytics = getAnalytics(FirebaseApp);

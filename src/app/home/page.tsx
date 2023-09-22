@@ -1,11 +1,10 @@
 "use client";
-import { AlbumEntry, Message } from "@/components/types";
+import { AlbumEntry, Message } from "@/types.js";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import addData from "@/firebase/firestore/addData";
-import getDocument from "@/firebase/firestore/getData";
+import { addData, getAlbums, getMessages } from "@/firebase/firestore/model";
 import GlobalStyles from "../../GlobalStyles.js";
 import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
@@ -15,6 +14,7 @@ import SignOut from "../../firebase/auth/signout.js";
 
 export default function Home() {
   const { user } = useAuthContext();
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
   const [viewState, setViewState] = useState(0);
@@ -38,38 +38,36 @@ export default function Home() {
       setCurrentUser(user.email);
       setCurrentUserId(user.uid);
     }
-  }, [user]);
+  }, [router, user]);
 
-  const getAll = () => {
-    console.log("start of getAll");
-    return getDocument("lr", null);
-  };
-
-  const getAllMessages = () => {
-    return getDocument("messages", null);
-  };
-
-  const fetchAll = () => {
-    console.log("start of fetchAll");
-    getAll()
-      .then(({ data }) => {
-        setAlbums(data);
-        console.log("albums:", albums);
-      })
-      .catch((error) => {
+  const fetchAll = async () => {
+    try {
+      const { data, error } = await getAlbums();
+      if (error) {
         console.error("fetch error: ", error);
-      });
-    console.log("end of fetchAll");
+      } else {
+        setAlbums(data as AlbumEntry[]);
+        console.log("albums after fetchAll req:", data);
+      }
+    } catch (error) {
+      console.error("fetch error: ", error);
+    }
   };
 
-  const fetchAllMessages = () => {
-    getAllMessages()
-      .then(({ data }) => {
-        setMessages(data);
-      })
-      .catch((error) => {
+  const fetchAllMessages = async () => {
+    try {
+      const { data, error } = await getMessages();
+      if (error) {
         console.error("fetch error: ", error);
-      });
+      } else {
+        if (data) {
+          setMessages(data as Message[]);
+          console.log("messages after fetchAll req:", data);
+        }
+      }
+    } catch (error) {
+      console.error("fetch error: ", error);
+    }
   };
 
   useEffect(() => {
@@ -77,7 +75,7 @@ export default function Home() {
     fetchAllMessages();
   }, []);
 
-  const handleAlbum = async (obj: AlbumInfo) => {
+  const handleAlbum = async (obj: AlbumInfo[]) => {
     const { result, error } = await addData("lr", currentUserId, obj);
     if (error) {
       console.log("add album error:", error);
@@ -86,7 +84,7 @@ export default function Home() {
     }
   };
 
-  const handleMessage = async (obj: AlbumInfo) => {
+  const handleMessage = async (obj: AlbumInfo[]) => {
     const { result, error } = await addData("messages", currentUserId, obj);
     if (error) {
       console.log("handle message error:", error);
@@ -95,7 +93,7 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = (data: AlbumInfo) => {
+  const handleSubmit = (data: AlbumInfo[]) => {
     if (Object.keys(albums).length >= 5) {
       handleAlbum(data);
       setTimeToSpin(true);
@@ -107,6 +105,11 @@ export default function Home() {
   const signOutOfApp = () => {
     SignOut();
     router.push("/signin");
+  };
+
+  const utilityFunction = () => {
+    console.log("albums:", albums);
+    console.log("messages:", messages);
   };
 
   return (
@@ -142,6 +145,8 @@ export default function Home() {
         </RouletteWrapper>
       </Container>
       <button onClick={() => signOutOfApp()}>Sign Out</button>
+      <button onClick={() => utilityFunction()}>Test</button>
+      <button onClick={() => getMessages()}>getMessages</button>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import AddMessage from "./AddMessage";
-import { AlbumEntry } from "./types";
+import { AlbumEntry } from "../types";
 
 interface RouletteProps {
   albums: AlbumEntry[];
@@ -11,6 +11,9 @@ interface RouletteProps {
   currentUser: string;
   handleMessage: any;
 }
+
+console.log("hi from roulette.tsx");
+
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -24,6 +27,10 @@ export default function Roulette({
 }: RouletteProps) {
   const [number, setNumber] = useState(0);
   const [spinningStopped, setSpinningStopped] = useState(true);
+
+  useEffect(() => {
+    console.log("albums in roulette:", albums);
+  }, [albums]);
 
   const btnOnClick = function () {
     setNumber(getRandomInt(3000, 10000));
