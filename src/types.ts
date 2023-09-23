@@ -10,10 +10,18 @@ export interface Message {
   body: string;
 }
 
-export interface User {
+export interface RouletteProps {
+  albums: AlbumEntry[];
+  viewState: number;
+  setViewState: any;
+  currentUser: string;
+  handleMessage: any;
+}
+
+export interface UserType {
   providerId: string;
   proactiveRefresh: {
-    user: User;
+    user: string;
     isRunning: boolean;
     timerId: number | null;
     errorBackoff: number;

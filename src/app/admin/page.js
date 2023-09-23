@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { useAuthContext } from "@/context/AuthContext";
+import { useAuthContext } from "@/context/AuthContext.tsx";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import GlobalStyles from "../../GlobalStyles.js";
