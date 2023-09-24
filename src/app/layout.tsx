@@ -1,7 +1,7 @@
 "use client";
-import { ReactNode } from "react";
-import "./globals.css";
-import AuthContextProvider from "@/context/AuthContext";
+import React, { ReactNode } from "react";
+import GlobalStyles from "../GlobalStyles";
+import AuthContextProvider from "../context/AuthContext";
 
 // export const metadata = {
 //   title: "Listening Roulette",
@@ -13,7 +13,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <head />
       <body>
-        <AuthContextProvider>{children}</AuthContextProvider>
+        <AuthContextProvider>
+          <GlobalStyles />
+          {children}
+        </AuthContextProvider>
       </body>
     </html>
   );

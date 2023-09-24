@@ -1,12 +1,11 @@
 "use client";
+import React from "react";
 import Link from "next/link.js";
-import GlobalStyles from "../GlobalStyles.js";
 import styled from "styled-components";
 
 export default function App() {
   return (
     <div>
-      <GlobalStyles />
       <StyledApp>
         <h1>Welcome to Listening Roulette.</h1>
         <br />

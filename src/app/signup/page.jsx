@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import signUp from "@/firebase/auth/signup";
 import { useRouter } from "next/navigation";
-import GlobalStyles from "../../GlobalStyles.js";
 import styled from "styled-components";
 
 export default function SignUp() {
@@ -21,7 +20,6 @@ export default function SignUp() {
 
   return (
     <div>
-      <GlobalStyles />
       <StyledWrapper>
         <h1>Sign up</h1>
         <form onSubmit={handleForm} className="form">

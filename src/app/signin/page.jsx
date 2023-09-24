@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import signIn from "@/firebase/auth/signin";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import GlobalStyles from "../../GlobalStyles.js";
 import styled from "styled-components";
 
 export default function SignIn() {
@@ -22,7 +21,6 @@ export default function SignIn() {
 
   return (
     <div>
-      <GlobalStyles />
       <StyledWrapper>
         <h1>Sign in</h1>
         <form onSubmit={handleForm}>
