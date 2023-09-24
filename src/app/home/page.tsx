@@ -1,7 +1,7 @@
 "use client";
 import { AlbumEntry, Message } from "@/types.js";
 import { useState, useEffect } from "react";
-import { useAuthContext } from "@/context/AuthContext";
+import { useAuthContext } from "@/context/AuthContext.tsx";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { addData, getAlbums, getMessages } from "@/firebase/firestore/model";

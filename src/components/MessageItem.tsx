@@ -1,19 +1,19 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface MItem {
-  name: string;
-  body: string;
-  time: string;
+  uid: string;
+  text: string;
+  createdAt: string;
 }
 
-const MessageItem = ({ name, body, time }: MItem) => {
+const MessageItem = ({ uid, text, createdAt }: MItem) => {
   return (
     <MessageWrapper>
       <div>
-        <Span>{name}</Span>
+        <Span>{uid}</Span>
       </div>
       <div>
-        <P>{body}</P>
+        <P>{text}</P>
         <MessageFooter>
           <EmotoSpan>❤️</EmotoSpan>
           <EmotoSpan>🤣</EmotoSpan>
@@ -30,11 +30,14 @@ const MessageItem = ({ name, body, time }: MItem) => {
 const MessageWrapper = styled.div`
   font-family: inherit;
   font-size: 1.2rem;
-  background: radial-gradient(hsl(358deg 99% 84% /.3), hsl(358deg 99% 64% /.3));
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / .9);
+  background: radial-gradient(
+    hsl(358deg 99% 84% /0.3),
+    hsl(358deg 99% 64% /0.3)
+  );
+  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
   border-radius: 8px;
   padding: 5px;
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /.3);
+  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
   margin: 5px;
 `;
 

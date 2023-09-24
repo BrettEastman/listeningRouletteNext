@@ -2,17 +2,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import AddMessage from "./AddMessage";
-import { AlbumEntry } from "../types";
-
-interface RouletteProps {
-  albums: AlbumEntry[];
-  viewState: number;
-  setViewState: any;
-  currentUser: string;
-  handleMessage: any;
-}
-
-console.log("hi from roulette.tsx");
+import { RouletteProps } from "../types";
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -29,7 +19,7 @@ export default function Roulette({
   const [spinningStopped, setSpinningStopped] = useState(true);
 
   useEffect(() => {
-    console.log("albums in roulette:", albums);
+    console.log("useEffect albums refresh in Roulette:", albums);
   }, [albums]);
 
   const btnOnClick = function () {

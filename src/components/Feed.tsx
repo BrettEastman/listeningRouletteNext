@@ -16,9 +16,9 @@ const Feed = ({ messages }: FeedMessages) => {
           return (
             <MessageItem
               key={index}
-              name={message.name}
-              body={message.body}
-              time={""}
+              uid={message.name}
+              text={message.text}
+              createdAt={""}
             />
           );
         })}
