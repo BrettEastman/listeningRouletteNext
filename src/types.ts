@@ -7,7 +7,7 @@ export interface AlbumEntry {
 export interface Message {
   _id: string;
   name: string;
-  body: string;
+  text: string;
 }
 
 export interface RouletteProps {
