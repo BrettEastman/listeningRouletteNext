@@ -1,12 +1,8 @@
+import React from "react";
 import styled from "styled-components";
+import { Message } from "../types";
 
-interface MItem {
-  uid: string;
-  text: string;
-  createdAt: string;
-}
-
-const MessageItem = ({ uid, text, createdAt }: MItem) => {
+const MessageItem = ({ uid, text, createdAt }: Message) => {
   return (
     <MessageWrapper>
       <div>

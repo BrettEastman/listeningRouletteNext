@@ -1,11 +1,14 @@
 "use client";
-import { AlbumEntry, Message } from "@/types.js";
-import { useState, useEffect } from "react";
-import { useAuthContext } from "@/context/AuthContext.tsx";
+import { AlbumEntry, Message } from "../../types.js";
+import React, { useState, useEffect } from "react";
+import { useAuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import { addData, getAlbums, getMessages } from "@/firebase/firestore/model";
-import GlobalStyles from "../../GlobalStyles.js";
+import {
+  addData,
+  getAlbums,
+  getMessages,
+} from "../../firebase/firestore/model";
 import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
 import Feed from "../../components/Feed";
@@ -114,7 +117,6 @@ export default function Home() {
 
   return (
     <div>
-      <GlobalStyles />
       <Title>Listening Roulette</Title>
       <Container>
         {viewState === 0 && timeToSpin === true && (

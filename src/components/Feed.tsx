@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import MessageItem from "./MessageItem";
 import { Message } from "../types";
@@ -16,7 +17,7 @@ const Feed = ({ messages }: FeedMessages) => {
           return (
             <MessageItem
               key={index}
-              uid={message.name}
+              uid={message.uid}
               text={message.text}
               createdAt={""}
             />

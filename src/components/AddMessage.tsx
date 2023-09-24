@@ -1,5 +1,5 @@
 "use client";
-import { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import styled from "styled-components";
 import FormInput from "./form/FormInput";
 

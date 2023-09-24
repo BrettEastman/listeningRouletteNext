@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 interface FormInputProps {
   labelText: string;
@@ -9,7 +10,14 @@ interface FormInputProps {
   value: string;
 }
 
-const FormInput = ({ labelText, name, type, placeholder, onChange, value }: FormInputProps) => {
+const FormInput = ({
+  labelText,
+  name,
+  type,
+  placeholder,
+  onChange,
+  value,
+}: FormInputProps) => {
   return (
     <div>
       <Label htmlFor={name}>{labelText}</Label>
@@ -22,8 +30,8 @@ const FormInput = ({ labelText, name, type, placeholder, onChange, value }: Form
         onChange={onChange}
       />
     </div>
-  )
-}
+  );
+};
 
 const Label = styled.label`
   margin-bottom: 2px;
