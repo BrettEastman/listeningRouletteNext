@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import signIn from "@/firebase/auth/signin";
+import { signIn } from "@/firebase/auth/api";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styled from "styled-components";

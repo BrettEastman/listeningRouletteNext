@@ -13,7 +13,7 @@ import AlbumList from "../../components/AlbumList";
 import Form from "../../components/form/Form";
 import Feed from "../../components/Feed";
 import Roulette from "../../components/Roulette";
-import SignOut from "../../firebase/auth/signout.js";
+import { signOutOfApp } from "../../firebase/auth/api.js";
 
 export default function Home() {
   const { user } = useAuthContext();
@@ -105,8 +105,8 @@ export default function Home() {
     }
   };
 
-  const signOutOfApp = () => {
-    SignOut();
+  const signOutOfAppButton = () => {
+    signOutOfApp();
     router.push("/signin");
   };
 
@@ -146,7 +146,7 @@ export default function Home() {
           />
         </RouletteWrapper>
       </Container>
-      <button onClick={() => signOutOfApp()}>Sign Out</button>
+      <button onClick={() => signOutOfAppButton()}>Sign Out</button>
       <button onClick={() => utilityFunction()}>Test</button>
       <button onClick={() => getMessages()}>getMessages</button>
     </div>

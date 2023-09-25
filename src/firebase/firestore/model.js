@@ -1,4 +1,4 @@
-import { FirebaseApp } from "../config";
+import { db } from "../config";
 import {
   getFirestore,
   doc,
@@ -8,16 +8,14 @@ import {
   collection,
 } from "firebase/firestore";
 
-const db = getFirestore(FirebaseApp);
-
 export async function getAlbums() {
   try {
     const querySnapshot = await getDocs(collection(db, "lr"));
     const data = [];
     querySnapshot.forEach((doc) => {
-      data.push({ id: doc.id, ...doc.data() });
+      data.push({ ...doc.data(), uid: doc.id });
     });
-    console.log("data:", data);
+    console.log("getAlbums data:", data);
     return { data, error: null };
   } catch (error) {
     console.error("Error from getAlbums:", error);
@@ -30,28 +28,12 @@ export async function getMessages() {
     const querySnapshot = await getDocs(collection(db, "messages"));
     const data = [];
     querySnapshot.forEach((doc) => {
-      data.push({ id: doc.id, ...doc.data() });
+      data.push({ ...doc.data(), uid: doc.id });
     });
-    console.log("data:", data);
+    console.log("getMessages data:", data);
     return { data, error: null };
   } catch (error) {
     console.error("Error from getMessages:", error);
-    return { data: null, error: error.message };
-  }
-}
-
-export async function getDocument(filepath) {
-  try {
-    const docRef = doc(db, filepath);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return { data: docSnap.data(), error: null };
-    } else {
-      return { data: null, error: "Document does not exist" };
-    }
-  } catch (error) {
-    console.error("Error from getDocument:", error);
     return { data: null, error: error.message };
   }
 }

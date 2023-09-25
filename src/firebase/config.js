@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getMessaging } from "firebase/messaging";
+import { getAuth } from "firebase/auth";
 // import { getAnalytics } from "firebase/compat/analytics";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -20,11 +22,14 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase - this is the initialized Firebase application instance
-// Once initialized, this instance can be used to access various Firebase services, such as Firestore, Authentication, Realtime Database, and more.
+// Initialize Firebase - this is the initialized Firebase application instance - can be used to access various Firebase services, such as Firestore, Authentication, Realtime Database, etc.
 export const FirebaseApp = initializeApp(firebaseConfig);
 
-const db = getFirestore(FirebaseApp);
+export const db = getFirestore(FirebaseApp);
+
+export const auth = getAuth(FirebaseApp);
+
+export const messaging = getMessaging(FirebaseApp);
 
 // Get analytics
 // export const analytics = getAnalytics(FirebaseApp);
