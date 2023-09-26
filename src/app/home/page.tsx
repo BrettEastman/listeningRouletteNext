@@ -110,11 +110,6 @@ export default function Home() {
     router.push("/signin");
   };
 
-  const utilityFunction = () => {
-    console.log("albums:", albums);
-    console.log("messages:", messages);
-  };
-
   return (
     <div>
       <Title>Listening Roulette</Title>
@@ -145,10 +140,8 @@ export default function Home() {
             handleMessage={handleMessage}
           />
         </RouletteWrapper>
+        <Button onClick={() => signOutOfAppButton()}>Sign Out</Button>
       </Container>
-      <button onClick={() => signOutOfAppButton()}>Sign Out</button>
-      <button onClick={() => utilityFunction()}>Test</button>
-      <button onClick={() => getMessages()}>getMessages</button>
     </div>
   );
 }
@@ -168,6 +161,27 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-around;
   font-family: inherit;
+`;
+
+const Button = styled.button`
+  font-size: 1rem;
+  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: radial-gradient(
+    hsl(358deg 99% 84% /0.3),
+    hsl(358deg 99% 64% /0.3)
+  );
+  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  transform: scale(1.1);
+  :hover {
+    box-shadow: none;
+    color: hsla(204deg 90% 66% / 0.9);
+  }
 `;
 
 const FeedWrapper = styled.div`

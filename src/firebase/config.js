@@ -3,15 +3,11 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getMessaging } from "firebase/messaging";
 import { getAuth } from "firebase/auth";
-// import { getAnalytics } from "firebase/compat/analytics";
+import { getAnalytics } from "firebase/analytics";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// firebaseConfig is the configuration object that is passed to initializeApp()
-// It is an object that contains the configuration settings required to connect your web application to Firebase services.
+
+// firebaseConfig is the configuration object, containing the configuration settings for connecting to Firebase services, that is passed to initializeApp()
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -22,14 +18,15 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase - this is the initialized Firebase application instance - can be used to access various Firebase services, such as Firestore, Authentication, Realtime Database, etc.
-export const FirebaseApp = initializeApp(firebaseConfig);
+// Initialize Firebase - this is the initialized Firebase application instance which can be used to access various Firebase services, such as Firestore, Authentication, Realtime Database, etc.
+const FirebaseApp = initializeApp(firebaseConfig);
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 export const db = getFirestore(FirebaseApp);
 
 export const auth = getAuth(FirebaseApp);
 
 export const messaging = getMessaging(FirebaseApp);
 
-// Get analytics
-// export const analytics = getAnalytics(FirebaseApp);
+export const analytics = getAnalytics(FirebaseApp);
