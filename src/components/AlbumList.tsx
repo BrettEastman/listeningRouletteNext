@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { AlbumEntry } from "../types";
 
@@ -9,9 +10,11 @@ const AlbumList = ({ albums }: AlbumProp) => {
   return (
     <AListWrapper>
       <strong>Current Picks:</strong>
-      {/* {albums[0]?.name !== undefined ? (albums.map((album) => {
-        return <ol key={album._id}>{`${album?.name}: ${album?.album}`}</ol>
-      })) : null} */}
+      {albums[0]?.name !== undefined
+        ? albums.map((album) => {
+            return <ol key={album._id}>{`${album?.name}: ${album?.album}`}</ol>;
+          })
+        : null}
     </AListWrapper>
   );
 };
