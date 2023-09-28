@@ -16,6 +16,13 @@ import Roulette from "../../components/Roulette";
 import { signOutOfApp } from "../../firebase/auth/api.js";
 
 export default function Home() {
+  enum ViewStates {
+    APP = 0,
+    FEED = 1,
+  }
+
+  const VIEW_STATES = { APP: 0, FEED: 1 };
+
   const { user } = useAuthContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -23,7 +30,6 @@ export default function Home() {
   const [viewState, setViewState] = useState(0);
   const [currentUser, setCurrentUser] = useState("");
   const [currentUserId, setCurrentUserId] = useState("");
-
   const [timeToSpin, setTimeToSpin] = useState(false);
 
   const router = useRouter();
@@ -114,33 +120,52 @@ export default function Home() {
     <div>
       <Title>Listening Roulette</Title>
       <Container>
-        {viewState === 0 && timeToSpin === true && (
-          <div>
-            <Spin>Time to Spin!</Spin>
-            <AlbumList albums={albums} />
-          </div>
+        {viewState === VIEW_STATES.APP && timeToSpin === true && (
+          <Container>
+            <div>
+              <Spin>Time to Spin!</Spin>
+              <AlbumList albums={albums} />
+            </div>
+            <RouletteWrapper>
+              <Roulette
+                albums={albums}
+                viewState={viewState}
+                setViewState={setViewState}
+                currentUser={currentUser}
+                handleMessage={handleMessage}
+              />
+            </RouletteWrapper>
+          </Container>
         )}
-        {viewState === 0 && timeToSpin === false && (
-          <div>
-            <Form handleSubmit={handleSubmit} />
-            <AlbumList albums={albums} />
-          </div>
+        {viewState === VIEW_STATES.APP && timeToSpin === false && (
+          <Container>
+            <div>
+              <Form handleSubmit={handleSubmit} />
+              <AlbumList albums={albums} />
+            </div>
+            <RouletteWrapper>
+              <Roulette
+                albums={albums}
+                viewState={viewState}
+                setViewState={setViewState}
+                currentUser={currentUser}
+                handleMessage={handleMessage}
+              />
+            </RouletteWrapper>
+          </Container>
         )}
-        {viewState === 1 && (
+        {viewState === VIEW_STATES.FEED && (
           <FeedWrapper>
             <Feed messages={messages} />
           </FeedWrapper>
         )}
-        <RouletteWrapper>
-          <Roulette
-            albums={albums}
-            viewState={viewState}
-            setViewState={setViewState}
-            currentUser={currentUser}
-            handleMessage={handleMessage}
-          />
-        </RouletteWrapper>
-        <Button onClick={() => signOutOfAppButton()}>Sign Out</Button>
+      </Container>
+      <br />
+      <br />
+      <Container>
+        <Button onClick={() => setViewState(VIEW_STATES.APP)}>App</Button>
+        <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
+        <Button onClick={signOutOfAppButton}>Sign Out</Button>
       </Container>
     </div>
   );
