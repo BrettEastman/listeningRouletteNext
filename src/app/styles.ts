@@ -27,20 +27,17 @@ export const FormWrapper = styled.div`
 `;
 
 export const Button = styled.button`
-  font-size: 1rem;
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
   padding: 1rem;
-  margin: 0.5rem;
+  border: 0.5px solid white;
   border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   background: radial-gradient(
     hsl(358deg 99% 84% /0.3),
     hsl(358deg 99% 64% /0.3)
   );
+  letter-spacing: 2px;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
   transform: scale(1.1);
+  cursor: pointer;
   :hover {
     box-shadow: none;
     color: hsla(204deg 90% 66% / 0.9);
@@ -52,6 +49,7 @@ export const StyledForm = styled.form`
   text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
   padding: 0.5rem;
   margin: 0.5rem;
+  border: 0.5px solid white;
   border-radius: 8px;
   display: flex;
   flex-direction: column;

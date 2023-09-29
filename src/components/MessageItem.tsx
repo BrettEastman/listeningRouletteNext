@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Message } from "../types";
 
-const MessageItem = ({ uid, text, createdAt }: Message) => {
+export default function MessageItem({ uid, text, createdAt }: Message) {
   return (
     <MessageWrapper>
       <div>
@@ -21,7 +21,7 @@ const MessageItem = ({ uid, text, createdAt }: Message) => {
       </div>
     </MessageWrapper>
   );
-};
+}
 
 const MessageWrapper = styled.div`
   font-family: inherit;
@@ -59,5 +59,3 @@ const MessageFooter = styled.div`
   padding: 5px;
   margin: 5px;
 `;
-
-export default MessageItem;

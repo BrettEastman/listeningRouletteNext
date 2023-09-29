@@ -18,8 +18,6 @@ import AddAlbum from "../../components/AddAlbum";
 import { Button } from "../styles";
 
 export default function Home() {
-  const VIEW_STATES = { APP: 0, FEED: 1 };
-
   const { user } = useAuthContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -28,6 +26,8 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState("");
   const [currentUserId, setCurrentUserId] = useState("");
   const [timeToSpin, setTimeToSpin] = useState(false);
+
+  const VIEW_STATES = { APP: 0, FEED: 1 };
 
   const router = useRouter();
 
@@ -116,58 +116,58 @@ export default function Home() {
   return (
     <div>
       <Title>Listening Roulette</Title>
-      <Container>
-        {viewState === VIEW_STATES.APP && timeToSpin === true && (
-          <ContainerGap>
-            <div>
-              <Spin>Time to Spin!</Spin>
-              <AlbumList albums={albums} />
-            </div>
-            <RouletteWrapper>
-              <Roulette
-                albums={albums}
-                viewState={viewState}
-                setViewState={setViewState}
-              />
-            </RouletteWrapper>
-          </ContainerGap>
-        )}
-        {viewState === VIEW_STATES.APP && timeToSpin === false && (
-          <ContainerGap>
-            <div>
-              <AddAlbum handleSubmit={handleSubmit} />
-              <AlbumList albums={albums} />
-            </div>
-            <RouletteWrapper>
-              <Roulette
-                albums={albums}
-                viewState={viewState}
-                setViewState={setViewState}
-              />
-            </RouletteWrapper>
-          </ContainerGap>
-        )}
-        {viewState === VIEW_STATES.FEED && (
-          <Stack>
-            <FeedWrapper>
-              <Feed messages={messages} />
-            </FeedWrapper>
-            <Message>
-              <AddMessage
-                currentUser={currentUser}
-                handleMessage={handleMessage}
-              />
-            </Message>
-          </Stack>
-        )}
-      </Container>
-      <br />
-      <br />
-      <Container>
-        <Button onClick={() => setViewState(VIEW_STATES.APP)}>Home</Button>
-        <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
-        <Button onClick={signOutOfAppButton}>Sign Out</Button>
-      </Container>
+      <StackGap>
+        <Container>
+          {viewState === VIEW_STATES.APP && timeToSpin === true && (
+            <ContainerGap>
+              <div>
+                <Spin>Time to Spin!</Spin>
+                <AlbumList albums={albums} />
+              </div>
+              <Stack>
+                <Roulette
+                  albums={albums}
+                  viewState={viewState}
+                  setViewState={setViewState}
+                />
+              </Stack>
+            </ContainerGap>
+          )}
+          {viewState === VIEW_STATES.APP && timeToSpin === false && (
+            <ContainerGap>
+              <div>
+                <AddAlbum handleSubmit={handleSubmit} />
+                <AlbumList albums={albums} />
+              </div>
+              <Stack>
+                <Roulette
+                  albums={albums}
+                  viewState={viewState}
+                  setViewState={setViewState}
+                />
+              </Stack>
+            </ContainerGap>
+          )}
+          {viewState === VIEW_STATES.FEED && (
+            <Stack>
+              <FeedWrapper>
+                <Feed messages={messages} />
+              </FeedWrapper>
+              <Message>
+                <AddMessage
+                  currentUser={currentUser}
+                  handleMessage={handleMessage}
+                />
+              </Message>
+            </Stack>
+          )}
+        </Container>
+        <Container>
+          <Button onClick={() => setViewState(VIEW_STATES.APP)}>Home</Button>
+          <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
+          <Button onClick={signOutOfAppButton}>Sign Out</Button>
+        </Container>
+      </StackGap>
     </div>
   );
 }
@@ -187,7 +187,6 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  font-family: inherit;
   gap: 1rem;
 `;
 
@@ -196,7 +195,6 @@ const ContainerGap = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  font-family: inherit;
   gap: 16rem;
 `;
 
@@ -205,18 +203,18 @@ const Stack = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  font-family: inherit;
+  gap: 2rem;
+`;
+
+const StackGap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
 `;
 
 const FeedWrapper = styled.div`
   max-height: 36rem;
   overflow-y: auto;
-`;
-
-const RouletteWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 `;
 
 const Spin = styled.div`
@@ -239,5 +237,5 @@ const Spin = styled.div`
 `;
 
 const Message = styled.div`
-  margin-top: 80px;
+  /* margin-top: 80px; */
 `;

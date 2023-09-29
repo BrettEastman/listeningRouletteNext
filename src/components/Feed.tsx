@@ -7,7 +7,7 @@ interface FeedMessages {
   messages: Message[];
 }
 
-const Feed = ({ messages }: FeedMessages) => {
+export default function Feed({ messages }: FeedMessages) {
   return (
     <UnorderedList>
       {messages
@@ -25,7 +25,7 @@ const Feed = ({ messages }: FeedMessages) => {
         })}
     </UnorderedList>
   );
-};
+}
 
 const UnorderedList = styled.ul`
   border: 0.5px dashed hsl(358, 87%, 24%);
@@ -33,5 +33,3 @@ const UnorderedList = styled.ul`
   padding: 0.5rem;
   margin: 0.5rem;
 `;
-
-export default Feed;
