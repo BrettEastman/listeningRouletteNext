@@ -15,6 +15,7 @@ import Roulette from "../../components/Roulette";
 import { signOutOfApp } from "../../firebase/auth/api.js";
 import AddMessage from "../../components/AddMessage";
 import AddAlbum from "../../components/AddAlbum";
+import { Button } from "../styles";
 
 export default function Home() {
   const VIEW_STATES = { APP: 0, FEED: 1 };
@@ -205,27 +206,6 @@ const Stack = styled.div`
   justify-content: space-around;
   align-items: center;
   font-family: inherit;
-`;
-
-const Button = styled.button`
-  font-size: 1rem;
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
-  padding: 1rem;
-  margin: 0.5rem;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: radial-gradient(
-    hsl(358deg 99% 84% /0.3),
-    hsl(358deg 99% 64% /0.3)
-  );
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  transform: scale(1.1);
-  :hover {
-    box-shadow: none;
-    color: hsla(204deg 90% 66% / 0.9);
-  }
 `;
 
 const FeedWrapper = styled.div`
