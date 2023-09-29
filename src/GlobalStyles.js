@@ -1,4 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
+import inter from "./app/fonts";
 
 const GlobalStyles = createGlobalStyle`
 
@@ -18,7 +19,6 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   background-color: hsla(204deg 70% 42% / .9);
-  font-family: 'Recursive', sans-serif;
 }
 
 img, picture, video, canvas, svg {

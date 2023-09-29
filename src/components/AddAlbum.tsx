@@ -1,49 +1,60 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import styled from "styled-components";
+import FormInput from "./form/FormInput";
+import { StyledForm, Input } from "../app/styles";
 
-export default function AddAlbum({ handleAlbum }: any) {
-  const [album, setAlbum] = useState("");
-  const [artist, setArtist] = useState("");
+const initialFormInput = {
+  name: "",
+  album: "",
+};
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const data = {
-      album: album,
-      artist: artist,
-    };
-    handleAlbum(data);
+interface FormProps {
+  handleSubmit: any;
+}
+
+export default function AddAlbum({ handleSubmit }: FormProps) {
+  const [formInput, setFormInput] = useState(initialFormInput);
+
+  const clearForm = () => {
+    setFormInput(initialFormInput);
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFormInput({
+      ...formInput,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Album:
-          <input
-            type="text"
-            name="album"
-            onChange={(e) => setAlbum(e.target.value)}
-          />
-        </label>
-        <label>
-          Artist:
-          <input
-            type="text"
-            name="artist"
-            onChange={(e) => setArtist(e.target.value)}
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </Container>
+    <StyledForm
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit(formInput);
+        clearForm();
+      }}
+    >
+      <h3>Enter your pick!</h3>
+      <div>
+        <FormInput
+          labelText="Name"
+          type="text"
+          name="name"
+          value={formInput.name}
+          placeholder="Enter name"
+          onChange={handleInputChange}
+        />
+        <FormInput
+          labelText="Album"
+          type="text"
+          name="album"
+          value={formInput.album}
+          placeholder="Enter album"
+          onChange={handleInputChange}
+        />
+        <Input type="submit" value="Submit"></Input>
+      </div>
+    </StyledForm>
   );
 }
-
-const Container = styled.div`
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-`;

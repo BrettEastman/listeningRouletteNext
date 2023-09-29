@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Link from "next/link.js";
 import styled from "styled-components";
+import HomeLink from "../components/HomeLink";
 
 export default function App() {
   return (
@@ -10,7 +10,7 @@ export default function App() {
         <h1>Welcome to Listening Roulette.</h1>
         <br />
         <h2>
-          Enter <Link href="/admin">here</Link>
+          <HomeLink />
         </h2>
       </StyledApp>
     </div>

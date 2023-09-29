@@ -2,6 +2,7 @@
 import React, { ReactNode } from "react";
 import GlobalStyles from "../GlobalStyles";
 import AuthContextProvider from "../context/AuthContext";
+import { lexend_deca } from "./fonts";
 
 // export const metadata = {
 //   title: "Listening Roulette",
@@ -10,7 +11,7 @@ import AuthContextProvider from "../context/AuthContext";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={lexend_deca.className}>
       <head />
       <body>
         <AuthContextProvider>

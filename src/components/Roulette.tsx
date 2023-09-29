@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import AddMessage from "./AddMessage";
 import { RouletteProps } from "../types";
 
 function getRandomInt(min: number, max: number) {
@@ -12,8 +11,6 @@ export default function Roulette({
   albums,
   viewState,
   setViewState,
-  currentUser,
-  handleMessage,
 }: RouletteProps) {
   const [number, setNumber] = useState(0);
   const [spinningStopped, setSpinningStopped] = useState(true);
@@ -59,16 +56,6 @@ export default function Roulette({
         </button>
       )}
       <div className="stopper"></div>
-      <div>
-        {viewState === 1 && (
-          <Message>
-            <AddMessage
-              currentUser={currentUser}
-              handleMessage={handleMessage}
-            />
-          </Message>
-        )}
-      </div>
     </Container>
   );
 }
@@ -159,8 +146,4 @@ const Container = styled.div`
     margin-top: -370px;
     margin-left: 165px;
   }
-`;
-
-const Message = styled.div`
-  margin-top: 80px;
 `;
