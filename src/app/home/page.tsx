@@ -10,17 +10,13 @@ import {
   getMessages,
 } from "../../firebase/firestore/model";
 import AlbumList from "../../components/AlbumList";
-import Form from "../../components/form/Form";
 import Feed from "../../components/Feed";
 import Roulette from "../../components/Roulette";
 import { signOutOfApp } from "../../firebase/auth/api.js";
+import AddMessage from "../../components/AddMessage";
+import AddAlbum from "../../components/AddAlbum";
 
 export default function Home() {
-  enum ViewStates {
-    APP = 0,
-    FEED = 1,
-  }
-
   const VIEW_STATES = { APP: 0, FEED: 1 };
 
   const { user } = useAuthContext();
@@ -121,7 +117,7 @@ export default function Home() {
       <Title>Listening Roulette</Title>
       <Container>
         {viewState === VIEW_STATES.APP && timeToSpin === true && (
-          <Container>
+          <ContainerGap>
             <div>
               <Spin>Time to Spin!</Spin>
               <AlbumList albums={albums} />
@@ -131,16 +127,14 @@ export default function Home() {
                 albums={albums}
                 viewState={viewState}
                 setViewState={setViewState}
-                currentUser={currentUser}
-                handleMessage={handleMessage}
               />
             </RouletteWrapper>
-          </Container>
+          </ContainerGap>
         )}
         {viewState === VIEW_STATES.APP && timeToSpin === false && (
-          <Container>
+          <ContainerGap>
             <div>
-              <Form handleSubmit={handleSubmit} />
+              <AddAlbum handleSubmit={handleSubmit} />
               <AlbumList albums={albums} />
             </div>
             <RouletteWrapper>
@@ -148,22 +142,28 @@ export default function Home() {
                 albums={albums}
                 viewState={viewState}
                 setViewState={setViewState}
+              />
+            </RouletteWrapper>
+          </ContainerGap>
+        )}
+        {viewState === VIEW_STATES.FEED && (
+          <Stack>
+            <FeedWrapper>
+              <Feed messages={messages} />
+            </FeedWrapper>
+            <Message>
+              <AddMessage
                 currentUser={currentUser}
                 handleMessage={handleMessage}
               />
-            </RouletteWrapper>
-          </Container>
-        )}
-        {viewState === VIEW_STATES.FEED && (
-          <FeedWrapper>
-            <Feed messages={messages} />
-          </FeedWrapper>
+            </Message>
+          </Stack>
         )}
       </Container>
       <br />
       <br />
       <Container>
-        <Button onClick={() => setViewState(VIEW_STATES.APP)}>App</Button>
+        <Button onClick={() => setViewState(VIEW_STATES.APP)}>Home</Button>
         <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
         <Button onClick={signOutOfAppButton}>Sign Out</Button>
       </Container>
@@ -185,6 +185,25 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
+  font-family: inherit;
+  gap: 1rem;
+`;
+
+const ContainerGap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-family: inherit;
+  gap: 16rem;
+`;
+
+const Stack = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   font-family: inherit;
 `;
 
@@ -237,4 +256,8 @@ const Spin = styled.div`
   );
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
   transform: scale(1.1);
+`;
+
+const Message = styled.div`
+  margin-top: 80px;
 `;

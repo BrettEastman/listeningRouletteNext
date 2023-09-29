@@ -90,7 +90,7 @@ const Button = styled.button`
   border-radius: "5px";
   border: "none";
   color: "#ffffff";
-  font-family: "Quicksand";
+  font-family: "inter";
   font-size: "16px";
   font-weight: "bold";
   cursor: "pointer";

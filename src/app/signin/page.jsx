@@ -63,7 +63,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  font-family: inherit;
+  /* font-family: inherit; */
   color: #f02127;
   border: 1px solid white;
   opacity: 0.8;
@@ -78,7 +78,7 @@ const FormWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  font-family: inherit;
+  /* font-family: inherit; */
   gap: 3rem;
   color: #f02127;
   font-size: 1rem;
@@ -94,9 +94,9 @@ const Button = styled.button`
   border-radius: "5px";
   border: "none";
   color: "#ffffff";
-  font-family: "Quicksand";
+  /* font-family: "inter";
   font-size: "16px";
-  font-weight: "bold";
+  font-weight: "bold"; */
   cursor: "pointer";
   text-align: "center";
   text-decoration: "none";

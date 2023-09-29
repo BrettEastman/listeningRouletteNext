@@ -3,10 +3,12 @@ import React, { useState, ChangeEvent } from "react";
 import styled from "styled-components";
 import FormInput from "./form/FormInput";
 
-interface AddMessageProps {
-  handleMessage: (obj: FormProps) => void;
-  currentUser: string;
-}
+const initialFormInput: FormProps = {
+  createdAt: "",
+  text: "",
+  uid: "",
+  photoURL: "",
+};
 
 interface FormProps {
   createdAt: Date | string;
@@ -15,14 +17,12 @@ interface FormProps {
   photoURL?: string;
 }
 
-const initialFormInput: FormProps = {
-  createdAt: "",
-  text: "",
-  uid: "",
-  photoURL: "",
-};
+// interface AddMessageProps {
+//   handleMessage: (obj: FormProps) => void;
+//   currentUser: string;
+// }
 
-const AddMessage = function ({ handleMessage, currentUser }: AddMessageProps) {
+export default function AddMessage({ handleMessage }: any) {
   const [formInput, setFormInput] = useState(initialFormInput);
 
   const clearForm = () => {
@@ -57,7 +57,7 @@ const AddMessage = function ({ handleMessage, currentUser }: AddMessageProps) {
       </div>
     </StyledForm>
   );
-};
+}
 
 const StyledForm = styled.form`
   font-size: 1rem;
@@ -92,5 +92,3 @@ const Input = styled.input`
     color: hsla(204deg 90% 66% / 0.9);
   }
 `;
-
-export default AddMessage;

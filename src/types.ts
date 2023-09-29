@@ -15,8 +15,6 @@ export interface RouletteProps {
   albums: AlbumEntry[];
   viewState: number;
   setViewState: any;
-  currentUser: string;
-  handleMessage: any;
 }
 
 export interface UserType {
