@@ -122,7 +122,9 @@ export default function Home() {
             <ContainerGap>
               <div>
                 <Spin>Time to Spin!</Spin>
-                <AlbumList albums={albums} />
+                <BoxWrapper>
+                  <AlbumList albums={albums} />
+                </BoxWrapper>
               </div>
               <Stack>
                 <Roulette
@@ -136,8 +138,10 @@ export default function Home() {
           {viewState === VIEW_STATES.APP && timeToSpin === false && (
             <ContainerGap>
               <div>
-                <AddAlbum handleSubmit={handleSubmit} />
-                <AlbumList albums={albums} />
+                <BoxWrapper>
+                  <AddAlbum handleSubmit={handleSubmit} />
+                  <AlbumList albums={albums} />
+                </BoxWrapper>
               </div>
               <Stack>
                 <Roulette
@@ -150,15 +154,15 @@ export default function Home() {
           )}
           {viewState === VIEW_STATES.FEED && (
             <Stack>
-              <FeedWrapper>
+              <BoxWrapper>
                 <Feed messages={messages} />
-              </FeedWrapper>
-              <Message>
+              </BoxWrapper>
+              <BoxWrapper>
                 <AddMessage
                   currentUser={currentUser}
                   handleMessage={handleMessage}
                 />
-              </Message>
+              </BoxWrapper>
             </Stack>
           )}
         </Container>
@@ -174,9 +178,12 @@ export default function Home() {
 
 const Title = styled.h1`
   font-family: "Cedarville Cursive", cursive;
-  color: #f02127;
+  color: #f1181f;
   opacity: 0.8;
   font-size: 5rem;
+  letter-spacing: 2px;
+  -webkit-text-stroke-width: 0.1px;
+  -webkit-text-stroke-color: #f44a50;
   text-shadow: 1px 1px 2px black;
   padding-bottom: 4rem;
   margin-left: 1.5rem;
@@ -212,9 +219,9 @@ const StackGap = styled.div`
   gap: 6rem;
 `;
 
-const FeedWrapper = styled.div`
+const BoxWrapper = styled.div`
   max-height: 36rem;
-  overflow-y: auto;
+  width: 28rem;
 `;
 
 const Spin = styled.div`
@@ -233,9 +240,6 @@ const Spin = styled.div`
     hsl(358deg 99% 64% /0.3)
   );
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  letter-spacing: 2px;
   transform: scale(1.1);
-`;
-
-const Message = styled.div`
-  /* margin-top: 80px; */
 `;

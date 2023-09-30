@@ -44,6 +44,7 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
           placeholder="Enter name"
           onChange={handleInputChange}
         />
+        <br />
         <FormInput
           labelText="Album"
           type="text"
@@ -52,6 +53,7 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
           placeholder="Enter album"
           onChange={handleInputChange}
         />
+        <br />
         <Input type="submit" value="Submit"></Input>
       </div>
     </StyledForm>

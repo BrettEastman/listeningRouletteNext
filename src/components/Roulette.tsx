@@ -28,20 +28,24 @@ export default function Roulette({ albums, setViewState }: RouletteProps) {
   };
 
   return (
-    <div>
-      <RouletteWheel>
-        <div className="wheel" style={{ transform: `rotate(${number}deg)` }}>
-          <div className="one">{albums[0]?.album}</div>
-          <div className="two">{albums[1]?.album}</div>
-          <div className="three">{albums[2]?.album}</div>
-          <div className="four">{albums[3]?.album}</div>
-          <div className="five">{albums[4]?.album}</div>
-          <div className="six">{albums[5]?.album}</div>
-        </div>
-      </RouletteWheel>
-      <SpinButton onClick={btnOnClick}>Spin</SpinButton>
-      <Stopper></Stopper>
-    </div>
+    <ContainerCol>
+      <div>
+        <Stopper></Stopper>
+      </div>
+      <ContainerGapCol>
+        <RouletteWheel>
+          <div className="wheel" style={{ transform: `rotate(${number}deg)` }}>
+            <div className="one">{albums[0]?.album}</div>
+            <div className="two">{albums[1]?.album}</div>
+            <div className="three">{albums[2]?.album}</div>
+            <div className="four">{albums[3]?.album}</div>
+            <div className="five">{albums[4]?.album}</div>
+            <div className="six">{albums[5]?.album}</div>
+          </div>
+        </RouletteWheel>
+        <SpinButton onClick={btnOnClick}>Spin</SpinButton>
+      </ContainerGapCol>
+    </ContainerCol>
   );
 }
 
@@ -51,6 +55,7 @@ const RouletteWheel = styled.div`
     width: 350px;
     position: relative;
     border: 0.5px solid white;
+    letter-spacing: 1px;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 0 10px hsl(358deg 99% 24% /0.3);
@@ -110,8 +115,6 @@ const SpinButton = styled.button`
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
   transform: scale(1.1);
   cursor: pointer;
-  margin-top: 20px;
-  margin-left: 147px;
   transition: 0.2s all;
   :hover {
     box-shadow: none;
@@ -122,9 +125,21 @@ const SpinButton = styled.button`
 const Stopper = styled.div`
   height: 20px;
   width: 15px;
-  background: hsl(358deg 99% 64% /0.3);
-  position: absolute;
+  background: #794244;
   clip-path: polygon(100% 0, 50% 100%, 0 0);
-  margin-top: -370px;
-  margin-left: 165px;
+`;
+
+const ContainerGapCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const ContainerCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 `;

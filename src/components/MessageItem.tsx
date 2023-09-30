@@ -5,36 +5,44 @@ import { Message } from "../types";
 export default function MessageItem({ uid, text, createdAt }: Message) {
   return (
     <MessageWrapper>
-      <div>
-        <Span>{uid}</Span>
-      </div>
-      <div>
+      <StackGapAlign>
+        <div>
+          <Span>{uid}</Span>
+        </div>
         <P>{text}</P>
-        <MessageFooter>
-          <EmotoSpan>❤️</EmotoSpan>
-          <EmotoSpan>🤣</EmotoSpan>
-          <EmotoSpan>🙌</EmotoSpan>
-          <EmotoSpan>🫥</EmotoSpan>
-          <EmotoSpan>👏</EmotoSpan>
-          <EmotoSpan>🎯</EmotoSpan>
-        </MessageFooter>
-      </div>
+        <div>
+          <MessageFooter>
+            <EmotoSpan>❤️</EmotoSpan>
+            <EmotoSpan>🤣</EmotoSpan>
+            <EmotoSpan>🙌</EmotoSpan>
+            <EmotoSpan>🫥</EmotoSpan>
+            <EmotoSpan>🎯</EmotoSpan>
+          </MessageFooter>
+        </div>
+      </StackGapAlign>
     </MessageWrapper>
   );
 }
 
 const MessageWrapper = styled.div`
-  font-family: inherit;
-  font-size: 1.2rem;
+  padding: 1.5rem;
+  font-size: 1.1rem;
   background: radial-gradient(
     hsl(358deg 99% 84% /0.3),
     hsl(358deg 99% 64% /0.3)
   );
   text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
   border-radius: 8px;
-  padding: 5px;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  margin: 5px;
+  margin: 8px;
+`;
+
+const StackGapAlign = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 1rem;
 `;
 
 const Span = styled.span`
@@ -55,7 +63,8 @@ const EmotoSpan = styled.span`
 const MessageFooter = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 5px;
-  margin: 5px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  gap: 4rem;
 `;

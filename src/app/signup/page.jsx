@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import signUp from "@/firebase/auth/api";
 import { useRouter } from "next/navigation";
-import { StyledWrapper, FormWrapper, Button } from "../styles";
+import { StyledWrapper, FormWrapper, Button, Label, Input2 } from "../styles";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -24,9 +24,9 @@ export default function SignUp() {
         <h1>Sign up</h1>
         <form onSubmit={handleForm} className="form">
           <FormWrapper>
-            <label htmlFor="email">
+            <Label htmlFor="email">
               <p>Email</p>
-              <input
+              <Input2
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 type="email"
@@ -34,10 +34,10 @@ export default function SignUp() {
                 id="email"
                 placeholder="example@mail.com"
               />
-            </label>
-            <label htmlFor="password">
+            </Label>
+            <Label htmlFor="password">
               <p>Password</p>
-              <input
+              <Input2
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 type="password"
@@ -45,7 +45,7 @@ export default function SignUp() {
                 id="password"
                 placeholder="password"
               />
-            </label>
+            </Label>
             <Button type="submit">Sign up</Button>
           </FormWrapper>
         </form>

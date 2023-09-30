@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent } from "react";
 import FormInput from "./form/FormInput";
+import styled from "styled-components";
 import { StyledForm, Input } from "../app/styles";
 
 const initialFormInput: FormProps = {
@@ -37,24 +38,34 @@ export default function AddMessage({ handleMessage }: any) {
   };
 
   return (
-    <StyledForm
-      onSubmit={(event) => {
-        event.preventDefault();
-        handleMessage(formInput);
-        clearForm();
-      }}
-    >
-      <div>
-        <FormInput
-          type="text"
-          name="text"
-          value={formInput.text}
-          placeholder="Message here"
-          onChange={handleInputChange}
-          labelText={formInput.uid}
-        />
-        <Input type="submit" value="Post"></Input>
-      </div>
-    </StyledForm>
+    <Div>
+      <StyledForm
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleMessage(formInput);
+          clearForm();
+        }}
+      >
+        <div>
+          <FormInput
+            type="text"
+            name="text"
+            value={formInput.text}
+            placeholder="Message here"
+            onChange={handleInputChange}
+            labelText={formInput.uid}
+          />
+          <Input type="submit" value="Post"></Input>
+        </div>
+      </StyledForm>
+    </Div>
   );
 }
+
+const Div = styled.div`
+  /* border: 0.5px solid white; */
+  border-radius: 10px;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  /* margin: 0.5rem; */
+`;
