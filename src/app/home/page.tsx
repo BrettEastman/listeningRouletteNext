@@ -18,8 +18,6 @@ import AddAlbum from "../../components/AddAlbum";
 import { Button } from "../styles";
 
 export default function Home() {
-  const VIEW_STATES = { APP: 0, FEED: 1 };
-
   const { user } = useAuthContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -28,6 +26,8 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState("");
   const [currentUserId, setCurrentUserId] = useState("");
   const [timeToSpin, setTimeToSpin] = useState(false);
+
+  const VIEW_STATES = { APP: 0, FEED: 1 };
 
   const router = useRouter();
 
@@ -116,67 +116,74 @@ export default function Home() {
   return (
     <div>
       <Title>Listening Roulette</Title>
-      <Container>
-        {viewState === VIEW_STATES.APP && timeToSpin === true && (
-          <ContainerGap>
-            <div>
-              <Spin>Time to Spin!</Spin>
-              <AlbumList albums={albums} />
-            </div>
-            <RouletteWrapper>
-              <Roulette
-                albums={albums}
-                viewState={viewState}
-                setViewState={setViewState}
-              />
-            </RouletteWrapper>
-          </ContainerGap>
-        )}
-        {viewState === VIEW_STATES.APP && timeToSpin === false && (
-          <ContainerGap>
-            <div>
-              <AddAlbum handleSubmit={handleSubmit} />
-              <AlbumList albums={albums} />
-            </div>
-            <RouletteWrapper>
-              <Roulette
-                albums={albums}
-                viewState={viewState}
-                setViewState={setViewState}
-              />
-            </RouletteWrapper>
-          </ContainerGap>
-        )}
-        {viewState === VIEW_STATES.FEED && (
-          <Stack>
-            <FeedWrapper>
-              <Feed messages={messages} />
-            </FeedWrapper>
-            <Message>
-              <AddMessage
-                currentUser={currentUser}
-                handleMessage={handleMessage}
-              />
-            </Message>
-          </Stack>
-        )}
-      </Container>
-      <br />
-      <br />
-      <Container>
-        <Button onClick={() => setViewState(VIEW_STATES.APP)}>Home</Button>
-        <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
-        <Button onClick={signOutOfAppButton}>Sign Out</Button>
-      </Container>
+      <StackGap>
+        <Container>
+          {viewState === VIEW_STATES.APP && timeToSpin === true && (
+            <ContainerGap>
+              <div>
+                <Spin>Time to Spin!</Spin>
+                <BoxWrapper>
+                  <AlbumList albums={albums} />
+                </BoxWrapper>
+              </div>
+              <Stack>
+                <Roulette
+                  albums={albums}
+                  viewState={viewState}
+                  setViewState={setViewState}
+                />
+              </Stack>
+            </ContainerGap>
+          )}
+          {viewState === VIEW_STATES.APP && timeToSpin === false && (
+            <ContainerGap>
+              <div>
+                <BoxWrapper>
+                  <AddAlbum handleSubmit={handleSubmit} />
+                  <AlbumList albums={albums} />
+                </BoxWrapper>
+              </div>
+              <Stack>
+                <Roulette
+                  albums={albums}
+                  viewState={viewState}
+                  setViewState={setViewState}
+                />
+              </Stack>
+            </ContainerGap>
+          )}
+          {viewState === VIEW_STATES.FEED && (
+            <Stack>
+              <BoxWrapper>
+                <Feed messages={messages} />
+              </BoxWrapper>
+              <BoxWrapper>
+                <AddMessage
+                  currentUser={currentUser}
+                  handleMessage={handleMessage}
+                />
+              </BoxWrapper>
+            </Stack>
+          )}
+        </Container>
+        <Container>
+          <Button onClick={() => setViewState(VIEW_STATES.APP)}>Home</Button>
+          <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
+          <Button onClick={signOutOfAppButton}>Sign Out</Button>
+        </Container>
+      </StackGap>
     </div>
   );
 }
 
 const Title = styled.h1`
   font-family: "Cedarville Cursive", cursive;
-  color: #f02127;
+  color: #f1181f;
   opacity: 0.8;
   font-size: 5rem;
+  letter-spacing: 2px;
+  -webkit-text-stroke-width: 0.1px;
+  -webkit-text-stroke-color: #f44a50;
   text-shadow: 1px 1px 2px black;
   padding-bottom: 4rem;
   margin-left: 1.5rem;
@@ -187,7 +194,6 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  font-family: inherit;
   gap: 1rem;
 `;
 
@@ -196,7 +202,6 @@ const ContainerGap = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  font-family: inherit;
   gap: 16rem;
 `;
 
@@ -205,18 +210,18 @@ const Stack = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  font-family: inherit;
+  gap: 2rem;
 `;
 
-const FeedWrapper = styled.div`
-  max-height: 36rem;
-  overflow-y: auto;
-`;
-
-const RouletteWrapper = styled.div`
+const StackGap = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  gap: 6rem;
+`;
+
+const BoxWrapper = styled.div`
+  max-height: 36rem;
+  width: 28rem;
 `;
 
 const Spin = styled.div`
@@ -235,9 +240,6 @@ const Spin = styled.div`
     hsl(358deg 99% 64% /0.3)
   );
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  letter-spacing: 2px;
   transform: scale(1.1);
-`;
-
-const Message = styled.div`
-  margin-top: 80px;
 `;
