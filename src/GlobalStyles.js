@@ -18,7 +18,7 @@ html, body {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: hsla(204deg 70% 42% / .9);
+  background-image: linear-gradient(215deg, hsl(204, 53%, 62%) 0%, hsl(60, 43%, 92%) 74%);
 }
 
 img, picture, video, canvas, svg {
