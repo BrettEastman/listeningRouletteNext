@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { RouletteProps } from "../types";
-import { Button } from "../app/styles";
+import Countdown from "./Countdown";
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+const VIEW_STATES = { APP: 0, FEED: 1 };
 
 export default function Roulette({ albums, setViewState }: RouletteProps) {
   const [number, setNumber] = useState(0);
@@ -23,14 +25,17 @@ export default function Roulette({ albums, setViewState }: RouletteProps) {
       setSpinningStopped(!spinningStopped);
     }, 3001);
     setTimeout(() => {
-      setViewState(1);
+      setViewState(VIEW_STATES.FEED);
     }, 4000);
   };
 
   return (
     <ContainerCol>
       <div>
-        <Stopper></Stopper>
+        <Countdown />
+      </div>
+      <div>
+        <Stopper />
       </div>
       <ContainerGapCol>
         <RouletteWheel>
@@ -120,6 +125,12 @@ const SpinButton = styled.button`
     box-shadow: none;
     color: hsla(204deg 90% 66% / 0.9);
   }
+`;
+
+const Counter = styled.div`
+  font-size: 4rem;
+  padding: 1rem;
+  background: #794244;
 `;
 
 const Stopper = styled.div`
