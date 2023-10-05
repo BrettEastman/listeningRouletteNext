@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { RouletteProps } from "../types";
-import { Button } from "../app/styles";
+import Countdown from "./Countdown";
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+const VIEW_STATES = { APP: 0, FEED: 1 };
 
 export default function Roulette({ albums, setViewState }: RouletteProps) {
   const [number, setNumber] = useState(0);
@@ -22,30 +24,31 @@ export default function Roulette({ albums, setViewState }: RouletteProps) {
     setTimeout(() => {
       setSpinningStopped(!spinningStopped);
     }, 3001);
-    setTimeout(() => {
-      setViewState(1);
-    }, 4000);
   };
 
   return (
-    <ContainerCol>
+    <ContainerGapCol>
+      <Countdown setViewState={setViewState} />
       <div>
-        <Stopper></Stopper>
+        <ContainerCol>
+          <Stopper />
+          <RouletteWheel>
+            <div
+              className="wheel"
+              style={{ transform: `rotate(${number}deg)` }}
+            >
+              <div className="one">{albums[0]?.album}</div>
+              <div className="two">{albums[1]?.album}</div>
+              <div className="three">{albums[2]?.album}</div>
+              <div className="four">{albums[3]?.album}</div>
+              <div className="five">{albums[4]?.album}</div>
+              <div className="six">{albums[5]?.album}</div>
+            </div>
+          </RouletteWheel>
+        </ContainerCol>
       </div>
-      <ContainerGapCol>
-        <RouletteWheel>
-          <div className="wheel" style={{ transform: `rotate(${number}deg)` }}>
-            <div className="one">{albums[0]?.album}</div>
-            <div className="two">{albums[1]?.album}</div>
-            <div className="three">{albums[2]?.album}</div>
-            <div className="four">{albums[3]?.album}</div>
-            <div className="five">{albums[4]?.album}</div>
-            <div className="six">{albums[5]?.album}</div>
-          </div>
-        </RouletteWheel>
-        <SpinButton onClick={btnOnClick}>Spin</SpinButton>
-      </ContainerGapCol>
-    </ContainerCol>
+      <SpinButton onClick={btnOnClick}>Spin</SpinButton>
+    </ContainerGapCol>
   );
 }
 
@@ -129,17 +132,17 @@ const Stopper = styled.div`
   clip-path: polygon(100% 0, 50% 100%, 0 0);
 `;
 
+const ContainerCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 const ContainerGapCol = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
-`;
-
-const ContainerCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
 `;
