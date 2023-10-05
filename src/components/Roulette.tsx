@@ -8,8 +8,6 @@ function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-const VIEW_STATES = { APP: 0, FEED: 1 };
-
 export default function Roulette({ albums, setViewState }: RouletteProps) {
   const [number, setNumber] = useState(0);
   const [spinningStopped, setSpinningStopped] = useState(true);

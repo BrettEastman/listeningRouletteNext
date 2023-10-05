@@ -27,7 +27,7 @@ export default function Home() {
   const [currentUserId, setCurrentUserId] = useState("");
   const [timeToSpin, setTimeToSpin] = useState(false);
 
-  const VIEW_STATES = { APP: 0, FEED: 1 };
+  const VIEW_STATES = { HOME: 0, FEED: 1 };
 
   const router = useRouter();
 
@@ -118,7 +118,7 @@ export default function Home() {
       <Title>Listening Roulette</Title>
       <StackGap>
         <Container>
-          {viewState === VIEW_STATES.APP && timeToSpin === true && (
+          {viewState === VIEW_STATES.HOME && timeToSpin === true && (
             <ContainerGap>
               <div>
                 <Spin>Time to Spin!</Spin>
@@ -135,7 +135,7 @@ export default function Home() {
               </Stack>
             </ContainerGap>
           )}
-          {viewState === VIEW_STATES.APP && timeToSpin === false && (
+          {viewState === VIEW_STATES.HOME && timeToSpin === false && (
             <ContainerGap>
               <div>
                 <BoxWrapper>
@@ -167,7 +167,7 @@ export default function Home() {
           )}
         </Container>
         <Container>
-          <Button onClick={() => setViewState(VIEW_STATES.APP)}>Home</Button>
+          <Button onClick={() => setViewState(VIEW_STATES.HOME)}>Home</Button>
           <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
           <Button onClick={signOutOfAppButton}>Sign Out</Button>
         </Container>

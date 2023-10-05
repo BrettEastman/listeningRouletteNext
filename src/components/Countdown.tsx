@@ -6,7 +6,7 @@ export default function Countdown({ setViewState }) {
   const [remainingTime, setRemainingTime] = useState(5);
   const [countdownActive, setCountdownActive] = useState(false);
 
-  const VIEW_STATES = { APP: 0, FEED: 1 };
+  const VIEW_STATES = { HOME: 0, FEED: 1 };
 
   useEffect(() => {
     let interval;
