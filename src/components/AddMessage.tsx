@@ -23,6 +23,7 @@ interface FormProps {
 //   currentUser: string;
 // }
 
+// AddMessage is a form that allows the user to add a message to the database. It is then displayed on the Feed page.
 export default function AddMessage({ handleMessage }: any) {
   const [formInput, setFormInput] = useState(initialFormInput);
 
@@ -63,9 +64,7 @@ export default function AddMessage({ handleMessage }: any) {
 }
 
 const Div = styled.div`
-  /* border: 0.5px solid white; */
   border-radius: 10px;
   padding: 0.5rem;
   gap: 0.5rem;
-  /* margin: 0.5rem; */
 `;

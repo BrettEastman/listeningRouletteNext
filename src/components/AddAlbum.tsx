@@ -12,6 +12,7 @@ interface FormProps {
   handleSubmit: any;
 }
 
+// AddAlbum is a form that allows the user to add an album to the database. It is then displayed on the home page.
 export default function AddAlbum({ handleSubmit }: FormProps) {
   const [formInput, setFormInput] = useState(initialFormInput);
 

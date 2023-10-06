@@ -1,15 +1,15 @@
 import axios from "axios";
 
-// Define your OpenAI API key
+// NEXT_PUBLIC_ prefix is required for the API key to be exposed to the client. This is a Next.js thing and it will only be exposed to Vercel at build time(?)
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
-// Define a function to send a message to the ChatGPT model
+// Send a message to the ChatGPT model
 export default async function sendInfluences(message) {
   try {
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
-        model: "gpt-3.5-turbo", // You can use the gpt-3.5-turbo model for most use cases
+        model: "gpt-3.5-turbo",
         messages: [
           {
             role: "system",
@@ -27,8 +27,6 @@ export default async function sendInfluences(message) {
         },
       }
     );
-
-    // Extract and return the chatbot's reply
     const chatbotReply = response.data.choices[0].message.content;
     return chatbotReply;
   } catch (error) {
@@ -36,13 +34,3 @@ export default async function sendInfluences(message) {
     throw error;
   }
 }
-
-// // Example usage
-// async function main() {
-//   const userMessage = "Tell me about the history of rock music.";
-//   const chatbotReply = await sendInfluences(userMessage);
-//   console.log("Chatbot Reply:", chatbotReply);
-// }
-
-// // Call the main function to interact with the chatbot
-// main();

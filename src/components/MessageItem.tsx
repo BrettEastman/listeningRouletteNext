@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Message } from "../types";
 
+// MessageItem is a single chat message
 export default function MessageItem({ uid, text, createdAt }: Message) {
   return (
     <MessageWrapper>

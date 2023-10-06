@@ -8,6 +8,7 @@ import {
   collection,
 } from "firebase/firestore";
 
+// getAlbums and getMessages are examples of how to get data from Firestore database.
 export async function getAlbums() {
   try {
     const querySnapshot = await getDocs(collection(db, "lr"));
@@ -38,6 +39,7 @@ export async function getMessages() {
   }
 }
 
+// addData is an example of how to add data to Firestore database.
 export async function addData(collection, id, data) {
   try {
     const docRef = doc(db, collection, id);

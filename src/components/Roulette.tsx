@@ -8,6 +8,7 @@ function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+// Roulette is a spinning wheel that displays the top 6 albums from the database
 export default function Roulette({ albums, setViewState }: RouletteProps) {
   const [number, setNumber] = useState(0);
   const [spinningStopped, setSpinningStopped] = useState(true);
