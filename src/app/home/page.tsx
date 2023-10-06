@@ -1,20 +1,21 @@
 "use client";
-import { AlbumEntry, Message } from "../../types.js";
-import React, { useState, useEffect } from "react";
-import { useAuthContext } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import AddAlbum from "../../components/AddAlbum";
+import AddMessage from "../../components/AddMessage";
+import AlbumList from "../../components/AlbumList";
+import Feed from "../../components/Feed";
+import Roulette from "../../components/Roulette";
+import { useAuthContext } from "../../context/AuthContext";
+import sendInfluences from "../../controller/sendInfluences";
+import { signOutOfApp } from "../../firebase/auth/api.js";
 import {
   addData,
   getAlbums,
   getMessages,
 } from "../../firebase/firestore/model";
-import AlbumList from "../../components/AlbumList";
-import Feed from "../../components/Feed";
-import Roulette from "../../components/Roulette";
-import { signOutOfApp } from "../../firebase/auth/api.js";
-import AddMessage from "../../components/AddMessage";
-import AddAlbum from "../../components/AddAlbum";
+import { AlbumEntry, Message } from "../../types.js";
 import { Button } from "../styles";
 
 export default function Home() {
@@ -26,6 +27,8 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState("");
   const [currentUserId, setCurrentUserId] = useState("");
   const [timeToSpin, setTimeToSpin] = useState(false);
+  const [artist, setArtist] = useState("");
+  const [result, setResult] = useState("");
 
   const VIEW_STATES = { HOME: 0, FEED: 1 };
 
@@ -45,6 +48,15 @@ export default function Home() {
       setCurrentUserId(user.uid);
     }
   }, [router, user]);
+
+  const influencesResponse = `Tell me about the history of ${artist}. Who are their influences? Also, could you include a link to their wikipedia entry or their website?`;
+
+  async function onSubmit(event) {
+    event.preventDefault();
+    const chatbotReply = await sendInfluences(influencesResponse);
+    setResult(chatbotReply);
+    setArtist("");
+  }
 
   const fetchAll = async () => {
     try {
@@ -153,17 +165,36 @@ export default function Home() {
             </ContainerGap>
           )}
           {viewState === VIEW_STATES.FEED && (
-            <Stack>
-              <BoxWrapper>
-                <Feed messages={messages} />
-              </BoxWrapper>
-              <BoxWrapper>
-                <AddMessage
-                  currentUser={currentUser}
-                  handleMessage={handleMessage}
-                />
-              </BoxWrapper>
-            </Stack>
+            <div>
+              <Stack>
+                <BoxWrapper>
+                  <Feed messages={messages} />
+                </BoxWrapper>
+                <BoxWrapper>
+                  <AddMessage
+                    currentUser={currentUser}
+                    handleMessage={handleMessage}
+                  />
+                </BoxWrapper>
+              </Stack>
+              <div>
+                <h3>
+                  More information on the history and influences of the
+                  following artist
+                </h3>
+                <form onSubmit={onSubmit}>
+                  <input
+                    type="text"
+                    name="artist"
+                    placeholder="Enter an artist"
+                    value={artist}
+                    onChange={(e) => setArtist(e.target.value)}
+                  />
+                  <input type="submit" value="Influences" />
+                </form>
+                <div>{result}</div>
+              </div>
+            </div>
           )}
         </Container>
         <Container>
