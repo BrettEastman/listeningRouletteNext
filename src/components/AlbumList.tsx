@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { AlbumEntry } from "../types";
 
@@ -6,6 +5,7 @@ interface AlbumProp {
   albums: AlbumEntry[];
 }
 
+// AlbumList is a list of the current listening group's albums. It is displayed on the Home page.
 export default function AlbumList({ albums }: AlbumProp) {
   return (
     <ListWrapper>

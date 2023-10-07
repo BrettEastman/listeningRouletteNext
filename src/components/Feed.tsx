@@ -1,12 +1,12 @@
-import React from "react";
 import styled from "styled-components";
-import MessageItem from "./MessageItem";
 import { Message } from "../types";
+import MessageItem from "./MessageItem";
 
 interface FeedMessages {
   messages: Message[];
 }
 
+// Feed is a list of all chat messages
 export default function Feed({ messages }: FeedMessages) {
   return (
     <UnorderedList>
@@ -32,5 +32,4 @@ const UnorderedList = styled.ul`
   border-radius: 10px;
   padding: 0.5rem;
   gap: 0.5rem;
-  /* margin: 0.5rem; */
 `;

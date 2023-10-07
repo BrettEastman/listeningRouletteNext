@@ -1,11 +1,8 @@
-// Import the functions you need from the SDKs you need
+import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getMessaging } from "firebase/messaging";
-import { getAuth } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 // firebaseConfig is the configuration object, containing the configuration settings for connecting to Firebase services, that is passed to initializeApp()
 const firebaseConfig = {
@@ -21,7 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase - this is the initialized Firebase application instance which can be used to access various Firebase services, such as Firestore, Authentication, Realtime Database, etc.
 const FirebaseApp = initializeApp(firebaseConfig);
 
-// TODO: Add SDKs for Firebase products that you want to use
+// TODO: Add more SDKs for Firebase products that we want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 export const db = getFirestore(FirebaseApp);
 
@@ -29,4 +26,5 @@ export const auth = getAuth(FirebaseApp);
 
 export const messaging = getMessaging(FirebaseApp);
 
+// not used yet
 export const analytics = getAnalytics(FirebaseApp);

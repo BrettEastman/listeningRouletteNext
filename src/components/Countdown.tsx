@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "../app/styles";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Button } from "../app/styles";
 
+// Countdown is a timer that counts down from 5 to 0. When it reaches 0, it changes the viewState to FEED.
 export default function Countdown({ setViewState }) {
   const [remainingTime, setRemainingTime] = useState(5);
   const [countdownActive, setCountdownActive] = useState(false);
 
-  const VIEW_STATES = { APP: 0, FEED: 1 };
+  const VIEW_STATES = { HOME: 0, FEED: 1 };
 
   useEffect(() => {
     let interval;

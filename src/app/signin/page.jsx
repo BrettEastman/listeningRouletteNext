@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
 import { signIn } from "@/firebase/auth/api";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { StyledWrapper, FormWrapper, Button, Label, Input2 } from "../styles";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Button, FormWrapper, Input2, Label, StyledWrapper } from "../styles";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
