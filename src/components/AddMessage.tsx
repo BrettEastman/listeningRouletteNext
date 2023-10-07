@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
-import FormInput from "./form/FormInput";
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import { StyledForm, Input } from "../app/styles";
+import { Input, StyledForm } from "../app/styles";
+import FormInput from "./form/FormInput";
 
 const initialFormInput: FormProps = {
   createdAt: "",

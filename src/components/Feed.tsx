@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
-import MessageItem from "./MessageItem";
 import { Message } from "../types";
+import MessageItem from "./MessageItem";
 
 interface FeedMessages {
   messages: Message[];

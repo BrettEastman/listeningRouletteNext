@@ -1,12 +1,5 @@
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../config";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  getDocs,
-  collection,
-} from "firebase/firestore";
 
 // getAlbums and getMessages are examples of how to get data from Firestore database.
 export async function getAlbums() {

@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
+import { Input, StyledForm } from "../app/styles";
 import FormInput from "./form/FormInput";
-import { StyledForm, Input } from "../app/styles";
 
 const initialFormInput = {
   name: "",

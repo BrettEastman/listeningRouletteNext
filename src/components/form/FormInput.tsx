@@ -1,6 +1,4 @@
-import React from "react";
-import styled from "styled-components";
-import { Label, Input2 } from "../../app/styles";
+import { Input2, Label } from "../../app/styles";
 
 interface FormInputProps {
   labelText: string;

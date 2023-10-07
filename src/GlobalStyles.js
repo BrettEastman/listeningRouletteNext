@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import inter from "./app/fonts";
 
 const GlobalStyles = createGlobalStyle`
 
@@ -11,9 +10,9 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 }
 
-html, body {
+/* html, body {
   height: 100%;
-}
+} */
 
 body {
   line-height: 1.5;

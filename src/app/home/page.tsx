@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AddAlbum from "../../components/AddAlbum";
 import AddMessage from "../../components/AddMessage";
@@ -16,7 +16,7 @@ import {
   getMessages,
 } from "../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../types.js";
-import { Button } from "../styles";
+import { Button, Container, Input, Input2, StyledForm } from "../styles";
 
 export default function Home() {
   const { user } = useAuthContext();
@@ -127,7 +127,6 @@ export default function Home() {
 
   return (
     <div>
-      <Title>Listening Roulette</Title>
       <StackGap>
         <Container>
           {viewState === VIEW_STATES.HOME && timeToSpin === true && (
@@ -165,7 +164,7 @@ export default function Home() {
             </ContainerGap>
           )}
           {viewState === VIEW_STATES.FEED && (
-            <div>
+            <Container2>
               <Stack>
                 <BoxWrapper>
                   <Feed messages={messages} />
@@ -177,24 +176,23 @@ export default function Home() {
                   />
                 </BoxWrapper>
               </Stack>
-              <div>
-                <h3>
-                  More information on the history and influences of the
-                  following artist
-                </h3>
-                <form onSubmit={onSubmit}>
-                  <input
-                    type="text"
-                    name="artist"
-                    placeholder="Enter an artist"
-                    value={artist}
-                    onChange={(e) => setArtist(e.target.value)}
-                  />
-                  <input type="submit" value="Influences" />
-                </form>
-                <div>{result}</div>
-              </div>
-            </div>
+              <Stack2>
+                <h3>Find out more about an artist</h3>
+                <StyledForm onSubmit={onSubmit}>
+                  <div>
+                    <Input2
+                      type="text"
+                      name="artist"
+                      placeholder="Enter an artist"
+                      value={artist}
+                      onChange={(e) => setArtist(e.target.value)}
+                    />
+                    <Input type="submit" value="Go!" />
+                  </div>
+                </StyledForm>
+                <Pad>{result}</Pad>
+              </Stack2>
+            </Container2>
           )}
         </Container>
         <Container>
@@ -207,25 +205,11 @@ export default function Home() {
   );
 }
 
-const Title = styled.h1`
-  font-family: "Cedarville Cursive", cursive;
-  color: #f1181f;
-  opacity: 0.8;
-  font-size: 5rem;
-  letter-spacing: 2px;
-  -webkit-text-stroke-width: 0.1px;
-  -webkit-text-stroke-color: #f44a50;
-  text-shadow: 1px 1px 2px black;
-  padding-bottom: 4rem;
-  margin-left: 1.5rem;
-`;
-
-const Container = styled.div`
+const Container2 = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
+  justify-content: flex-start;
+  gap: 6rem;
 `;
 
 const ContainerGap = styled.div`
@@ -239,8 +223,18 @@ const ContainerGap = styled.div`
 const Stack = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
+  gap: 2rem;
+`;
+
+const Stack2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  border: 1.5px dashed white;
+  border-radius: 10px;
+  padding: 0.5rem;
   gap: 2rem;
 `;
 
@@ -253,6 +247,10 @@ const StackGap = styled.div`
 const BoxWrapper = styled.div`
   max-height: 36rem;
   width: 28rem;
+`;
+
+const Pad = styled.div`
+  padding: 1rem;
 `;
 
 const Spin = styled.div`

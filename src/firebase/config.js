@@ -1,8 +1,8 @@
+import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getMessaging } from "firebase/messaging";
-import { getAuth } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
 
 // firebaseConfig is the configuration object, containing the configuration settings for connecting to Firebase services, that is passed to initializeApp()
 const firebaseConfig = {
