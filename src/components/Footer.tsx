@@ -6,18 +6,8 @@ import instagramIcon from "../public/icons/instagram-svgrepo-com.svg";
 import linkedInIcon from "../public/icons/linkedin-rounded-svgrepo-com.svg";
 
 export default function Footer() {
-  const copyright = document.getElementById("copyright");
-  if (copyright) {
-    copyright.innerHTML = `©${new Date().getFullYear()} Lost Lanes Publishing`;
-  }
-
   return (
-    <FooterWrapper>
-      <p className={inter.className} id="copyright"></p>
-      <p className={inter.className}>
-        Designed and developed by Brett Austin Eastman: Next.js | Typescript |
-        React | Styled-components
-      </p>
+    <StyledFooter>
       <Div>
         <a
           className={inter.className}
@@ -55,18 +45,23 @@ export default function Footer() {
           ></Image>
         </a>
       </Div>
-    </FooterWrapper>
+      <p className={inter.className}>
+        Designed and developed by Brett Austin Eastman: Next.js | Typescript |
+        React | Styled-components
+      </p>
+      <p
+        className={inter.className}
+      >{`©${new Date().getFullYear()} Lost Lanes Publishing`}</p>
+    </StyledFooter>
   );
 }
 
-const FooterWrapper = styled.footer`
+const StyledFooter = styled.footer`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: hsl(358deg 49% 44% /0.3);
+  color: #a7393d;
   font-size: 0.8rem;
-  text-shadow: 0.5px 0.5px 1px black;
-  padding: 2rem;
 `;
 
 const Div = styled.div`

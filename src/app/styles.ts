@@ -11,15 +11,14 @@ export const Container = styled.div`
 export const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   color: hsl(358deg 99% 44% /0.3);
-  border: 1px solid white;
   opacity: 0.8;
   font-size: 1rem;
   text-shadow: 0.5px 0.5px 1px black;
   padding: 1rem;
-  margin-top: 10rem;
+  /* margin-top: 10rem; */
 `;
 
 export const FormWrapper = styled.div`
@@ -44,7 +43,7 @@ export const Button = styled.button`
   );
   letter-spacing: 2px;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
   cursor: pointer;
   :hover {
     box-shadow: none;
@@ -69,7 +68,7 @@ export const StyledForm = styled.form`
   letter-spacing: 1px;
   row-gap: 16px;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
 `;
 
 export const Label = styled.label`

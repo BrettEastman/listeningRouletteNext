@@ -20,43 +20,41 @@ export default function SignIn() {
   };
 
   return (
-    <div>
-      <StyledWrapper>
-        <h1>Sign in</h1>
-        <form onSubmit={handleForm}>
-          <FormWrapper>
-            <Label htmlFor="email">
-              <p>Email</p>
-              <Input2
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                type="email"
-                name="email"
-                id="email"
-                placeholder="example@mail.com"
-              />
-            </Label>
-            <Label htmlFor="password">
-              <p>Password</p>
-              <Input2
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                type="password"
-                name="password"
-                id="password"
-                placeholder="password"
-              />
-            </Label>
-            <Button type="submit">Sign in</Button>
-            <div>
-              Create new account{" "}
-              <Link href={"/signup"}>
-                <span>here</span>
-              </Link>
-            </div>
-          </FormWrapper>
-        </form>
-      </StyledWrapper>
-    </div>
+    <StyledWrapper>
+      <h1>Sign in</h1>
+      <form onSubmit={handleForm}>
+        <FormWrapper>
+          <Label htmlFor="email">
+            <p>Email</p>
+            <Input2
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              type="email"
+              name="email"
+              id="email"
+              placeholder="example@mail.com"
+            />
+          </Label>
+          <Label htmlFor="password">
+            <p>Password</p>
+            <Input2
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password"
+            />
+          </Label>
+          <Button type="submit">Sign in</Button>
+          <div>
+            Create new account{" "}
+            <Link href={"/signup"}>
+              <span>here</span>
+            </Link>
+          </div>
+        </FormWrapper>
+      </form>
+    </StyledWrapper>
   );
 }

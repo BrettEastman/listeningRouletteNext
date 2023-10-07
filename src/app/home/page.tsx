@@ -17,6 +17,7 @@ import {
 } from "../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../types.js";
 import { Button, Container, Input, Input2, StyledForm } from "../styles";
+import FormInput from "../../components/form/FormInput";
 
 export default function Home() {
   const { user } = useAuthContext();
@@ -126,82 +127,82 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <StackGap>
-        <Container>
-          {viewState === VIEW_STATES.HOME && timeToSpin === true && (
-            <ContainerGap>
-              <div>
-                <Spin>Time to Spin!</Spin>
-                <BoxWrapper>
-                  <AlbumList albums={albums} />
-                </BoxWrapper>
-              </div>
-              <Stack>
-                <Roulette
-                  albums={albums}
-                  viewState={viewState}
-                  setViewState={setViewState}
+    <StackGap>
+      <Container>
+        {viewState === VIEW_STATES.HOME && timeToSpin === true && (
+          <ContainerGap>
+            <div>
+              <Spin>Time to Spin!</Spin>
+              <BoxWrapper>
+                <AlbumList albums={albums} />
+              </BoxWrapper>
+            </div>
+            <Stack>
+              <Roulette
+                albums={albums}
+                viewState={viewState}
+                setViewState={setViewState}
+              />
+            </Stack>
+          </ContainerGap>
+        )}
+        {viewState === VIEW_STATES.HOME && timeToSpin === false && (
+          <ContainerGap>
+            <div>
+              <BoxWrapper>
+                <AddAlbum handleSubmit={handleSubmit} />
+                <AlbumList albums={albums} />
+              </BoxWrapper>
+            </div>
+            <Stack>
+              <Roulette
+                albums={albums}
+                viewState={viewState}
+                setViewState={setViewState}
+              />
+            </Stack>
+          </ContainerGap>
+        )}
+        {viewState === VIEW_STATES.FEED && (
+          <Container2>
+            <Stack>
+              <BoxWrapper>
+                <Feed messages={messages} />
+              </BoxWrapper>
+              <BoxWrapper>
+                <AddMessage
+                  currentUser={currentUser}
+                  handleMessage={handleMessage}
                 />
-              </Stack>
-            </ContainerGap>
-          )}
-          {viewState === VIEW_STATES.HOME && timeToSpin === false && (
-            <ContainerGap>
-              <div>
-                <BoxWrapper>
-                  <AddAlbum handleSubmit={handleSubmit} />
-                  <AlbumList albums={albums} />
-                </BoxWrapper>
-              </div>
-              <Stack>
-                <Roulette
-                  albums={albums}
-                  viewState={viewState}
-                  setViewState={setViewState}
-                />
-              </Stack>
-            </ContainerGap>
-          )}
-          {viewState === VIEW_STATES.FEED && (
-            <Container2>
-              <Stack>
-                <BoxWrapper>
-                  <Feed messages={messages} />
-                </BoxWrapper>
-                <BoxWrapper>
-                  <AddMessage
-                    currentUser={currentUser}
-                    handleMessage={handleMessage}
-                  />
-                </BoxWrapper>
-              </Stack>
-              <Stack2>
-                <h3>Find out more about an artist</h3>
+              </BoxWrapper>
+            </Stack>
+            <Stack2>
+              <BoxWrapper>
                 <StyledForm onSubmit={onSubmit}>
                   <div>
-                    <Input2
+                    <FormInput
                       type="text"
                       name="artist"
-                      placeholder="Enter an artist"
+                      placeholder="Artist name"
                       value={artist}
                       onChange={(e) => setArtist(e.target.value)}
+                      labelText="Enter an artist's name to find out more"
                     />
                     <Input type="submit" value="Go!" />
                   </div>
                 </StyledForm>
                 <Pad>{result}</Pad>
-              </Stack2>
-            </Container2>
-          )}
-        </Container>
-        <Container>
-          <Button onClick={() => setViewState(VIEW_STATES.HOME)}>Home</Button>
-          <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
-          <Button onClick={signOutOfAppButton}>Sign Out</Button>
-        </Container>
-      </StackGap>
-    </div>
+              </BoxWrapper>
+            </Stack2>
+          </Container2>
+        )}
+      </Container>
+      <Container>
+        <Button onClick={() => setViewState(VIEW_STATES.HOME)}>Home</Button>
+        <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
+        <Button onClick={signOutOfAppButton}>Sign Out</Button>
+      </Container>
+    </StackGap>
   );
 }
 
@@ -270,5 +271,5 @@ const Spin = styled.div`
   );
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
   letter-spacing: 2px;
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
 `;
