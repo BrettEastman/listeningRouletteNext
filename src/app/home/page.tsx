@@ -16,7 +16,14 @@ import {
   getMessages,
 } from "../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../types.js";
-import { Button, Container, Input, Input2, StyledForm } from "../styles";
+import {
+  Button,
+  Container,
+  Input,
+  StyledForm,
+  Stack,
+  Paragraph,
+} from "../styles";
 import FormInput from "../../components/form/FormInput";
 
 export default function Home() {
@@ -127,10 +134,10 @@ export default function Home() {
   };
 
   return (
-    <StackGap>
+    <Stack gap="6rem">
       <Container>
         {viewState === VIEW_STATES.HOME && timeToSpin === true && (
-          <ContainerGap>
+          <Container gap="16rem">
             <div>
               <Spin>Time to Spin!</Spin>
               <BoxWrapper>
@@ -144,10 +151,10 @@ export default function Home() {
                 setViewState={setViewState}
               />
             </Stack>
-          </ContainerGap>
+          </Container>
         )}
         {viewState === VIEW_STATES.HOME && timeToSpin === false && (
-          <ContainerGap>
+          <Container gap="16rem">
             <div>
               <BoxWrapper>
                 <AddAlbum handleSubmit={handleSubmit} />
@@ -161,10 +168,10 @@ export default function Home() {
                 setViewState={setViewState}
               />
             </Stack>
-          </ContainerGap>
+          </Container>
         )}
         {viewState === VIEW_STATES.FEED && (
-          <Container2>
+          <Container gap="6rem" alignItems="flex-start">
             <Stack>
               <BoxWrapper>
                 <Feed messages={messages} />
@@ -176,7 +183,7 @@ export default function Home() {
                 />
               </BoxWrapper>
             </Stack>
-            <Stack2>
+            <BorderStack>
               <BoxWrapper>
                 <StyledForm onSubmit={onSubmit}>
                   <div>
@@ -191,10 +198,10 @@ export default function Home() {
                     <Input type="submit" value="Go!" />
                   </div>
                 </StyledForm>
-                <Pad>{result}</Pad>
+                <Paragraph padding="1rem">{result}</Paragraph>
               </BoxWrapper>
-            </Stack2>
-          </Container2>
+            </BorderStack>
+          </Container>
         )}
       </Container>
       <Container>
@@ -202,33 +209,11 @@ export default function Home() {
         <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
         <Button onClick={signOutOfAppButton}>Sign Out</Button>
       </Container>
-    </StackGap>
+    </Stack>
   );
 }
 
-const Container2 = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 6rem;
-`;
-
-const ContainerGap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  gap: 16rem;
-`;
-
-const Stack = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 2rem;
-`;
-
-const Stack2 = styled.div`
+const BorderStack = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -239,19 +224,9 @@ const Stack2 = styled.div`
   gap: 2rem;
 `;
 
-const StackGap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6rem;
-`;
-
 const BoxWrapper = styled.div`
   max-height: 36rem;
   width: 28rem;
-`;
-
-const Pad = styled.div`
-  padding: 1rem;
 `;
 
 const Spin = styled.div`
@@ -271,5 +246,4 @@ const Spin = styled.div`
   );
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
   letter-spacing: 2px;
-  /* transform: scale(1.1); */
 `;

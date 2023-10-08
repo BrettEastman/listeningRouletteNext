@@ -37,7 +37,6 @@ const ListWrapper = styled.div`
   letter-spacing: 1px;
   margin-top: 2.8rem;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  /* transform: scale(1.1); */
   ol {
     padding-left: 0;
     &::before {

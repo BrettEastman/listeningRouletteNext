@@ -1,27 +1,26 @@
 "use client";
-import { signIn } from "@/firebase/auth/api";
-import Link from "next/link";
+import { signUp } from "@/firebase/auth/api";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Input2, Label, StyledWrapper, Paragraph } from "../styles";
 
-export default function SignIn() {
+export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleForm = async (event) => {
     event.preventDefault();
-    const { result, error } = await signIn(email, password);
+    const { result, error } = await signUp(email, password);
     if (error) {
-      return console.log("signIn error:", error);
+      return console.log("signUp error:", error);
     }
-    return router.push("/home");
+    return router.push("/admin");
   };
 
   return (
     <StyledWrapper>
-      <h1>Sign in</h1>
+      <h1>Sign up</h1>
       <form onSubmit={handleForm}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
           <Label htmlFor="email">
@@ -46,13 +45,7 @@ export default function SignIn() {
               placeholder="password"
             />
           </Label>
-          <Button type="submit">Sign in</Button>
-          <div>
-            Create new account{" "}
-            <Link href={"/signup"}>
-              <span>here</span>
-            </Link>
-          </div>
+          <Button type="submit">Sign up</Button>
         </StyledWrapper>
       </form>
     </StyledWrapper>

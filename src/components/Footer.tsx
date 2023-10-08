@@ -4,6 +4,7 @@ import { inter } from "../app/fonts";
 import githubIcon from "../public/icons/github-142-svgrepo-com.svg";
 import instagramIcon from "../public/icons/instagram-svgrepo-com.svg";
 import linkedInIcon from "../public/icons/linkedin-rounded-svgrepo-com.svg";
+import { Paragraph } from "../app/styles";
 
 export default function Footer() {
   return (
@@ -45,13 +46,14 @@ export default function Footer() {
           ></Image>
         </a>
       </Div>
-      <p className={inter.className}>
+      <Paragraph className={inter.className} size="0.8rem">
         Designed and developed by Brett Austin Eastman: Next.js | Typescript |
         React | Styled-components
-      </p>
-      <p
+      </Paragraph>
+      <Paragraph
         className={inter.className}
-      >{`©${new Date().getFullYear()} Lost Lanes Publishing`}</p>
+        size="0.8rem"
+      >{`©${new Date().getFullYear()} Lost Lanes Publishing`}</Paragraph>
     </StyledFooter>
   );
 }

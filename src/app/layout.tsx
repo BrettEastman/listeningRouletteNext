@@ -45,7 +45,7 @@ const ContainerWrapper = styled.div`
   min-height: 100dvh;
 `;
 
-const Title = styled.h1`
+const Title = styled.header`
   font-family: "Cedarville Cursive", cursive;
   color: #f1181f;
   opacity: 0.8;

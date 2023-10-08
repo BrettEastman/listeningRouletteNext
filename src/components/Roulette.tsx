@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { RouletteProps } from "../types";
 import Countdown from "./Countdown";
+import { Container } from "../app/styles";
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -26,10 +27,10 @@ export default function Roulette({ albums, setViewState }: RouletteProps) {
   };
 
   return (
-    <ContainerGapCol>
+    <Container flexDirection="column">
       <Countdown setViewState={setViewState} />
       <div>
-        <ContainerCol>
+        <Container flexDirection="column" gap="0rem">
           <Stopper />
           <RouletteWheel>
             <div
@@ -44,10 +45,10 @@ export default function Roulette({ albums, setViewState }: RouletteProps) {
               <div className="six">{albums[5]?.album}</div>
             </div>
           </RouletteWheel>
-        </ContainerCol>
+        </Container>
       </div>
       <SpinButton onClick={btnOnClick}>Spin</SpinButton>
-    </ContainerGapCol>
+    </Container>
   );
 }
 
@@ -129,19 +130,4 @@ const Stopper = styled.div`
   width: 15px;
   background: #794244;
   clip-path: polygon(100% 0, 50% 100%, 0 0);
-`;
-
-const ContainerCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const ContainerGapCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
 `;
