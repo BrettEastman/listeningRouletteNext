@@ -4,22 +4,19 @@ import HomeLink from "../components/HomeLink";
 
 export default function App() {
   return (
-    <div>
-      <StyledApp>
-        <h1>Welcome to Listening Roulette.</h1>
-        <br />
-        <h2>
-          <HomeLink />
-        </h2>
-      </StyledApp>
-    </div>
+    <StyledApp>
+      <h1>Welcome to Listening Roulette.</h1>
+      <br />
+      <h2>
+        <HomeLink />
+      </h2>
+    </StyledApp>
   );
 }
 
 const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   font-family: inherit;
   color: #f02127;

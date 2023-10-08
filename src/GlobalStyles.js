@@ -10,9 +10,9 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 }
 
-/* html, body {
-  height: 100%;
-} */
+p {
+  font-size: 1.25rem;
+}
 
 body {
   line-height: 1.5;

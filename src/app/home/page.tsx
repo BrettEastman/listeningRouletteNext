@@ -16,7 +16,16 @@ import {
   getMessages,
 } from "../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../types.js";
-import { Button, Container, Input, Input2, StyledForm } from "../styles";
+import {
+  Button,
+  Container,
+  Input,
+  Form,
+  Stack,
+  Paragraph,
+  Subtitle,
+} from "../styles";
+import FormInput from "../../components/form/FormInput";
 
 export default function Home() {
   const { user } = useAuthContext();
@@ -126,149 +135,95 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <StackGap>
-        <Container>
-          {viewState === VIEW_STATES.HOME && timeToSpin === true && (
-            <ContainerGap>
-              <div>
-                <Spin>Time to Spin!</Spin>
-                <BoxWrapper>
-                  <AlbumList albums={albums} />
-                </BoxWrapper>
-              </div>
-              <Stack>
-                <Roulette
-                  albums={albums}
-                  viewState={viewState}
-                  setViewState={setViewState}
+    <Stack gap="6rem">
+      <Container>
+        {viewState === VIEW_STATES.HOME && timeToSpin === true && (
+          <Container gap="16rem">
+            <div>
+              <Subtitle>Time to Spin!</Subtitle>
+              <BoxWrapper>
+                <AlbumList albums={albums} />
+              </BoxWrapper>
+            </div>
+            <Stack>
+              <Roulette
+                albums={albums}
+                viewState={viewState}
+                setViewState={setViewState}
+              />
+            </Stack>
+          </Container>
+        )}
+        {viewState === VIEW_STATES.HOME && timeToSpin === false && (
+          <Container gap="16rem">
+            <div>
+              <BoxWrapper>
+                <AddAlbum handleSubmit={handleSubmit} />
+                <AlbumList albums={albums} />
+              </BoxWrapper>
+            </div>
+            <Stack>
+              <Roulette
+                albums={albums}
+                viewState={viewState}
+                setViewState={setViewState}
+              />
+            </Stack>
+          </Container>
+        )}
+        {viewState === VIEW_STATES.FEED && (
+          <Container gap="6rem" alignItems="flex-start">
+            <Stack>
+              <BoxWrapper>
+                <Feed messages={messages} />
+              </BoxWrapper>
+              <BoxWrapper>
+                <AddMessage
+                  currentUser={currentUser}
+                  handleMessage={handleMessage}
                 />
-              </Stack>
-            </ContainerGap>
-          )}
-          {viewState === VIEW_STATES.HOME && timeToSpin === false && (
-            <ContainerGap>
-              <div>
-                <BoxWrapper>
-                  <AddAlbum handleSubmit={handleSubmit} />
-                  <AlbumList albums={albums} />
-                </BoxWrapper>
-              </div>
-              <Stack>
-                <Roulette
-                  albums={albums}
-                  viewState={viewState}
-                  setViewState={setViewState}
-                />
-              </Stack>
-            </ContainerGap>
-          )}
-          {viewState === VIEW_STATES.FEED && (
-            <Container2>
-              <Stack>
-                <BoxWrapper>
-                  <Feed messages={messages} />
-                </BoxWrapper>
-                <BoxWrapper>
-                  <AddMessage
-                    currentUser={currentUser}
-                    handleMessage={handleMessage}
-                  />
-                </BoxWrapper>
-              </Stack>
-              <Stack2>
-                <h3>Find out more about an artist</h3>
-                <StyledForm onSubmit={onSubmit}>
+              </BoxWrapper>
+            </Stack>
+            <Stack>
+              <BoxWrapper>
+                <Form onSubmit={onSubmit}>
                   <div>
-                    <Input2
+                    <FormInput
                       type="text"
                       name="artist"
-                      placeholder="Enter an artist"
+                      placeholder="Artist name"
                       value={artist}
                       onChange={(e) => setArtist(e.target.value)}
+                      labelText="Enter an artist's name to find out more"
                     />
                     <Input type="submit" value="Go!" />
                   </div>
-                </StyledForm>
-                <Pad>{result}</Pad>
-              </Stack2>
-            </Container2>
-          )}
-        </Container>
-        <Container>
-          <Button onClick={() => setViewState(VIEW_STATES.HOME)}>Home</Button>
-          <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
-          <Button onClick={signOutOfAppButton}>Sign Out</Button>
-        </Container>
-      </StackGap>
-    </div>
+                </Form>
+              </BoxWrapper>
+              <BorderStack>
+                <BoxWrapper>
+                  <Paragraph padding="1rem">{result}</Paragraph>
+                </BoxWrapper>
+              </BorderStack>
+            </Stack>
+          </Container>
+        )}
+      </Container>
+      <Container>
+        <Button onClick={() => setViewState(VIEW_STATES.HOME)}>Home</Button>
+        <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
+        <Button onClick={signOutOfAppButton}>Sign Out</Button>
+      </Container>
+    </Stack>
   );
 }
 
-const Container2 = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 6rem;
-`;
-
-const ContainerGap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  gap: 16rem;
-`;
-
-const Stack = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 2rem;
-`;
-
-const Stack2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+const BorderStack = styled.div`
   border: 1.5px dashed white;
-  border-radius: 10px;
-  padding: 0.5rem;
-  gap: 2rem;
-`;
-
-const StackGap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6rem;
+  border-radius: 8px;
 `;
 
 const BoxWrapper = styled.div`
   max-height: 36rem;
   width: 28rem;
-`;
-
-const Pad = styled.div`
-  padding: 1rem;
-`;
-
-const Spin = styled.div`
-  font-size: 1.8rem;
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 76% / 0.9);
-  padding: 1.5rem;
-  margin: 0.5rem;
-  margin-top: 2.2rem;
-  margin-bottom: 3rem;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background: radial-gradient(
-    hsl(358deg 99% 84% /0.3),
-    hsl(358deg 99% 64% /0.3)
-  );
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  letter-spacing: 2px;
-  transform: scale(1.1);
 `;

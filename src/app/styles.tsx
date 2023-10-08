@@ -1,37 +1,57 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
+export const Subtitle = styled.div`
+  font-size: 2rem;
+  text-shadow: 0.5px 0.5px hsla(204deg 70% 76% / 0.9);
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
 `;
 
-export const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  color: hsl(358deg 99% 44% /0.3);
-  border: 1px solid white;
-  opacity: 0.8;
-  font-size: 1rem;
-  text-shadow: 0.5px 0.5px 1px black;
-  padding: 1rem;
-  margin-top: 10rem;
+export const Paragraph = styled.p<{
+  size?: string;
+  color?: string;
+  padding?: string;
+}>`
+  font-size: ${(props) => props.size || "1rem"};
+  color: ${(props) => props.color || "inherit"};
+  padding: ${(props) => props.padding || "0rem"};
 `;
 
-export const FormWrapper = styled.div`
+export const Container = styled.div<{
+  flexDirection?: string;
+  justifyContent?: string;
+  gap?: string;
+  alignItems?: string;
+}>`
+  display: flex;
+  flex-direction: ${(props) => props.flexDirection || "row"};
+  justify-content: ${(props) => props.justifyContent || "space-around"};
+  align-items: ${(props) => props.alignItems || "center"};
+  gap: ${(props) => props.gap || "1rem"};
+`;
+
+export const Stack = styled.div<{
+  justifyContent?: string;
+  flexDirection?: string;
+  gap?: string;
+}>`
+  display: flex;
+  flex-direction: ${(props) => props.flexDirection || "column"};
+  justify-content: ${(props) => props.justifyContent || "flex-start"};
+  gap: ${(props) => props.gap || "2rem"};
+`;
+
+export const StyledWrapper = styled.div<{
+  justifyContent?: string;
+  gap?: string;
+}>`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: ${(props) => props.justifyContent || "flex-start"};
   align-items: center;
-  gap: 3rem;
-  color: hsl(358deg 99% 44% /0.3);
-  font-size: 1rem;
-  text-shadow: 0.5px 0.5px 1px black;
+  color: #a7393d;
   padding: 1rem;
+  gap: ${(props) => props.gap || "0rem"};
 `;
 
 export const Button = styled.button`
@@ -44,7 +64,6 @@ export const Button = styled.button`
   );
   letter-spacing: 2px;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  transform: scale(1.1);
   cursor: pointer;
   :hover {
     box-shadow: none;
@@ -52,24 +71,12 @@ export const Button = styled.button`
   }
 `;
 
-export const StyledForm = styled.form`
+export const Form = styled.form`
   padding: 1rem;
-  font-size: 1rem;
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
-  margin: 0.5rem;
   border: 0.5px solid white;
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background: radial-gradient(
-    hsl(358deg 99% 84% /0.3),
-    hsl(358deg 99% 64% /0.3)
-  );
   letter-spacing: 1px;
-  row-gap: 16px;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  transform: scale(1.1);
 `;
 
 export const Label = styled.label`
@@ -96,7 +103,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Input2 = styled.input`
+export const InputRectangle = styled.input`
   display: block;
   font-family: inherit;
   width: 100%;

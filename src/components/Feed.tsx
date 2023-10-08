@@ -9,7 +9,7 @@ interface FeedMessages {
 // Feed is a list of all chat messages
 export default function Feed({ messages }: FeedMessages) {
   return (
-    <UnorderedList>
+    <BorderUL>
       {messages
         .slice()
         .reverse()
@@ -23,13 +23,13 @@ export default function Feed({ messages }: FeedMessages) {
             />
           );
         })}
-    </UnorderedList>
+    </BorderUL>
   );
 }
 
-const UnorderedList = styled.ul`
+const BorderUL = styled.ul`
   border: 1.5px dashed white;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0.5rem;
   gap: 0.5rem;
 `;
