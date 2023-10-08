@@ -20,7 +20,7 @@ import {
   Button,
   Container,
   Input,
-  StyledForm,
+  Form,
   Stack,
   Paragraph,
   Subtitle,
@@ -184,9 +184,9 @@ export default function Home() {
                 />
               </BoxWrapper>
             </Stack>
-            <BorderStack>
+            <Stack>
               <BoxWrapper>
-                <StyledForm onSubmit={onSubmit}>
+                <Form onSubmit={onSubmit}>
                   <div>
                     <FormInput
                       type="text"
@@ -198,10 +198,14 @@ export default function Home() {
                     />
                     <Input type="submit" value="Go!" />
                   </div>
-                </StyledForm>
-                <Paragraph padding="1rem">{result}</Paragraph>
+                </Form>
               </BoxWrapper>
-            </BorderStack>
+              <BorderStack>
+                <BoxWrapper>
+                  <Paragraph padding="1rem">{result}</Paragraph>
+                </BoxWrapper>
+              </BorderStack>
+            </Stack>
           </Container>
         )}
       </Container>
@@ -215,14 +219,8 @@ export default function Home() {
 }
 
 const BorderStack = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   border: 1.5px dashed white;
-  border-radius: 10px;
-  padding: 0.5rem;
-  gap: 2rem;
+  border-radius: 8px;
 `;
 
 const BoxWrapper = styled.div`

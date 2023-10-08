@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { Input, AuthForm } from "../app/styles";
+import { Input, Form } from "../app/styles";
 import FormInput from "./form/FormInput";
 
 const initialFormInput: FormProps = {
@@ -38,7 +38,7 @@ export default function AddMessage({ handleMessage }: any) {
   };
 
   return (
-    <AuthForm
+    <Form
       onSubmit={(event) => {
         event.preventDefault();
         handleMessage(formInput);
@@ -56,6 +56,6 @@ export default function AddMessage({ handleMessage }: any) {
         />
         <Input type="submit" value="Post"></Input>
       </div>
-    </AuthForm>
+    </Form>
   );
 }

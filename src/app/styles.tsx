@@ -71,17 +71,7 @@ export const Button = styled.button`
   }
 `;
 
-export const StyledForm = styled.form`
-  padding: 1rem;
-  /* margin: 0.5rem; */
-  border: 0.5px solid white;
-  border-radius: 8px;
-  background: radial-gradient(hsl(358deg 9% 84% /0.3), hsl(358deg 9% 64% /0.3));
-  letter-spacing: 1px;
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-`;
-
-export const AuthForm = styled.form`
+export const Form = styled.form`
   padding: 1rem;
   border: 0.5px solid white;
   border-radius: 8px;

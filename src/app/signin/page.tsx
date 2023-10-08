@@ -10,7 +10,7 @@ import {
   StyledWrapper,
   Paragraph,
   Subtitle,
-  AuthForm,
+  Form,
 } from "../styles";
 
 export default function SignIn() {
@@ -30,7 +30,7 @@ export default function SignIn() {
   return (
     <StyledWrapper>
       <Subtitle>Sign in</Subtitle>
-      <AuthForm onSubmit={handleForm}>
+      <Form onSubmit={handleForm}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
           <Label htmlFor="email">
             <Paragraph>Email</Paragraph>
@@ -62,7 +62,7 @@ export default function SignIn() {
             </Link>
           </div>
         </StyledWrapper>
-      </AuthForm>
+      </Form>
     </StyledWrapper>
   );
 }
