@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const Subtitle = styled.div`
+  font-size: 2rem;
+  text-shadow: 0.5px 0.5px hsla(204deg 70% 76% / 0.9);
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+`;
+
 export const Paragraph = styled.p<{
   size?: string;
   color?: string;
@@ -66,20 +73,19 @@ export const Button = styled.button`
 
 export const StyledForm = styled.form`
   padding: 1rem;
-  font-size: 1rem;
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
-  margin: 0.5rem;
+  /* margin: 0.5rem; */
   border: 0.5px solid white;
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background: radial-gradient(
-    hsl(358deg 99% 84% /0.3),
-    hsl(358deg 99% 64% /0.3)
-  );
+  background: radial-gradient(hsl(358deg 9% 84% /0.3), hsl(358deg 9% 64% /0.3));
   letter-spacing: 1px;
-  row-gap: 16px;
+  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+`;
+
+export const AuthForm = styled.form`
+  padding: 1rem;
+  border: 0.5px solid white;
+  border-radius: 8px;
+  letter-spacing: 1px;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
 `;
 
@@ -107,7 +113,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Input2 = styled.input`
+export const InputRectangle = styled.input`
   display: block;
   font-family: inherit;
   width: 100%;

@@ -1,56 +1,40 @@
 import styled from "styled-components";
 import { Message } from "../types";
+import { Stack, Paragraph, Container } from "../app/styles";
 
 // MessageItem is a single chat message
 export default function MessageItem({ uid, text, createdAt }: Message) {
   return (
     <MessageWrapper>
-      <StackGapAlign>
+      <Stack justifyContent="space-around" gap="1rem">
         <div>
-          <Span>{uid}</Span>
+          <Name>{uid}</Name>
         </div>
-        <P>{text}</P>
+        <Paragraph font-size="1rem">{text}</Paragraph>
         <div>
-          <MessageFooter>
+          <Container>
             <EmotoSpan>❤️</EmotoSpan>
             <EmotoSpan>🤣</EmotoSpan>
             <EmotoSpan>🙌</EmotoSpan>
             <EmotoSpan>🫥</EmotoSpan>
             <EmotoSpan>🎯</EmotoSpan>
-          </MessageFooter>
+          </Container>
         </div>
-      </StackGapAlign>
+      </Stack>
     </MessageWrapper>
   );
 }
 
 const MessageWrapper = styled.div`
   padding: 1.5rem;
-  font-size: 1.1rem;
-  background: radial-gradient(
-    hsl(358deg 99% 84% /0.3),
-    hsl(358deg 99% 64% /0.3)
-  );
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
+  background: radial-gradient(hsl(358deg 2% 84% /0.3), hsl(358deg 2% 64% /0.3));
   border-radius: 8px;
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
   margin: 8px;
 `;
 
-const StackGapAlign = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-start;
-  gap: 1rem;
-`;
-
-const Span = styled.span`
+const Name = styled.span`
   font-weight: 600;
-`;
-
-const P = styled.p`
-  font-size: 1rem;
+  font-size: 1.2rem;
 `;
 
 const EmotoSpan = styled.span`
@@ -58,13 +42,4 @@ const EmotoSpan = styled.span`
   &:hover {
     transform: scale(1.25);
   }
-`;
-
-const MessageFooter = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 8px;
-  gap: 4rem;
 `;

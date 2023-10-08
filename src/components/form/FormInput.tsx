@@ -1,4 +1,4 @@
-import { Input2, Label } from "../../app/styles";
+import { InputRectangle, Label } from "../../app/styles";
 
 interface FormInputProps {
   labelText: string;
@@ -20,7 +20,7 @@ export default function FormInput({
   return (
     <div>
       <Label htmlFor={name}>{labelText}</Label>
-      <Input2
+      <InputRectangle
         type={type}
         id={name}
         name={name}

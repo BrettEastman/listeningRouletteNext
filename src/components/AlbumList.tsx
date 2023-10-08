@@ -20,20 +20,9 @@ export default function AlbumList({ albums }: AlbumProp) {
 }
 
 const ListWrapper = styled.div`
-  font-size: 1rem;
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 66% / 0.9);
-  padding: 1.25rem;
-  margin: 0.5rem;
+  padding: 1rem;
   border: 0.5px solid white;
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: radial-gradient(
-    hsl(358deg 99% 84% /0.3),
-    hsl(358deg 99% 64% /0.3)
-  );
-  gap: 0.5rem;
   letter-spacing: 1px;
   margin-top: 2.8rem;
   box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);

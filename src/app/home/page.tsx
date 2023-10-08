@@ -23,6 +23,7 @@ import {
   StyledForm,
   Stack,
   Paragraph,
+  Subtitle,
 } from "../styles";
 import FormInput from "../../components/form/FormInput";
 
@@ -139,7 +140,7 @@ export default function Home() {
         {viewState === VIEW_STATES.HOME && timeToSpin === true && (
           <Container gap="16rem">
             <div>
-              <Spin>Time to Spin!</Spin>
+              <Subtitle>Time to Spin!</Subtitle>
               <BoxWrapper>
                 <AlbumList albums={albums} />
               </BoxWrapper>
@@ -227,23 +228,4 @@ const BorderStack = styled.div`
 const BoxWrapper = styled.div`
   max-height: 36rem;
   width: 28rem;
-`;
-
-const Spin = styled.div`
-  font-size: 1.8rem;
-  text-shadow: 0.5px 0.5px hsla(204deg 70% 76% / 0.9);
-  padding: 1.5rem;
-  margin: 0.5rem;
-  margin-top: 2.2rem;
-  margin-bottom: 3rem;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background: radial-gradient(
-    hsl(358deg 99% 84% /0.3),
-    hsl(358deg 99% 64% /0.3)
-  );
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  letter-spacing: 2px;
 `;

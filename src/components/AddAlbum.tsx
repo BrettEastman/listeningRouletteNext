@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { Input, StyledForm } from "../app/styles";
+import { Input, AuthForm } from "../app/styles";
 import FormInput from "./form/FormInput";
 
 const initialFormInput = {
@@ -28,7 +28,7 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
   };
 
   return (
-    <StyledForm
+    <AuthForm
       onSubmit={(event) => {
         event.preventDefault();
         handleSubmit(formInput);
@@ -57,6 +57,6 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
         <br />
         <Input type="submit" value="Submit"></Input>
       </div>
-    </StyledForm>
+    </AuthForm>
   );
 }

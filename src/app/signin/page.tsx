@@ -3,7 +3,15 @@ import { signIn } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button, Input2, Label, StyledWrapper, Paragraph } from "../styles";
+import {
+  Button,
+  InputRectangle,
+  Label,
+  StyledWrapper,
+  Paragraph,
+  Subtitle,
+  AuthForm,
+} from "../styles";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -21,12 +29,12 @@ export default function SignIn() {
 
   return (
     <StyledWrapper>
-      <h1>Sign in</h1>
-      <form onSubmit={handleForm}>
+      <Subtitle>Sign in</Subtitle>
+      <AuthForm onSubmit={handleForm}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
           <Label htmlFor="email">
             <Paragraph>Email</Paragraph>
-            <Input2
+            <InputRectangle
               onChange={(e) => setEmail(e.target.value)}
               required
               type="email"
@@ -37,7 +45,7 @@ export default function SignIn() {
           </Label>
           <Label htmlFor="password">
             <Paragraph>Password</Paragraph>
-            <Input2
+            <InputRectangle
               onChange={(e) => setPassword(e.target.value)}
               required
               type="password"
@@ -54,7 +62,7 @@ export default function SignIn() {
             </Link>
           </div>
         </StyledWrapper>
-      </form>
+      </AuthForm>
     </StyledWrapper>
   );
 }
