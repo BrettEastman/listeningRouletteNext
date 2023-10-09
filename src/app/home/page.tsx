@@ -1,12 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import AddAlbum from "../../components/AddAlbum";
 import AddMessage from "../../components/AddMessage";
 import AlbumList from "../../components/AlbumList";
 import Feed from "../../components/Feed";
 import Roulette from "../../components/Roulette";
+import FormInput from "../../components/form/FormInput";
 import { useAuthContext } from "../../context/AuthContext";
 import sendInfluences from "../../controller/sendInfluences";
 import { signOutOfApp } from "../../firebase/auth/api.js";
@@ -19,13 +20,12 @@ import { AlbumEntry, Message } from "../../types.js";
 import {
   Button,
   Container,
-  Input,
   Form,
-  Stack,
+  Input,
   Paragraph,
+  Stack,
   Subtitle,
 } from "../styles";
-import FormInput from "../../components/form/FormInput";
 
 export default function Home() {
   const { user } = useAuthContext();

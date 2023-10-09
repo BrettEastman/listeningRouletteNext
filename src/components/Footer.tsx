@@ -1,10 +1,10 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { inter } from "../app/fonts";
+import { Paragraph } from "../app/styles";
 import githubIcon from "../public/icons/github-142-svgrepo-com.svg";
 import instagramIcon from "../public/icons/instagram-svgrepo-com.svg";
 import linkedInIcon from "../public/icons/linkedin-rounded-svgrepo-com.svg";
-import { Paragraph } from "../app/styles";
 
 export default function Footer() {
   return (

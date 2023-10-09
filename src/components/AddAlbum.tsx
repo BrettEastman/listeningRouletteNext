@@ -1,6 +1,6 @@
 "use client";
-import { useState, ChangeEvent } from "react";
-import { Input, Form } from "../app/styles";
+import { ChangeEvent, useState } from "react";
+import { Form, Input } from "../app/styles";
 import FormInput from "./form/FormInput";
 
 const initialFormInput = {
