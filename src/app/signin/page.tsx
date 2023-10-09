@@ -2,7 +2,7 @@
 import { signIn } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import {
   Button,
   InputRectangle,
@@ -18,7 +18,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleForm = async (event) => {
+  const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { result, error } = await signIn(email, password);
     if (error) {

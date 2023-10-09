@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import styled from "styled-components";
 import AddAlbum from "../../components/AddAlbum";
 import AddMessage from "../../components/AddMessage";
@@ -60,7 +60,7 @@ export default function Home() {
 
   const influencesResponse = `Tell me about the history of ${artist}. Who are their influences? Also, could you include a link to their wikipedia entry or their website?`;
 
-  async function onSubmit(event) {
+  async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
     const chatbotReply = await sendInfluences(influencesResponse);
     setResult(chatbotReply);

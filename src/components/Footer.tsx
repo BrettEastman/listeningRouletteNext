@@ -9,7 +9,7 @@ import { Paragraph } from "../app/styles";
 export default function Footer() {
   return (
     <StyledFooter>
-      <Div>
+      <Icons>
         <a
           className={inter.className}
           rel="noreferrer"
@@ -45,7 +45,7 @@ export default function Footer() {
             className="cursor-pointer"
           ></Image>
         </a>
-      </Div>
+      </Icons>
       <Paragraph className={inter.className} size="0.8rem">
         Designed and developed by Brett Austin Eastman: Next.js | Typescript |
         React | Styled-components
@@ -66,7 +66,7 @@ const StyledFooter = styled.footer`
   font-size: 0.8rem;
 `;
 
-const Div = styled.div`
+const Icons = styled.div`
   display: flex;
   font-family: ${inter.className};
   flex-direction: row;
