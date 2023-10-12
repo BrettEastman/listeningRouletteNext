@@ -1,11 +1,17 @@
 import React, { createContext } from "react";
-import { UserType } from "../types";
+import { User } from "firebase/auth";
+import { init } from "next/dist/compiled/webpack/webpack";
 
 type CreateAuthContextType = {
-  user: UserType;
-  setUser: React.Dispatch<React.SetStateAction<UserType>>;
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
-const CreateAuthContext = createContext<CreateAuthContextType | {}>({});
+const initialState: CreateAuthContextType = {
+  user: null,
+  setUser: () => {},
+};
+
+const CreateAuthContext = createContext<CreateAuthContextType>(initialState);
 
 export default CreateAuthContext;

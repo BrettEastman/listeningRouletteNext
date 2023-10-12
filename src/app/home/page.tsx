@@ -28,14 +28,15 @@ import {
 } from "../styles";
 
 export default function Home() {
-  const { user }: any = useAuthContext();
+  const { user } = useAuthContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
   const [viewState, setViewState] = useState(0);
-  const [currentUser, setCurrentUser] = useState("");
-  const [currentUserId, setCurrentUserId] = useState("");
+  const [currentUser, setCurrentUser] = useState<string | null>("");
+  const [currentUserId, setCurrentUserId] = useState<string | null>("");
   const [timeToSpin, setTimeToSpin] = useState(false);
+  const [thinking, setThinking] = useState(false);
   const [artist, setArtist] = useState("");
   const [result, setResult] = useState("");
 
@@ -62,8 +63,10 @@ export default function Home() {
 
   async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
+    setThinking(true);
     const chatbotReply = await sendInfluences(influencesResponse);
     setResult(chatbotReply);
+    setThinking(false);
     setArtist("");
   }
 
@@ -199,6 +202,7 @@ export default function Home() {
                       labelText="Enter an artist's name to find out more"
                     />
                     <Input type="submit" value="Go!" />
+                    {thinking && <Paragraph>Searching...</Paragraph>}
                   </div>
                 </Form>
               </BoxWrapper>
@@ -223,6 +227,7 @@ export default function Home() {
 const BorderStack = styled.div`
   border: 1.5px dashed white;
   border-radius: 8px;
+  overflow: auto;
 `;
 
 const BoxWrapper = styled.div`

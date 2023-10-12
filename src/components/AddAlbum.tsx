@@ -42,7 +42,7 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
           type="text"
           name="name"
           value={formInput.name}
-          placeholder="Enter name"
+          placeholder="Enter artist name"
           onChange={handleInputChange}
         />
         <br />
@@ -51,7 +51,7 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
           type="text"
           name="album"
           value={formInput.album}
-          placeholder="Enter album"
+          placeholder="Enter album name"
           onChange={handleInputChange}
         />
         <br />
