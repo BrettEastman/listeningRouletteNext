@@ -28,7 +28,7 @@ import {
 } from "../styles";
 
 export default function Home() {
-  const { user } = useAuthContext();
+  const { user }: any = useAuthContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
@@ -193,7 +193,9 @@ export default function Home() {
                       name="artist"
                       placeholder="Artist name"
                       value={artist}
-                      onChange={(e) => setArtist(e.target.value)}
+                      onChange={(e: ChangeEvent<HTMLFormElement>) =>
+                        setArtist(e.target.value)
+                      }
                       labelText="Enter an artist's name to find out more"
                     />
                     <Input type="submit" value="Go!" />
