@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button } from "../app/styles";
+import { Button, Subtitle } from "../app/styles";
 
 interface CountdownProps {
   setViewState: (viewState: number) => void;
@@ -40,7 +40,7 @@ export default function Countdown({ setViewState }: CountdownProps) {
 
   return (
     <CountdownWrapper>
-      <h2>Start the album in: {remainingTime} seconds</h2>
+      <Subtitle>Start the album in: {remainingTime} seconds</Subtitle>
       {!countdownActive ? (
         <Button onClick={handleStartClick}>Start</Button>
       ) : (

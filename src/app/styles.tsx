@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Subtitle = styled.div`
   font-size: 2rem;
+  color: #a7393d;
   text-shadow: 0.5px 0.5px hsla(204deg 70% 76% / 0.9);
   margin-bottom: 1rem;
   letter-spacing: 1px;
@@ -51,6 +52,7 @@ export const StyledWrapper = styled.div<{
   align-items: center;
   color: #a7393d;
   padding: 1rem;
+  width: 24rem;
   gap: ${(props) => props.gap || "0rem"};
 `;
 
@@ -82,6 +84,7 @@ export const Form = styled.form`
 export const Label = styled.label`
   margin-bottom: 8px;
   display: block;
+  width: 100%;
 `;
 
 export const Input = styled.input`

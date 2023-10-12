@@ -1,8 +1,7 @@
 "use client";
-import { onAuthStateChanged } from "firebase/auth";
+import { User, onAuthStateChanged } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../firebase/config";
-import { UserType } from "../types";
 import CreateAuthContext from "./CreateAuthContext";
 
 type AuthContextType = {
@@ -11,7 +10,7 @@ type AuthContextType = {
 
 // AuthContextProvider is a wrapper component that will provide the auth context to all its children
 export default function AuthContextProvider({ children }: AuthContextType) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export default function AuthContextProvider({ children }: AuthContextType) {
   }, []);
 
   return (
-    <CreateAuthContext.Provider value={{ user }}>
+    <CreateAuthContext.Provider value={{ user, setUser }}>
       {loading ? <div>Loading...</div> : children}
     </CreateAuthContext.Provider>
   );
