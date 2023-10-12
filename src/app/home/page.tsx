@@ -1,12 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import AddAlbum from "../../components/AddAlbum";
 import AddMessage from "../../components/AddMessage";
 import AlbumList from "../../components/AlbumList";
 import Feed from "../../components/Feed";
 import Roulette from "../../components/Roulette";
+import FormInput from "../../components/form/FormInput";
 import { useAuthContext } from "../../context/AuthContext";
 import sendInfluences from "../../controller/sendInfluences";
 import { signOutOfApp } from "../../firebase/auth/api.js";
@@ -19,16 +20,15 @@ import { AlbumEntry, Message } from "../../types.js";
 import {
   Button,
   Container,
-  Input,
   Form,
-  Stack,
+  Input,
   Paragraph,
+  Stack,
   Subtitle,
 } from "../styles";
-import FormInput from "../../components/form/FormInput";
 
 export default function Home() {
-  const { user } = useAuthContext();
+  const { user }: any = useAuthContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
@@ -60,7 +60,7 @@ export default function Home() {
 
   const influencesResponse = `Tell me about the history of ${artist}. Who are their influences? Also, could you include a link to their wikipedia entry or their website?`;
 
-  async function onSubmit(event) {
+  async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
     const chatbotReply = await sendInfluences(influencesResponse);
     setResult(chatbotReply);
@@ -193,7 +193,9 @@ export default function Home() {
                       name="artist"
                       placeholder="Artist name"
                       value={artist}
-                      onChange={(e) => setArtist(e.target.value)}
+                      onChange={(e: ChangeEvent<HTMLFormElement>) =>
+                        setArtist(e.target.value)
+                      }
                       labelText="Enter an artist's name to find out more"
                     />
                     <Input type="submit" value="Go!" />

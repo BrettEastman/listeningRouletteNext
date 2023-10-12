@@ -1,15 +1,15 @@
 "use client";
 import { signUp } from "@/firebase/auth/api";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Button,
+  Form,
   InputRectangle,
   Label,
-  StyledWrapper,
   Paragraph,
+  StyledWrapper,
   Subtitle,
-  Form,
 } from "../styles";
 
 export default function SignUp() {
@@ -17,7 +17,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleForm = async (event) => {
+  const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { result, error } = await signUp(email, password);
     if (error) {

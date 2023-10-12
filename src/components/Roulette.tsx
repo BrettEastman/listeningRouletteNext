@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Container } from "../app/styles";
 import { RouletteProps } from "../types";
 import Countdown from "./Countdown";
-import { Container } from "../app/styles";
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;

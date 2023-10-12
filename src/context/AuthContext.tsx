@@ -11,7 +11,7 @@ type AuthContextType = {
 
 // AuthContextProvider is a wrapper component that will provide the auth context to all its children
 export default function AuthContextProvider({ children }: AuthContextType) {
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
