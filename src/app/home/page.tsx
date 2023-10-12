@@ -36,6 +36,7 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState("");
   const [currentUserId, setCurrentUserId] = useState("");
   const [timeToSpin, setTimeToSpin] = useState(false);
+  const [thinking, setThinking] = useState(false);
   const [artist, setArtist] = useState("");
   const [result, setResult] = useState("");
 
@@ -62,8 +63,10 @@ export default function Home() {
 
   async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
+    setThinking(true);
     const chatbotReply = await sendInfluences(influencesResponse);
     setResult(chatbotReply);
+    setThinking(false);
     setArtist("");
   }
 
@@ -199,6 +202,7 @@ export default function Home() {
                       labelText="Enter an artist's name to find out more"
                     />
                     <Input type="submit" value="Go!" />
+                    {thinking && <Paragraph>Searching...</Paragraph>}
                   </div>
                 </Form>
               </BoxWrapper>
