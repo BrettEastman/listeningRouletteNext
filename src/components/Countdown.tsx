@@ -40,11 +40,12 @@ export default function Countdown({ setViewState }: CountdownProps) {
 
   return (
     <CountdownWrapper>
-      <Subtitle>Start the album in: {remainingTime} seconds</Subtitle>
       {!countdownActive ? (
         <Button onClick={handleStartClick}>Start</Button>
       ) : (
-        <Button onClick={handleStopClick}>Stop</Button>
+        <Button onClick={handleStopClick}>
+          <CountStyle>{remainingTime}</CountStyle>
+        </Button>
       )}
     </CountdownWrapper>
   );
@@ -57,6 +58,13 @@ const CountdownWrapper = styled.div`
   gap: 1rem;
   color: hsl(358deg 99% 44% /0.3);
   font-size: 1rem;
-  text-shadow: 0.5px 0.5px 1px black;
   padding: 1rem;
+`;
+
+const CountStyle = styled.div`
+  font-size: 2rem;
+  color: var(--text-color-light);
+  margin-left: 1rem;
+  margin-right: 1rem;
+  transition: 1s all;
 `;

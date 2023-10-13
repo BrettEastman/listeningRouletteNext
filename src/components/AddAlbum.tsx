@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { Form, Input } from "../app/styles";
+import { Form, Input, Subtitle } from "../app/styles";
 import FormInput from "./form/FormInput";
 
 const initialFormInput = {
@@ -35,7 +35,7 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
         clearForm();
       }}
     >
-      <h3>Enter your pick!</h3>
+      <Subtitle>Enter your pick!</Subtitle>
       <div>
         <FormInput
           labelText="Name"

@@ -46,15 +46,12 @@ const ContainerWrapper = styled.div`
 `;
 
 const Title = styled.header`
-  font-family: "Cedarville Cursive", cursive;
-  color: #f1181f;
+  color: var(--text-color-tuscan-red);
   opacity: 0.8;
   grid-column: 2 / 5;
   font-size: 5rem;
-  letter-spacing: 2px;
-  -webkit-text-stroke-width: 0.1px;
-  -webkit-text-stroke-color: #f44a50;
-  text-shadow: 1px 1px 2px black;
+  font-weight: 600;
+  letter-spacing: 1px;
   padding-bottom: 4rem;
 `;
 

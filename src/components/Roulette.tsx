@@ -75,9 +75,9 @@ const RouletteWheel = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 12px;
     transform-origin: bottom;
-    color: black;
+    color: var(--text-color-light);
     writing-mode: vertical-rl;
   }
   .wheel .one {

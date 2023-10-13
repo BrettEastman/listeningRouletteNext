@@ -178,17 +178,6 @@ export default function Home() {
           <Container gap="6rem" alignItems="flex-start">
             <Stack>
               <BoxWrapper>
-                <Feed messages={messages} />
-              </BoxWrapper>
-              <BoxWrapper>
-                <AddMessage
-                  currentUser={currentUser}
-                  handleMessage={handleMessage}
-                />
-              </BoxWrapper>
-            </Stack>
-            <Stack>
-              <BoxWrapper>
                 <Form onSubmit={onSubmit}>
                   <div>
                     <FormInput
@@ -212,6 +201,19 @@ export default function Home() {
                 </BoxWrapper>
               </BorderStack>
             </Stack>
+            <Stack>
+              <BoxWrapper>
+                <AddMessage
+                  currentUser={currentUser}
+                  handleMessage={handleMessage}
+                />
+              </BoxWrapper>
+              <BorderStack>
+                <BoxWrapper>
+                  <Feed messages={messages} />
+                </BoxWrapper>
+              </BorderStack>
+            </Stack>
           </Container>
         )}
       </Container>
@@ -231,6 +233,9 @@ const BorderStack = styled.div`
 `;
 
 const BoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   max-height: 36rem;
-  width: 28rem;
+  width: 36rem;
 `;
