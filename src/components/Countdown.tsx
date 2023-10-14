@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button, Subtitle } from "../app/styles";
+import { Button } from "../app/styles";
 
 interface CountdownProps {
   setViewState: (viewState: number) => void;

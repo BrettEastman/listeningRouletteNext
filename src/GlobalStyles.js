@@ -6,6 +6,7 @@ const GlobalStyles = createGlobalStyle`
   --text-color: #1F1F1F;
   --text-color-light: #3D3D3D;
   --text-color-tuscan-red: #B33A3A;
+  --text-color-tuscan-red-dark: #942F2F;
 }
 
 *, *::before, *::after {

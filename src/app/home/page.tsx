@@ -140,6 +140,15 @@ export default function Home() {
   return (
     <Stack gap="6rem">
       <Container>
+        <NavButton onClick={() => setViewState(VIEW_STATES.HOME)}>
+          Home
+        </NavButton>
+        <NavButton onClick={() => setViewState(VIEW_STATES.FEED)}>
+          Feed
+        </NavButton>
+        <NavButton onClick={signOutOfAppButton}>Sign Out</NavButton>
+      </Container>
+      <Container>
         {viewState === VIEW_STATES.HOME && timeToSpin === true && (
           <Container gap="16rem">
             <div>
@@ -179,20 +188,22 @@ export default function Home() {
             <Stack>
               <BoxWrapper>
                 <Form onSubmit={onSubmit}>
-                  <div>
+                  <Stack gap="1rem">
                     <FormInput
                       type="text"
                       name="artist"
-                      placeholder="Artist name"
+                      placeholder="Enter an artist's name to find out more"
                       value={artist}
                       onChange={(e: ChangeEvent<HTMLFormElement>) =>
                         setArtist(e.target.value)
                       }
-                      labelText="Enter an artist's name to find out more"
+                      labelText=""
                     />
-                    <Input type="submit" value="Go!" />
+                    <div>
+                      <Input type="submit" value="Go!" />
+                    </div>
                     {thinking && <Paragraph>Searching...</Paragraph>}
-                  </div>
+                  </Stack>
                 </Form>
               </BoxWrapper>
               <BorderStack>
@@ -217,14 +228,31 @@ export default function Home() {
           </Container>
         )}
       </Container>
-      <Container>
-        <Button onClick={() => setViewState(VIEW_STATES.HOME)}>Home</Button>
-        <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
-        <Button onClick={signOutOfAppButton}>Sign Out</Button>
-      </Container>
     </Stack>
   );
 }
+
+const NavButton = styled.button`
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--text-color-tuscan-red-dark);
+  background: transparent;
+  border-radius: 50%;
+  border: none;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  cursor: pointer;
+  :hover {
+    border: 0.5px solid white;
+    background: radial-gradient(
+      hsl(358deg 99% 84% /0.3),
+      hsl(358deg 99% 64% /0.3)
+    );
+    /* box-shadow: none; */
+    color: hsla(204deg 90% 66% / 0.9);
+  }
+`;
 
 const BorderStack = styled.div`
   border: 1.5px dashed white;

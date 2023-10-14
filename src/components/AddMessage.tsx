@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { Form, Input } from "../app/styles";
+import { Form, Input, Stack } from "../app/styles";
 import FormInput from "./form/FormInput";
 
 const initialFormInput: FormProps = {
@@ -45,7 +45,7 @@ export default function AddMessage({ handleMessage }: any) {
         clearForm();
       }}
     >
-      <div>
+      <Stack gap="1rem">
         <FormInput
           type="text"
           name="text"
@@ -54,8 +54,10 @@ export default function AddMessage({ handleMessage }: any) {
           onChange={handleInputChange}
           labelText={formInput.uid}
         />
-        <Input type="submit" value="Post"></Input>
-      </div>
+        <div>
+          <Input type="submit" value="Post"></Input>
+        </div>
+      </Stack>
     </Form>
   );
 }
