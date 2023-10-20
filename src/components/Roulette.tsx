@@ -14,10 +14,6 @@ export default function Roulette({ albums, setViewState }: RouletteProps) {
   const [number, setNumber] = useState(0);
   const [spinningStopped, setSpinningStopped] = useState(true);
 
-  useEffect(() => {
-    console.log("useEffect albums refresh in Roulette:", albums);
-  }, [albums]);
-
   const btnOnClick = function () {
     setNumber(getRandomInt(3000, 10000));
     setNumber(number + Math.ceil(Math.random() * 10000));

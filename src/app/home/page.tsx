@@ -17,15 +17,7 @@ import {
   getMessages,
 } from "../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../types.js";
-import {
-  Button,
-  Container,
-  Form,
-  Input,
-  Paragraph,
-  Stack,
-  Subtitle,
-} from "../styles";
+import { Container, Form, Input, Paragraph, Stack, Subtitle } from "../styles";
 
 export default function Home() {
   const { user } = useAuthContext();
@@ -34,7 +26,7 @@ export default function Home() {
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
   const [viewState, setViewState] = useState(0);
   const [currentUser, setCurrentUser] = useState<string | null>("");
-  const [currentUserId, setCurrentUserId] = useState<string | null>("");
+  const [currentUserId, setCurrentUserId] = useState<string>("");
   const [timeToSpin, setTimeToSpin] = useState(false);
   const [thinking, setThinking] = useState(false);
   const [artist, setArtist] = useState("");
@@ -43,11 +35,6 @@ export default function Home() {
   const VIEW_STATES = { HOME: 0, FEED: 1 };
 
   const router = useRouter();
-
-  interface AlbumInfo {
-    name: string;
-    album: string;
-  }
 
   useEffect(() => {
     if (user == null) {
@@ -77,7 +64,6 @@ export default function Home() {
         console.error("fetch error: ", error);
       } else {
         setAlbums(data as AlbumEntry[]);
-        console.log("albums after fetchAll req:", data);
       }
     } catch (error) {
       console.error("fetch error: ", error);
@@ -105,7 +91,7 @@ export default function Home() {
     fetchAllMessages();
   }, []);
 
-  const handleAlbum = async (obj: AlbumInfo[]) => {
+  const handleAlbum = async (obj: AlbumEntry[]) => {
     const { result, error } = await addData("lr", currentUserId, obj);
     if (error) {
       console.log("add album error:", error);
@@ -114,7 +100,7 @@ export default function Home() {
     }
   };
 
-  const handleMessage = async (obj: AlbumInfo[]) => {
+  const handleMessage = async (obj: Message[]) => {
     const { result, error } = await addData("messages", currentUserId, obj);
     if (error) {
       console.log("handle message error:", error);
@@ -123,7 +109,7 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = (data: AlbumInfo[]) => {
+  const handleSubmit = (data: AlbumEntry[]) => {
     if (Object.keys(albums).length >= 5) {
       handleAlbum(data);
       setTimeToSpin(true);
@@ -170,7 +156,10 @@ export default function Home() {
           <Container gap="16rem">
             <div>
               <BoxWrapper>
-                <AddAlbum handleSubmit={handleSubmit} />
+                <AddAlbum
+                  currentUserId={currentUserId}
+                  handleSubmit={handleSubmit}
+                />
                 <AlbumList albums={albums} />
               </BoxWrapper>
             </div>
@@ -249,7 +238,7 @@ const NavButton = styled.button`
       hsl(358deg 99% 84% /0.3),
       hsl(358deg 99% 64% /0.3)
     );
-    /* box-shadow: none; */
+    box-shadow: none;
     color: hsla(204deg 90% 66% / 0.9);
   }
 `;
@@ -264,6 +253,5 @@ const BoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  max-height: 36rem;
   width: 36rem;
 `;
