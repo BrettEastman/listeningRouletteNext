@@ -1,19 +1,21 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { Form, Input } from "../app/styles";
+import { Form, Input, Subtitle } from "../app/styles";
 import FormInput from "./form/FormInput";
 
 const initialFormInput = {
+  _id: "",
   name: "",
   album: "",
 };
 
 interface FormProps {
   handleSubmit: any;
+  currentUserId: string;
 }
 
 // AddAlbum is a form that allows the user to add an album to the database. It is then displayed on the home page.
-export default function AddAlbum({ handleSubmit }: FormProps) {
+export default function AddAlbum({ handleSubmit, currentUserId }: FormProps) {
   const [formInput, setFormInput] = useState(initialFormInput);
 
   const clearForm = () => {
@@ -23,6 +25,7 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormInput({
       ...formInput,
+      _id: currentUserId,
       [event.target.name]: event.target.value,
     });
   };
@@ -35,7 +38,7 @@ export default function AddAlbum({ handleSubmit }: FormProps) {
         clearForm();
       }}
     >
-      <h3>Enter your pick!</h3>
+      <Subtitle>Enter your pick!</Subtitle>
       <div>
         <FormInput
           labelText="Name"

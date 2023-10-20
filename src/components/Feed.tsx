@@ -28,8 +28,6 @@ export default function Feed({ messages }: FeedMessages) {
 }
 
 const BorderUL = styled.ul`
-  border: 1.5px dashed white;
-  border-radius: 8px;
   padding: 0.5rem;
   gap: 0.5rem;
 `;

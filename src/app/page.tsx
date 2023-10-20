@@ -19,7 +19,7 @@ const StyledApp = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: inherit;
-  color: #f02127;
+  color: var(--text-color-tuscan-red);
   opacity: 0.8;
   font-size: 1rem;
   text-shadow: 0.5px 0.5px 1px black;

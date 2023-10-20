@@ -17,15 +17,7 @@ import {
   getMessages,
 } from "../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../types.js";
-import {
-  Button,
-  Container,
-  Form,
-  Input,
-  Paragraph,
-  Stack,
-  Subtitle,
-} from "../styles";
+import { Container, Form, Input, Paragraph, Stack, Subtitle } from "../styles";
 
 export default function Home() {
   const { user } = useAuthContext();
@@ -34,7 +26,7 @@ export default function Home() {
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
   const [viewState, setViewState] = useState(0);
   const [currentUser, setCurrentUser] = useState<string | null>("");
-  const [currentUserId, setCurrentUserId] = useState<string | null>("");
+  const [currentUserId, setCurrentUserId] = useState<string>("");
   const [timeToSpin, setTimeToSpin] = useState(false);
   const [thinking, setThinking] = useState(false);
   const [artist, setArtist] = useState("");
@@ -43,11 +35,6 @@ export default function Home() {
   const VIEW_STATES = { HOME: 0, FEED: 1 };
 
   const router = useRouter();
-
-  interface AlbumInfo {
-    name: string;
-    album: string;
-  }
 
   useEffect(() => {
     if (user == null) {
@@ -77,7 +64,6 @@ export default function Home() {
         console.error("fetch error: ", error);
       } else {
         setAlbums(data as AlbumEntry[]);
-        console.log("albums after fetchAll req:", data);
       }
     } catch (error) {
       console.error("fetch error: ", error);
@@ -105,7 +91,7 @@ export default function Home() {
     fetchAllMessages();
   }, []);
 
-  const handleAlbum = async (obj: AlbumInfo[]) => {
+  const handleAlbum = async (obj: AlbumEntry[]) => {
     const { result, error } = await addData("lr", currentUserId, obj);
     if (error) {
       console.log("add album error:", error);
@@ -114,7 +100,7 @@ export default function Home() {
     }
   };
 
-  const handleMessage = async (obj: AlbumInfo[]) => {
+  const handleMessage = async (obj: Message[]) => {
     const { result, error } = await addData("messages", currentUserId, obj);
     if (error) {
       console.log("handle message error:", error);
@@ -123,7 +109,7 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = (data: AlbumInfo[]) => {
+  const handleSubmit = (data: AlbumEntry[]) => {
     if (Object.keys(albums).length >= 5) {
       handleAlbum(data);
       setTimeToSpin(true);
@@ -139,6 +125,15 @@ export default function Home() {
 
   return (
     <Stack gap="6rem">
+      <Container>
+        <NavButton onClick={() => setViewState(VIEW_STATES.HOME)}>
+          Home
+        </NavButton>
+        <NavButton onClick={() => setViewState(VIEW_STATES.FEED)}>
+          Feed
+        </NavButton>
+        <NavButton onClick={signOutOfAppButton}>Sign Out</NavButton>
+      </Container>
       <Container>
         {viewState === VIEW_STATES.HOME && timeToSpin === true && (
           <Container gap="16rem">
@@ -161,7 +156,10 @@ export default function Home() {
           <Container gap="16rem">
             <div>
               <BoxWrapper>
-                <AddAlbum handleSubmit={handleSubmit} />
+                <AddAlbum
+                  currentUserId={currentUserId}
+                  handleSubmit={handleSubmit}
+                />
                 <AlbumList albums={albums} />
               </BoxWrapper>
             </div>
@@ -178,32 +176,23 @@ export default function Home() {
           <Container gap="6rem" alignItems="flex-start">
             <Stack>
               <BoxWrapper>
-                <Feed messages={messages} />
-              </BoxWrapper>
-              <BoxWrapper>
-                <AddMessage
-                  currentUser={currentUser}
-                  handleMessage={handleMessage}
-                />
-              </BoxWrapper>
-            </Stack>
-            <Stack>
-              <BoxWrapper>
                 <Form onSubmit={onSubmit}>
-                  <div>
+                  <Stack gap="1rem">
                     <FormInput
                       type="text"
                       name="artist"
-                      placeholder="Artist name"
+                      placeholder="Enter an artist's name to find out more"
                       value={artist}
                       onChange={(e: ChangeEvent<HTMLFormElement>) =>
                         setArtist(e.target.value)
                       }
-                      labelText="Enter an artist's name to find out more"
+                      labelText=""
                     />
-                    <Input type="submit" value="Go!" />
+                    <div>
+                      <Input type="submit" value="Go!" />
+                    </div>
                     {thinking && <Paragraph>Searching...</Paragraph>}
-                  </div>
+                  </Stack>
                 </Form>
               </BoxWrapper>
               <BorderStack>
@@ -212,17 +201,47 @@ export default function Home() {
                 </BoxWrapper>
               </BorderStack>
             </Stack>
+            <Stack>
+              <BoxWrapper>
+                <AddMessage
+                  currentUser={currentUser}
+                  handleMessage={handleMessage}
+                />
+              </BoxWrapper>
+              <BorderStack>
+                <BoxWrapper>
+                  <Feed messages={messages} />
+                </BoxWrapper>
+              </BorderStack>
+            </Stack>
           </Container>
         )}
-      </Container>
-      <Container>
-        <Button onClick={() => setViewState(VIEW_STATES.HOME)}>Home</Button>
-        <Button onClick={() => setViewState(VIEW_STATES.FEED)}>Feed</Button>
-        <Button onClick={signOutOfAppButton}>Sign Out</Button>
       </Container>
     </Stack>
   );
 }
+
+const NavButton = styled.button`
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--text-color-tuscan-red-dark);
+  background: transparent;
+  border-radius: 50%;
+  border: none;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  cursor: pointer;
+  :hover {
+    border: 0.5px solid white;
+    background: radial-gradient(
+      hsl(358deg 99% 84% /0.3),
+      hsl(358deg 99% 64% /0.3)
+    );
+    box-shadow: none;
+    color: hsla(204deg 90% 66% / 0.9);
+  }
+`;
 
 const BorderStack = styled.div`
   border: 1.5px dashed white;
@@ -231,6 +250,8 @@ const BorderStack = styled.div`
 `;
 
 const BoxWrapper = styled.div`
-  max-height: 36rem;
-  width: 28rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 36rem;
 `;

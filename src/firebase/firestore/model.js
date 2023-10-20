@@ -9,7 +9,6 @@ export async function getAlbums() {
     querySnapshot.forEach((doc) => {
       data.push({ ...doc.data(), uid: doc.id });
     });
-    console.log("getAlbums data:", data);
     return { data, error: null };
   } catch (error) {
     console.error("Error from getAlbums:", error);
@@ -24,7 +23,6 @@ export async function getMessages() {
     querySnapshot.forEach((doc) => {
       data.push({ ...doc.data(), uid: doc.id });
     });
-    console.log("getMessages data:", data);
     return { data, error: null };
   } catch (error) {
     console.error("Error from getMessages:", error);
@@ -39,7 +37,6 @@ export async function addData(collection, id, data) {
     const result = await setDoc(docRef, data, {
       merge: true,
     });
-    console.log("addData successful, data: ", data);
     return { result, error: null };
   } catch (error) {
     console.error("addData error:", error);

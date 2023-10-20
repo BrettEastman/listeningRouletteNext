@@ -27,10 +27,8 @@ export default function MessageItem({ uid, text, createdAt }: Message) {
 
 const MessageWrapper = styled.div`
   padding: 1.5rem;
-  background: radial-gradient(
-    hsl(358deg 80% 84% /0.3),
-    hsl(358deg 20% 64% /0.3)
-  );
+  background: #9bc1d4;
+  color: var(--text-color-light);
   border-radius: 8px;
   margin: 8px;
 `;

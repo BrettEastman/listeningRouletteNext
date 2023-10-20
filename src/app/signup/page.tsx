@@ -1,5 +1,6 @@
 "use client";
 import { signUp } from "@/firebase/auth/api";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import {
@@ -54,6 +55,12 @@ export default function SignUp() {
             />
           </Label>
           <Button type="submit">Sign up</Button>
+          <div>
+            Already have an account? Sign in{" "}
+            <Link href={"/signin"}>
+              <span>here</span>
+            </Link>
+          </div>
         </StyledWrapper>
       </Form>
     </StyledWrapper>
