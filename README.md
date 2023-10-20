@@ -33,8 +33,7 @@ An app for listening to music with friends. Listening Roulette presents a fun wa
 ## Preview
 
 <p float="left">
-  <img alt="demo image" src="https://user-images.githubusercontent.com/76603041/235333458-fc702e3d-d464-4e60-a749-a7b8ab66036c.gif" width="49%"/>
-  <img alt="demo image2" src="https://user-images.githubusercontent.com/76603041/235333421-504245a9-74a4-49b3-9054-9fe3f244d491.gif" width="49%"/>
+  <img width="1090" alt="Listening Roulette Home Page" src="https://github.com/BrettEastman/listeningRouletteNext/assets/76603041/af3663ab-3a05-4012-a63a-95495a955ea6"> 
 </p>
 
 ## Run Locally
