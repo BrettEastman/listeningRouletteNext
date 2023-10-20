@@ -25,15 +25,18 @@ An app for listening to music with friends. Listening Roulette presents a fun wa
 * Main view:
   * Displays a form to input your album selection and see other's choices
   * The roulette displays the current album selections
-  * When the selections have been decided for everyone, the form disappears and "Time to Spin" appears
-* Secondary view:
-  * The album selections disappear and are replaced by a message board where the listening chat takes place
-  * The wheel remains, but the "spin" button is replaced by "home" and a form for inputting messages appears below.
+* Feed view:
+  * Features a message board where the listening chat takes place
+  * Features a ChatGPT-powered chatbot which will give listener the history and influences of a particular artist.
 
 ## Preview
 
 <p float="left">
-  <img width="1090" alt="Listening Roulette Home Page" src="https://github.com/BrettEastman/listeningRouletteNext/assets/76603041/af3663ab-3a05-4012-a63a-95495a955ea6"> 
+  <img width="80%" alt="Listening Roulette Home Page view" src="https://github.com/BrettEastman/listeningRouletteNext/assets/76603041/af3663ab-3a05-4012-a63a-95495a955ea6"> 
+</p>
+
+<p float="left">
+  <img width="80%" alt="Listening Roulette Feed Page view" src="https://github.com/BrettEastman/listeningRouletteNext/assets/76603041/e0c11703-0fdb-4cf9-9299-f142b5cc59f8"> 
 </p>
 
 ## Run Locally
@@ -45,7 +48,7 @@ An app for listening to music with friends. Listening Roulette presents a fun wa
 ```bash
   cd listeningRouletteNext
 ```
-- Create a `.env.local` file from `example.env`
+- Create a `.env.local` file from `example.env` and input your own Firebase and OpenAI API keys and info
 
 #### Install dependencies
 ```bash
@@ -58,9 +61,3 @@ An app for listening to music with friends. Listening Roulette presents a fun wa
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Requirements
-* Web browser
-* npm
-* Firebase
-* Linux, macOS, or Windows
