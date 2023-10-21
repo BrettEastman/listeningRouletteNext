@@ -12,19 +12,28 @@ import {
   StyledWrapper,
   Subtitle,
 } from "../styles";
+import { auth } from "../../firebase/config";
+import { updateProfile } from "firebase/auth";
 
 export default function SignUp() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const router = useRouter();
 
   const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { result, error } = await signUp(email, password);
+    const { result, error } = await signUp(
+      email,
+      password,
+      `${firstName} ${lastName}`
+    );
     if (error) {
       return console.log("signUp error:", error);
     }
-    return router.push("/admin");
+    return router.push("/home");
   };
 
   return (
@@ -32,6 +41,28 @@ export default function SignUp() {
       <Subtitle>Sign up</Subtitle>
       <Form onSubmit={handleForm}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
+          <Label htmlFor="firstName">
+            <Paragraph>First Name</Paragraph>
+            <InputRectangle
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              type="text"
+              name="firstName"
+              id="firstName"
+              placeholder="First Name"
+            />
+          </Label>
+          <Label htmlFor="lastName">
+            <Paragraph>Last Name</Paragraph>
+            <InputRectangle
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              type="text"
+              name="lastName"
+              id="lastName"
+              placeholder="Last Name"
+            />
+          </Label>
           <Label htmlFor="email">
             <Paragraph>Email</Paragraph>
             <InputRectangle

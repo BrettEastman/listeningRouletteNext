@@ -187,6 +187,7 @@ export default function Home() {
                         setArtist(e.target.value)
                       }
                       labelText=""
+                      autocomplete="on"
                     />
                     <div>
                       <Input type="submit" value="Go!" />

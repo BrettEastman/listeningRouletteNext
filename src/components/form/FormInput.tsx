@@ -7,6 +7,7 @@ interface FormInputProps {
   placeholder: string;
   onChange: any;
   value: string;
+  autocomplete: string;
 }
 
 export default function FormInput({
@@ -16,6 +17,7 @@ export default function FormInput({
   placeholder,
   onChange,
   value,
+  autocomplete,
 }: FormInputProps) {
   return (
     <div>
@@ -27,6 +29,7 @@ export default function FormInput({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        autoComplete={autocomplete}
       />
     </div>
   );

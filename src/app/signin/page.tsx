@@ -2,15 +2,15 @@
 import { signIn } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Button,
+  Form,
   InputRectangle,
   Label,
-  StyledWrapper,
   Paragraph,
+  StyledWrapper,
   Subtitle,
-  Form,
 } from "../styles";
 
 export default function SignIn() {
