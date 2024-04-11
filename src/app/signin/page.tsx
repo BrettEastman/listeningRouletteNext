@@ -19,15 +19,6 @@ export default function SignIn() {
 
   const router = useRouter();
 
-  // const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const { result, error } = await signIn(email, password);
-  //   if (error) {
-  //     return console.log("signIn error:", error);
-  //   }
-  //   return router.push("/home");
-  // };
-
   const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     await signIn(email, password);

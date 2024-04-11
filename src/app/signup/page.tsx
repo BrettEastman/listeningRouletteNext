@@ -21,19 +21,6 @@ export default function SignUp() {
 
   const router = useRouter();
 
-  // const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const { result, error } = await signUp(
-  //     email,
-  //     password,
-  //     `${firstName} ${lastName}`
-  //   );
-  //   if (error) {
-  //     return console.log("signUp error:", error);
-  //   }
-  //   return router.push("/home");
-  // };
-
   const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     await signUp(email, password, `${firstName} ${lastName}`);
