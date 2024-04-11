@@ -1,6 +1,5 @@
 import React, { createContext } from "react";
 import { User } from "firebase/auth";
-import { init } from "next/dist/compiled/webpack/webpack";
 
 type CreateAuthContextType = {
   user: User | null;
