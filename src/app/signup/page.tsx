@@ -12,8 +12,6 @@ import {
   StyledWrapper,
   Subtitle,
 } from "../styles";
-import { auth } from "../../firebase/config";
-import { updateProfile } from "firebase/auth";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -23,23 +21,29 @@ export default function SignUp() {
 
   const router = useRouter();
 
-  const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
+  // const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const { result, error } = await signUp(
+  //     email,
+  //     password,
+  //     `${firstName} ${lastName}`
+  //   );
+  //   if (error) {
+  //     return console.log("signUp error:", error);
+  //   }
+  //   return router.push("/home");
+  // };
+
+  const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { result, error } = await signUp(
-      email,
-      password,
-      `${firstName} ${lastName}`
-    );
-    if (error) {
-      return console.log("signUp error:", error);
-    }
-    return router.push("/home");
+    await signUp(email, password, `${firstName} ${lastName}`);
+    router.push("/home");
   };
 
   return (
     <StyledWrapper>
       <Subtitle>Sign up</Subtitle>
-      <Form onSubmit={handleForm}>
+      <Form onSubmit={handleSubmit}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
           <Label htmlFor="firstName">
             <Paragraph>First Name</Paragraph>

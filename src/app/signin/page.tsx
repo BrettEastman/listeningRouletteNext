@@ -16,21 +16,28 @@ import {
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const router = useRouter();
 
-  const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
+  // const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const { result, error } = await signIn(email, password);
+  //   if (error) {
+  //     return console.log("signIn error:", error);
+  //   }
+  //   return router.push("/home");
+  // };
+
+  const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { result, error } = await signIn(email, password);
-    if (error) {
-      return console.log("signIn error:", error);
-    }
-    return router.push("/home");
+    await signIn(email, password);
+    router.push("/home");
   };
 
   return (
     <StyledWrapper>
       <Subtitle>Sign in</Subtitle>
-      <Form onSubmit={handleForm}>
+      <Form onSubmit={handleSubmit}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
           <Label htmlFor="email">
             <Paragraph>Email</Paragraph>
