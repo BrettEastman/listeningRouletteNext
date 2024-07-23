@@ -2,37 +2,57 @@
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import AddAlbum from "../../components/AddAlbum";
-import AddMessage from "../../components/AddMessage";
-import AlbumList from "../../components/AlbumList";
-import Feed from "../../components/Feed";
-import Roulette from "../../components/Roulette";
-import FormInput from "../../components/form/FormInput";
-import { useAuthContext } from "../../context/AuthContext";
-import sendInfluences from "../../controller/sendInfluences";
-import { signOutOfApp } from "../../firebase/auth/api.js";
+import AddAlbum from "../../../components/AddAlbum";
+import AddMessage from "../../../components/AddMessage";
+import AlbumList from "../../../components/AlbumList";
+import Feed from "../../../components/Feed";
+import Roulette from "../../../components/Roulette";
+import FormInput from "../../../components/form/FormInput";
+import { useAuthContext } from "../../../context/AuthContext";
+import sendInfluences from "../../../controller/sendInfluences";
+import { signOutOfApp } from "../../../firebase/auth/api.js";
 import {
   addData,
   getAlbums,
   getMessages,
-} from "../../firebase/firestore/model";
-import { AlbumEntry, Message } from "../../types.js";
-import { Container, Form, Input, Paragraph, Stack, Subtitle } from "../styles";
+} from "../../../firebase/firestore/model";
+import { AlbumEntry, Message } from "../../../types.js";
+import {
+  Container,
+  Form,
+  Input,
+  Paragraph,
+  Stack,
+  Subtitle,
+} from "../../styles";
+import { initialUserDataState } from "../../lib/initialStates.ts";
 
 export default function Home() {
   const { user } = useAuthContext();
+  const userName = user?.displayName;
+  const userEmail = user?.email;
+  const userId = user?.uid;
+
+  const initialState = {
+    ...initialUserDataState,
+    user: userName,
+    email: userEmail,
+    userId: userId,
+  };
+
+  const [userData, setUserData] = useState(initialState);
+
+  const VIEW_STATES = { HOME: 0, FEED: 1 };
+  const [viewState, setViewState] = useState(0);
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
-  const [viewState, setViewState] = useState(0);
   const [currentUser, setCurrentUser] = useState<string | null>("");
   const [currentUserId, setCurrentUserId] = useState<string>("");
   const [timeToSpin, setTimeToSpin] = useState(false);
   const [thinking, setThinking] = useState(false);
   const [artist, setArtist] = useState("");
   const [result, setResult] = useState("");
-
-  const VIEW_STATES = { HOME: 0, FEED: 1 };
 
   const router = useRouter();
 

@@ -1,5 +1,5 @@
 "use client";
-import { signIn } from "@/firebase/auth/api";
+import { signUp } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
@@ -11,9 +11,11 @@ import {
   Paragraph,
   StyledWrapper,
   Subtitle,
-} from "../styles";
+} from "../../styles";
 
-export default function SignIn() {
+export default function SignUp() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,15 +23,37 @@ export default function SignIn() {
 
   const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await signIn(email, password);
+    await signUp(email, password, `${firstName} ${lastName}`);
     router.push("/home");
   };
 
   return (
     <StyledWrapper>
-      <Subtitle>Sign in</Subtitle>
+      <Subtitle>Sign up</Subtitle>
       <Form onSubmit={handleSubmit}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
+          <Label htmlFor="firstName">
+            <Paragraph>First Name</Paragraph>
+            <InputRectangle
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              type="text"
+              name="firstName"
+              id="firstName"
+              placeholder="First Name"
+            />
+          </Label>
+          <Label htmlFor="lastName">
+            <Paragraph>Last Name</Paragraph>
+            <InputRectangle
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              type="text"
+              name="lastName"
+              id="lastName"
+              placeholder="Last Name"
+            />
+          </Label>
           <Label htmlFor="email">
             <Paragraph>Email</Paragraph>
             <InputRectangle
@@ -52,10 +76,10 @@ export default function SignIn() {
               placeholder="password"
             />
           </Label>
-          <Button type="submit">Sign in</Button>
+          <Button type="submit">Sign up</Button>
           <div>
-            Create new account{" "}
-            <Link href={"/signup"}>
+            Already have an account? Sign in{" "}
+            <Link href={"/signin"}>
               <span>here</span>
             </Link>
           </div>
