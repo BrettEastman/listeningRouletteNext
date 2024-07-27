@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { auth } from "@/firebase/config";
 import { Container, Stack } from "@/app/styles";
 import Link from "next/link";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function Header() {
   const router = useRouter();
@@ -12,16 +13,25 @@ export default function Header() {
     router.push("/");
   };
 
+  const { user } = useAuthContext();
+
   return (
     <header>
       <Container justifyContent="space-between">
         <Link href="/home" style={{ textDecoration: "none" }}>
           <Title>Listening Roulette</Title>
         </Link>
-        <Stack gap="1rem">
-          <Span>{`Welcome ${auth.currentUser?.displayName}!`}</Span>
-          <Button onClick={signOutOfAppButton}>Sign out</Button>
-        </Stack>
+        {user !== null && (
+          <>
+            <Link href="/feed" style={{ textDecoration: "none" }}>
+              <NavButton>Feed</NavButton>
+            </Link>
+            <Stack gap="1rem">
+              <Span>{`Welcome ${auth.currentUser?.displayName}!`}</Span>
+              <Button onClick={signOutOfAppButton}>Sign out</Button>
+            </Stack>
+          </>
+        )}
       </Container>
     </header>
   );
@@ -61,5 +71,27 @@ export const Button = styled.button`
       hsl(358deg 99% 84% /0.3),
       hsl(358deg 99% 64% /0.3)
     );
+  }
+`;
+
+const NavButton = styled.button`
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--text-color-tuscan-red-dark);
+  background: transparent;
+  border-radius: 50%;
+  border: none;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  cursor: pointer;
+  :hover {
+    border: 0.5px solid white;
+    background: radial-gradient(
+      hsl(358deg 99% 84% /0.3),
+      hsl(358deg 99% 64% /0.3)
+    );
+    box-shadow: none;
+    color: hsla(204deg 90% 66% / 0.9);
   }
 `;

@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../app/styles";
+import { useRouter } from "next/navigation";
 
 interface CountdownProps {
   setViewState: (viewState: number) => void;
 }
 
 // Countdown is a timer that counts down from 5 to 0. When it reaches 0, it changes the viewState to FEED.
-export default function Countdown({ setViewState }: CountdownProps) {
+export default function Countdown() {
   const [remainingTime, setRemainingTime] = useState(5);
   const [countdownActive, setCountdownActive] = useState(false);
+  const router = useRouter();
 
-  const VIEW_STATES = { HOME: 0, FEED: 1 };
+  // const VIEW_STATES = { HOME: 0, FEED: 1 };
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timeout | undefined;
@@ -21,14 +23,15 @@ export default function Countdown({ setViewState }: CountdownProps) {
         setRemainingTime((prevRemainingTime) => prevRemainingTime - 1);
       }, 1000);
       setTimeout(() => {
-        setViewState(VIEW_STATES.FEED);
+        // setViewState(VIEW_STATES.FEED);
+        router.push("/feed");
       }, 5000);
     } else if (remainingTime === 1) {
       clearInterval(interval);
     }
 
     return () => clearInterval(interval);
-  }, [VIEW_STATES.FEED, countdownActive, remainingTime, setViewState]);
+  }, [countdownActive, remainingTime, router]);
 
   const handleStartClick = () => {
     setCountdownActive(true);

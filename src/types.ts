@@ -23,8 +23,8 @@ export interface Message {
 
 export interface RouletteProps {
   albums: AlbumEntry[];
-  viewState: number;
-  setViewState: any;
+  viewState?: number;
+  setViewState?: any;
 }
 
 export interface Groups {

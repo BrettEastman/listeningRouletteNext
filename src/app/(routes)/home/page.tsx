@@ -10,7 +10,6 @@ import { addData, getAlbums } from "../../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../../types.js";
 import { initialUserDataState } from "../../lib/initialStates.ts";
 import { Container, Stack, Subtitle } from "../../styles";
-import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -27,10 +26,6 @@ export default function Home() {
   };
 
   const [userData, setUserData] = useState(initialState);
-
-  const VIEW_STATES = { HOME: 0, FEED: 1 };
-  const [viewState, setViewState] = useState(0);
-
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
   const [currentUser, setCurrentUser] = useState<string | null>("");
   const [currentUserId, setCurrentUserId] = useState<string>("");
@@ -46,7 +41,7 @@ export default function Home() {
     }
   }, [router, user]);
 
-  const fetchAll = async () => {
+  const fetchAlbums = async () => {
     try {
       const { data, error } = await getAlbums();
       if (error) {
@@ -60,7 +55,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchAll();
+    fetchAlbums();
   }, []);
 
   const handleAlbum = async (obj: AlbumEntry[]) => {
@@ -68,7 +63,7 @@ export default function Home() {
     if (error) {
       console.log("add album error:", error);
     } else {
-      fetchAll();
+      fetchAlbums();
     }
   };
 
@@ -84,12 +79,7 @@ export default function Home() {
   return (
     <Stack gap="6rem">
       <Container>
-        <Link href="/feed" style={{ textDecoration: "none" }}>
-          <NavButton>Feed</NavButton>
-        </Link>
-      </Container>
-      <Container>
-        {viewState === VIEW_STATES.HOME && timeToSpin === true && (
+        {timeToSpin === true && (
           <Container gap="16rem">
             <div>
               <Subtitle>Time to Spin!</Subtitle>
@@ -98,15 +88,11 @@ export default function Home() {
               </BoxWrapper>
             </div>
             <Stack>
-              <Roulette
-                albums={albums}
-                viewState={viewState}
-                setViewState={setViewState}
-              />
+              <Roulette albums={albums} />
             </Stack>
           </Container>
         )}
-        {viewState === VIEW_STATES.HOME && timeToSpin === false && (
+        {timeToSpin === false && (
           <Container gap="16rem">
             <div>
               <BoxWrapper>
@@ -118,11 +104,7 @@ export default function Home() {
               </BoxWrapper>
             </div>
             <Stack>
-              <Roulette
-                albums={albums}
-                viewState={viewState}
-                setViewState={setViewState}
-              />
+              <Roulette albums={albums} />
             </Stack>
           </Container>
         )}
