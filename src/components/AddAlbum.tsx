@@ -47,6 +47,7 @@ export default function AddAlbum({ handleSubmit, currentUserId }: FormProps) {
           value={formInput.name}
           placeholder="Enter artist name"
           onChange={handleInputChange}
+          autocomplete="on"
         />
         <br />
         <FormInput
@@ -56,6 +57,7 @@ export default function AddAlbum({ handleSubmit, currentUserId }: FormProps) {
           value={formInput.album}
           placeholder="Enter album name"
           onChange={handleInputChange}
+          autocomplete="on"
         />
         <br />
         <Input type="submit" value="Submit"></Input>

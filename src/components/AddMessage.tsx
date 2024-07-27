@@ -53,6 +53,7 @@ export default function AddMessage({ handleMessage }: any) {
           placeholder="Message here"
           onChange={handleInputChange}
           labelText={formInput.uid}
+          autocomplete="on"
         />
         <div>
           <Input type="submit" value="Post"></Input>

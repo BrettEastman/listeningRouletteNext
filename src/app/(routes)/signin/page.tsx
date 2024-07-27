@@ -2,35 +2,33 @@
 import { signIn } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Button,
+  Form,
   InputRectangle,
   Label,
-  StyledWrapper,
   Paragraph,
+  StyledWrapper,
   Subtitle,
-  Form,
-} from "../styles";
+} from "../../styles";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const router = useRouter();
 
-  const handleForm = async (event: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { result, error } = await signIn(email, password);
-    if (error) {
-      return console.log("signIn error:", error);
-    }
-    return router.push("/home");
+    await signIn(email, password);
+    router.push("/home");
   };
 
   return (
     <StyledWrapper>
       <Subtitle>Sign in</Subtitle>
-      <Form onSubmit={handleForm}>
+      <Form onSubmit={handleSubmit}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
           <Label htmlFor="email">
             <Paragraph>Email</Paragraph>
