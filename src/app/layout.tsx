@@ -6,6 +6,7 @@ import GlobalStyles from "../GlobalStyles";
 import Footer from "../components/Footer";
 import AuthContextProvider from "../context/AuthContext";
 import { lexend_deca } from "./fonts";
+import Header from "../components/Header";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AuthContextProvider>
           <GlobalStyles />
           <ContainerWrapper>
-            <Title>Listening Roulette</Title>
+            <TitleGridColumn>
+              <Header />
+            </TitleGridColumn>
             <ContentWrapper>{children}</ContentWrapper>
             <FooterWrapper>
               <Footer />
@@ -43,7 +46,6 @@ const ContainerWrapper = styled.div`
     min(100px, 1fr)
     1fr;
   grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
   min-height: 100dvh;
   @media (max-width: 600px) {
     display: flex;
@@ -51,7 +53,7 @@ const ContainerWrapper = styled.div`
   }
 `;
 
-const Title = styled.header`
+const TitleGridColumn = styled.header`
   grid-column: 2 / 5;
   color: var(--text-color-tuscan-red);
   opacity: 0.8;

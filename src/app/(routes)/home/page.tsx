@@ -1,33 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AddAlbum from "../../../components/AddAlbum";
-import AddMessage from "../../../components/AddMessage";
 import AlbumList from "../../../components/AlbumList";
-import Feed from "../../../components/Feed";
 import Roulette from "../../../components/Roulette";
-import FormInput from "../../../components/form/FormInput";
 import { useAuthContext } from "../../../context/AuthContext";
-import sendInfluences from "../../../controller/sendInfluences";
-import { signOutOfApp } from "../../../firebase/auth/api.ts";
-import {
-  addData,
-  getAlbums,
-  getMessages,
-} from "../../../firebase/firestore/model";
+import { addData, getAlbums } from "../../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../../types.js";
 import { initialUserDataState } from "../../lib/initialStates.ts";
-import {
-  Container,
-  Form,
-  Input,
-  Paragraph,
-  Stack,
-  Subtitle,
-} from "../../styles";
+import { Container, Stack, Subtitle } from "../../styles";
+import Link from "next/link";
 
 export default function Home() {
+  const router = useRouter();
   const { user } = useAuthContext();
   const userName = user?.displayName;
   const userEmail = user?.email;
@@ -45,16 +31,10 @@ export default function Home() {
   const VIEW_STATES = { HOME: 0, FEED: 1 };
   const [viewState, setViewState] = useState(0);
 
-  const [messages, setMessages] = useState<Message[]>([]);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
   const [currentUser, setCurrentUser] = useState<string | null>("");
   const [currentUserId, setCurrentUserId] = useState<string>("");
   const [timeToSpin, setTimeToSpin] = useState(false);
-  const [thinking, setThinking] = useState(false);
-  const [artist, setArtist] = useState("");
-  const [result, setResult] = useState("");
-
-  const router = useRouter();
 
   useEffect(() => {
     if (user == null) {
@@ -65,17 +45,6 @@ export default function Home() {
       setCurrentUserId(user.uid);
     }
   }, [router, user]);
-
-  const influencesResponse = `Tell me about the history of ${artist}. Who are their influences? Also, could you include a link to their wikipedia entry or their website?`;
-
-  async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setThinking(true);
-    const chatbotReply = await sendInfluences(influencesResponse);
-    setResult(chatbotReply);
-    setThinking(false);
-    setArtist("");
-  }
 
   const fetchAll = async () => {
     try {
@@ -90,25 +59,8 @@ export default function Home() {
     }
   };
 
-  const fetchAllMessages = async () => {
-    try {
-      const { data, error } = await getMessages();
-      if (error) {
-        console.error("fetch error: ", error);
-      } else {
-        if (data) {
-          setMessages(data as Message[]);
-          console.log("messages after fetchAll req:", data);
-        }
-      }
-    } catch (error) {
-      console.error("fetch error: ", error);
-    }
-  };
-
   useEffect(() => {
     fetchAll();
-    fetchAllMessages();
   }, []);
 
   const handleAlbum = async (obj: AlbumEntry[]) => {
@@ -117,15 +69,6 @@ export default function Home() {
       console.log("add album error:", error);
     } else {
       fetchAll();
-    }
-  };
-
-  const handleMessage = async (obj: Message[]) => {
-    const { result, error } = await addData("messages", currentUserId, obj);
-    if (error) {
-      console.log("handle message error:", error);
-    } else {
-      fetchAllMessages();
     }
   };
 
@@ -138,21 +81,12 @@ export default function Home() {
     }
   };
 
-  const signOutOfAppButton = () => {
-    signOutOfApp();
-    router.push("/signin");
-  };
-
   return (
     <Stack gap="6rem">
       <Container>
-        <NavButton onClick={() => setViewState(VIEW_STATES.HOME)}>
-          Home
-        </NavButton>
-        <NavButton onClick={() => setViewState(VIEW_STATES.FEED)}>
-          Feed
-        </NavButton>
-        <NavButton onClick={signOutOfAppButton}>Sign Out</NavButton>
+        <Link href="/feed" style={{ textDecoration: "none" }}>
+          <NavButton>Feed</NavButton>
+        </Link>
       </Container>
       <Container>
         {viewState === VIEW_STATES.HOME && timeToSpin === true && (
@@ -192,51 +126,6 @@ export default function Home() {
             </Stack>
           </Container>
         )}
-        {viewState === VIEW_STATES.FEED && (
-          <Container gap="6rem" alignItems="flex-start">
-            <Stack>
-              <BoxWrapper>
-                <Form onSubmit={onSubmit}>
-                  <Stack gap="1rem">
-                    <FormInput
-                      type="text"
-                      name="artist"
-                      placeholder="Enter an artist's name to find out more"
-                      value={artist}
-                      onChange={(e: ChangeEvent<HTMLFormElement>) =>
-                        setArtist(e.target.value)
-                      }
-                      labelText=""
-                      autocomplete="on"
-                    />
-                    <div>
-                      <Input type="submit" value="Go!" />
-                    </div>
-                    {thinking && <Paragraph>Searching...</Paragraph>}
-                  </Stack>
-                </Form>
-              </BoxWrapper>
-              <BorderStack>
-                <BoxWrapper>
-                  <Paragraph padding="1rem">{result}</Paragraph>
-                </BoxWrapper>
-              </BorderStack>
-            </Stack>
-            <Stack>
-              <BoxWrapper>
-                <AddMessage
-                  currentUser={currentUser}
-                  handleMessage={handleMessage}
-                />
-              </BoxWrapper>
-              <BorderStack>
-                <BoxWrapper>
-                  <Feed messages={messages} />
-                </BoxWrapper>
-              </BorderStack>
-            </Stack>
-          </Container>
-        )}
       </Container>
     </Stack>
   );
@@ -262,12 +151,6 @@ const NavButton = styled.button`
     box-shadow: none;
     color: hsla(204deg 90% 66% / 0.9);
   }
-`;
-
-const BorderStack = styled.div`
-  border: 1.5px dashed white;
-  border-radius: 8px;
-  overflow: auto;
 `;
 
 const BoxWrapper = styled.div`
