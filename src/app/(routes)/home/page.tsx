@@ -10,13 +10,14 @@ import Roulette from "../../../components/Roulette";
 import FormInput from "../../../components/form/FormInput";
 import { useAuthContext } from "../../../context/AuthContext";
 import sendInfluences from "../../../controller/sendInfluences";
-import { signOutOfApp } from "../../../firebase/auth/api.js";
+import { signOutOfApp } from "../../../firebase/auth/api.ts";
 import {
   addData,
   getAlbums,
   getMessages,
 } from "../../../firebase/firestore/model";
 import { AlbumEntry, Message } from "../../../types.js";
+import { initialUserDataState } from "../../lib/initialStates.ts";
 import {
   Container,
   Form,
@@ -25,7 +26,6 @@ import {
   Stack,
   Subtitle,
 } from "../../styles";
-import { initialUserDataState } from "../../lib/initialStates.ts";
 
 export default function Home() {
   const { user } = useAuthContext();
