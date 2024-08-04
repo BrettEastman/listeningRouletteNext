@@ -37,9 +37,9 @@ export interface RouletteProps {
 export interface UserData {
   userId: string | null | undefined;
   user: string | null | undefined;
-  email: string;
-  bio: string;
-  photoURL: string;
+  email: string | null | undefined;
+  bio: string | null | undefined;
+  photoURL: string | null | undefined;
   messages: Message[];
   listeningHistory: {
     initialAlbumSelections: {

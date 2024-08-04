@@ -1,5 +1,8 @@
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../config";
+import { serverTimestamp, updateDoc, getDoc } from "firebase/firestore";
+import { auth } from "../config";
+import { UserData } from "../../types";
 
 // getAlbums and getMessages are examples of how to get data from Firestore database.
 export async function getAlbums() {
@@ -55,3 +58,54 @@ export async function addData(collection, id, data) {
 // const someDoc = doc(db, "users/someName");
 // const collection = collection(db, "users");
 // addDoc(collection, { name: 'Darla' });
+
+// deleteDoc is used to delete a document from the database. It takes a docRef as an argument. It might look like this:
+// const someDoc = doc(db, "users/someName");
+// deleteDoc(someDoc);
+
+async function setUserDataDoc(formInput, currentUser) {
+  try {
+    const currentUserID = auth.currentUser?.uid;
+    await setDoc(doc(db, `${currentUser}`, `${currentUserID}`), {
+      ...formInput,
+      createdAt: serverTimestamp(),
+    });
+    return true;
+  } catch (e) {
+    console.error("setUserData error: ", e);
+    return false;
+  }
+}
+
+async function updateUserDataDoc(formInput, currentUser) {
+  try {
+    const currentUserID = auth.currentUser?.uid;
+    const docRef = doc(db, `${currentUser}`, `${currentUserID}`);
+    await updateDoc(docRef, {
+      ...formInput,
+      updatedAt: serverTimestamp(),
+    });
+    return true;
+  } catch (e) {
+    console.error("updateUserData error: ", e);
+    return false;
+  }
+}
+
+export async function setOrUpdateUserData(formInput, currentUser) {
+  const currentUserID = auth.currentUser?.uid;
+  try {
+    const docRef = doc(db, `${currentUser}`, `${currentUserID}`);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      await updateUserDataDoc(formInput, currentUser);
+    } else {
+      await setUserDataDoc(formInput, currentUser);
+    }
+    return true;
+  } catch (e) {
+    console.error("setOrUpdateUserData error: ", e);
+    return false;
+  }
+}

@@ -6,13 +6,18 @@ import AddAlbum from "../../../components/AddAlbum";
 import AlbumList from "../../../components/AlbumList";
 import Roulette from "../../../components/Roulette";
 import { useAuthContext } from "../../../context/AuthContext";
-import { addData, getAlbums } from "../../../firebase/firestore/model";
-import { AlbumEntry } from "../../../types.js";
+import {
+  addData,
+  getAlbums,
+  setOrUpdateUserData,
+} from "../../../firebase/firestore/model";
+import { AlbumEntry, UserData } from "../../../types.js";
 import { initialUserDataState } from "../../lib/initialStates.ts";
 import { Container, Stack, Subtitle } from "../../styles";
 
 export default function Home() {
   const router = useRouter();
+
   const { user } = useAuthContext();
   const userName = user?.displayName;
   const userEmail = user?.email;
@@ -25,9 +30,10 @@ export default function Home() {
     userId: userId,
   };
 
-  const [userData, setUserData] = useState(initialState);
+  const [currentUserData, setCurrentUserData] =
+    useState<UserData>(initialState);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
-  const [currentUser, setCurrentUser] = useState<string | null>("");
+  const [currentUser, setCurrentUser] = useState<string | null | undefined>("");
   const [currentUserId, setCurrentUserId] = useState<string>("");
   const [timeToSpin, setTimeToSpin] = useState(false);
 
@@ -36,7 +42,7 @@ export default function Home() {
       return router.push("/signin");
     }
     if (user) {
-      setCurrentUser(user.email);
+      setCurrentUser(user.displayName);
       setCurrentUserId(user.uid);
     }
   }, [router, user]);
@@ -76,6 +82,10 @@ export default function Home() {
     }
   };
 
+  const handleUserData = async () => {
+    await setOrUpdateUserData(currentUserData, currentUser);
+  };
+
   return (
     <Stack gap="6rem">
       <Container>
@@ -101,6 +111,7 @@ export default function Home() {
                   handleSubmit={handleSubmit}
                 />
                 <AlbumList albums={albums} />
+                <button onClick={handleUserData}>handle user data</button>
               </BoxWrapper>
             </div>
             <Stack>
