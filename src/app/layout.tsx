@@ -4,9 +4,9 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import GlobalStyles from "../GlobalStyles";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 import AuthContextProvider from "../context/AuthContext";
 import { lexend_deca } from "./fonts";
-import Header from "../components/Header";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

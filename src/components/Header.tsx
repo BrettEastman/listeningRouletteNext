@@ -1,10 +1,10 @@
-import { useRouter } from "next/navigation";
-import { signOutOfApp } from "@/firebase/auth/api";
-import styled from "styled-components";
-import { auth } from "@/firebase/config";
 import { Container, Stack } from "@/app/styles";
-import Link from "next/link";
 import { useAuthContext } from "@/context/AuthContext";
+import { signOutOfApp } from "@/firebase/auth/api";
+import { auth } from "@/firebase/config";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import styled from "styled-components";
 
 export default function Header() {
   const router = useRouter();

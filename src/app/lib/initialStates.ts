@@ -36,6 +36,7 @@ export const initialUserDataState: UserData = {
   email: "",
   bio: "",
   photoURL: "",
+  messages: [],
   listeningHistory: {
     initialAlbumSelections: {
       albums: [],

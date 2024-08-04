@@ -8,17 +8,24 @@ export type InputData = {
   [key: string]: string;
 };
 
-export interface AlbumEntry {
-  _id: string;
-  name: string;
-  album: string;
-}
-
 export interface Message {
   createdAt: Date | string;
   uid: string;
   text: string;
   photoURL?: string;
+}
+
+export type MessageFeed = Message[];
+
+export interface Groups {
+  members: string[];
+  messages: MessageFeed;
+}
+
+export interface AlbumEntry {
+  _id: string;
+  name: string;
+  album: string;
 }
 
 export interface RouletteProps {
@@ -27,17 +34,13 @@ export interface RouletteProps {
   setViewState?: any;
 }
 
-export interface Groups {
-  members: string[];
-  messages: Message[];
-}
-
 export interface UserData {
   userId: string | null | undefined;
   user: string | null | undefined;
   email: string;
   bio: string;
   photoURL: string;
+  messages: Message[];
   listeningHistory: {
     initialAlbumSelections: {
       albums: AlbumEntry[];
@@ -46,3 +49,5 @@ export interface UserData {
     listeningGroups: Groups[];
   };
 }
+
+export type Users = UserData[];

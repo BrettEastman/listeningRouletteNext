@@ -7,7 +7,7 @@ import AlbumList from "../../../components/AlbumList";
 import Roulette from "../../../components/Roulette";
 import { useAuthContext } from "../../../context/AuthContext";
 import { addData, getAlbums } from "../../../firebase/firestore/model";
-import { AlbumEntry, Message } from "../../../types.js";
+import { AlbumEntry } from "../../../types.js";
 import { initialUserDataState } from "../../lib/initialStates.ts";
 import { Container, Stack, Subtitle } from "../../styles";
 
