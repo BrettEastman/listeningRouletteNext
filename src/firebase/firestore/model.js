@@ -63,10 +63,39 @@ export async function addData(collection, id, data) {
 // const someDoc = doc(db, "users/someName");
 // deleteDoc(someDoc);
 
+export async function getUserSnapshot() {
+  // only need to retrieve displayName when fetching data
+  const currentUser = auth.currentUser?.displayName;
+  try {
+    if (!currentUser) {
+      throw new Error("No current user found.");
+    }
+    const q = query(collection(db, currentUser));
+    const querySnapshot = await getDocs(q);
+
+    const res = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return {
+      success: true,
+      message: `Successfully fetched ${currentUser} data`,
+      error: null,
+      res,
+    };
+  } catch (e) {
+    return {
+      success: false,
+      message: `Error fetching ${currentUser || "unknown user"} data: ${e}`,
+      error: e,
+    };
+  }
+}
+
 async function setUserDataDoc(formInput, currentUser) {
   try {
     const currentUserID = auth.currentUser?.uid;
-    await setDoc(doc(db, `${currentUser}`, `${currentUserID}`), {
+    await setDoc(doc(db, `users/`, `${currentUserID}`), {
       ...formInput,
       createdAt: serverTimestamp(),
     });
@@ -80,7 +109,7 @@ async function setUserDataDoc(formInput, currentUser) {
 async function updateUserDataDoc(formInput, currentUser) {
   try {
     const currentUserID = auth.currentUser?.uid;
-    const docRef = doc(db, `${currentUser}`, `${currentUserID}`);
+    const docRef = doc(db, `users/`, `${currentUserID}`);
     await updateDoc(docRef, {
       ...formInput,
       updatedAt: serverTimestamp(),
@@ -95,7 +124,7 @@ async function updateUserDataDoc(formInput, currentUser) {
 export async function setOrUpdateUserData(formInput, currentUser) {
   const currentUserID = auth.currentUser?.uid;
   try {
-    const docRef = doc(db, `${currentUser}`, `${currentUserID}`);
+    const docRef = doc(db, `users/`, `${currentUserID}`);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {

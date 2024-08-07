@@ -10,6 +10,7 @@ import {
   addData,
   getAlbums,
   setOrUpdateUserData,
+  getUserSnapshot,
 } from "../../../firebase/firestore/model";
 import { AlbumEntry, UserData } from "../../../types.js";
 import { initialUserDataState } from "../../lib/initialStates.ts";
@@ -33,17 +34,40 @@ export default function Home() {
   const [currentUserData, setCurrentUserData] =
     useState<UserData>(initialState);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
-  const [currentUser, setCurrentUser] = useState<string | null | undefined>("");
-  const [currentUserId, setCurrentUserId] = useState<string>("");
-  const [timeToSpin, setTimeToSpin] = useState(false);
+  // const [currentUser, setCurrentUser] = useState<string | null | undefined>("");
+  // const [currentUserId, setCurrentUserId] = useState<string>("");
+
+  // useEffect(() => {
+  //   if (user == null) {
+  //     return router.push("/signin");
+  //   }
+  //   if (user) {
+  //     setCurrentUser(user.displayName);
+  //     setCurrentUserId(user.uid);
+  //   }
+  // }, [router, user]);
 
   useEffect(() => {
+    const fetchSnapshot = async () => {
+      try {
+        const { success, message, error, res } = await getUserSnapshot();
+        if (error) {
+          console.error(message);
+        } else if (res) {
+          console.log(success);
+          setCurrentUserData((prevCurrentUserData) => ({
+            ...prevCurrentUserData,
+            ...res[0],
+          }));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     if (user == null) {
       return router.push("/signin");
-    }
-    if (user) {
-      setCurrentUser(user.displayName);
-      setCurrentUserId(user.uid);
+    } else {
+      fetchSnapshot();
     }
   }, [router, user]);
 
@@ -65,7 +89,7 @@ export default function Home() {
   }, []);
 
   const handleAlbum = async (obj: AlbumEntry[]) => {
-    const { result, error } = await addData("lr", currentUserId, obj);
+    const { result, error } = await addData("lr", userId, obj);
     if (error) {
       console.log("add album error:", error);
     } else {
@@ -73,52 +97,36 @@ export default function Home() {
     }
   };
 
+  // const handleAlbum = (data: AlbumEntry[]) => {
+  //   currentUserData.listeningGroups[0].groupSessions[0].sessionAlbums = data;
+  //   // setOrUpdateUserData(currentUserData, userName);
+  // };
+
   const handleSubmit = (data: AlbumEntry[]) => {
     if (Object.keys(albums).length >= 5) {
-      handleAlbum(data);
-      setTimeToSpin(true);
-    } else {
       handleAlbum(data);
     }
   };
 
   const handleUserData = async () => {
-    await setOrUpdateUserData(currentUserData, currentUser);
+    await setOrUpdateUserData(currentUserData, userName);
   };
 
   return (
     <Stack gap="6rem">
       <Container>
-        {timeToSpin === true && (
-          <Container gap="16rem">
-            <div>
-              <Subtitle>Time to Spin!</Subtitle>
-              <BoxWrapper>
-                <AlbumList albums={albums} />
-              </BoxWrapper>
-            </div>
-            <Stack>
-              <Roulette albums={albums} />
-            </Stack>
-          </Container>
-        )}
-        {timeToSpin === false && (
-          <Container gap="16rem">
-            <div>
-              <BoxWrapper>
-                <AddAlbum
-                  currentUserId={currentUserId}
-                  handleSubmit={handleSubmit}
-                />
-                <AlbumList albums={albums} />
-                <button onClick={handleUserData}>handle user data</button>
-              </BoxWrapper>
-            </div>
-            <Stack>
-              <Roulette albums={albums} />
-            </Stack>
-          </Container>
-        )}
+        <Container gap="16rem">
+          <div>
+            <BoxWrapper>
+              <AddAlbum currentUserId={userId} handleSubmit={handleSubmit} />
+              <AlbumList albums={albums} />
+              <button onClick={handleUserData}>handle user data</button>
+            </BoxWrapper>
+          </div>
+          <Stack>
+            <Roulette albums={albums} />
+          </Stack>
+        </Container>
       </Container>
     </Stack>
   );
