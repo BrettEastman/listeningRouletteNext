@@ -1,7 +1,6 @@
 import { Container, Stack } from "@/app/styles";
 import { useAuthContext } from "@/context/AuthContext";
 import { signOutOfApp } from "@/firebase/auth/api";
-import { auth } from "@/firebase/config";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
@@ -26,8 +25,11 @@ export default function Header() {
             <Link href="/feed" style={{ textDecoration: "none" }}>
               <NavButton>Feed</NavButton>
             </Link>
+            <Link href="/groups" style={{ textDecoration: "none" }}>
+              <NavButton>Groups</NavButton>
+            </Link>
             <Stack gap="1rem">
-              <Span>{`Welcome ${auth.currentUser?.displayName}!`}</Span>
+              <Span>{`Welcome ${user.displayName}!`}</Span>
               <Button onClick={signOutOfAppButton}>Sign out</Button>
             </Stack>
           </>

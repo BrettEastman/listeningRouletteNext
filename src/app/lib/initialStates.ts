@@ -37,5 +37,6 @@ export const initialUserDataState: UserData = {
   email: "",
   bio: "",
   photoURL: "",
+  currentGroup: "",
   listeningGroups: [],
 };

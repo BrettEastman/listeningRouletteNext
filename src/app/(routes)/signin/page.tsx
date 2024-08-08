@@ -22,7 +22,7 @@ export default function SignIn() {
   const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     await signIn(email, password);
-    router.push("/home");
+    router.push("/groups");
   };
 
   return (

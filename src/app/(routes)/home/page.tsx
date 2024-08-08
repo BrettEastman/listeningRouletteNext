@@ -34,18 +34,6 @@ export default function Home() {
   const [currentUserData, setCurrentUserData] =
     useState<UserData>(initialState);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
-  // const [currentUser, setCurrentUser] = useState<string | null | undefined>("");
-  // const [currentUserId, setCurrentUserId] = useState<string>("");
-
-  // useEffect(() => {
-  //   if (user == null) {
-  //     return router.push("/signin");
-  //   }
-  //   if (user) {
-  //     setCurrentUser(user.displayName);
-  //     setCurrentUserId(user.uid);
-  //   }
-  // }, [router, user]);
 
   useEffect(() => {
     const fetchSnapshot = async () => {

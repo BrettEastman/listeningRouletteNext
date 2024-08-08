@@ -1,7 +1,14 @@
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
-import { db } from "../config";
-import { serverTimestamp, updateDoc, getDoc } from "firebase/firestore";
-import { auth } from "../config";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
+import { db, auth } from "../config";
 import { UserData } from "../../types";
 
 // getAlbums and getMessages are examples of how to get data from Firestore database.
@@ -66,11 +73,13 @@ export async function addData(collection, id, data) {
 export async function getUserSnapshot() {
   // only need to retrieve displayName when fetching data
   const currentUser = auth.currentUser?.displayName;
+  const currentUserID = auth.currentUser?.uid;
+  console.log("currentUserID: ", currentUserID);
   try {
     if (!currentUser) {
       throw new Error("No current user found.");
     }
-    const q = query(collection(db, currentUser));
+    const q = query(collection(db, "users"), where("uid", "==", currentUserID));
     const querySnapshot = await getDocs(q);
 
     const res = querySnapshot.docs.map((doc) => ({

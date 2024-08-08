@@ -46,6 +46,7 @@ export interface UserData {
   email: string | null | undefined;
   bio: string | null | undefined;
   photoURL: string | null | undefined;
+  currentGroup: string | null | undefined;
   listeningGroups: Group[];
 }
 

@@ -11,37 +11,55 @@ import {
   Subtitle,
 } from "../../styles";
 import { SelectEvent } from "../../../types";
+import { setOrUpdateUserData } from "@/firebase/firestore/model";
+import { useAuthContext } from "../../../context/AuthContext";
+import { group } from "console";
 
 const exampleGroups = ["GPHSB Group", "funemployment Group", "Quarantinos"];
-
-const exampleUser = {
-  userId: "235ihllk3",
-  user: "Jane Doe",
-  email: "jd@email.com",
-  bio: "",
-  photoURL: "",
-  listeningGroups: exampleGroups,
-};
+const exampleGroups2 = ["Dogs", "Cats", "Squirrels"];
 
 export default function Groups() {
-  const [userData, setUserData] = useState(exampleUser);
-  const [groupName, setGroupName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const router = useRouter();
+
+  const { user } = useAuthContext();
+  const userName = user?.displayName;
+  const userEmail = user?.email;
+  const userId = user?.uid;
+
+  const [groupName, setGroupName] = useState("");
+
+  const [userData, setUserData] = useState({
+    userId: userId,
+    user: userName,
+    email: userEmail,
+    bio: "",
+    photoURL: "",
+    currentGroup: groupName,
+    listeningGroups: exampleGroups,
+  });
 
   function handleGroup(event: SelectEvent) {
     const selectedGroup = event.target.value as string;
-    setUserData({
-      ...userData,
-      listeningGroups: [...userData.listeningGroups, selectedGroup],
-    });
+    setGroupName(selectedGroup);
+  }
+
+  function consoleLog() {
+    console.log("userData:", userData);
   }
 
   const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // await signUp(email, password, `${firstName} ${groupName}`);
+    if (groupName === "") {
+      alert("Please enter a group name");
+    }
+    if (!userData.listeningGroups.includes(groupName)) {
+      setUserData({
+        ...userData,
+        currentGroup: groupName,
+        listeningGroups: [...userData.listeningGroups, groupName],
+      });
+      await setOrUpdateUserData(userData, userName);
+    }
     router.push("/home");
   };
 
@@ -62,17 +80,17 @@ export default function Groups() {
             Choose previous group:
           </label>
           <select name="groups" id="group-select" onChange={handleGroup}>
-            {userData.listeningGroups.map((group) => (
-              <option key={group} value={group.split(" ").join("-")}>
+            {userData.listeningGroups.map((group, index) => (
+              <option key={index} value={group.split(" ").join("-")}>
                 {group}
               </option>
             ))}
           </select>
+          <button onClick={consoleLog}>Console log</button>
           <Label htmlFor="groupName">
             <Paragraph>Create New Group</Paragraph>
             <InputRectangle
               onChange={(e) => setGroupName(e.target.value)}
-              required
               type="text"
               name="groupName"
               id="groupName"
