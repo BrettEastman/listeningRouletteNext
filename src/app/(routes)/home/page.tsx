@@ -43,10 +43,11 @@ export default function Home() {
           console.error(message);
         } else if (res) {
           console.log(success);
-          setCurrentUserData((prevCurrentUserData) => ({
-            ...prevCurrentUserData,
-            ...res[0],
-          }));
+          console.log("res from useEffect:", res);
+          // setCurrentUserData((prevCurrentUserData) => ({
+          //   ...prevCurrentUserData,
+          //   ...res[0],
+          // }));
         }
       } catch (error) {
         console.error(error);
@@ -100,6 +101,10 @@ export default function Home() {
     await setOrUpdateUserData(currentUserData, userName);
   };
 
+  const logUserData = () => {
+    console.log("userData:", currentUserData);
+  };
+
   return (
     <Stack gap="6rem">
       <Container>
@@ -109,6 +114,7 @@ export default function Home() {
               <AddAlbum currentUserId={userId} handleSubmit={handleSubmit} />
               <AlbumList albums={albums} />
               <button onClick={handleUserData}>handle user data</button>
+              <button onClick={logUserData}>log user data</button>
             </BoxWrapper>
           </div>
           <Stack>

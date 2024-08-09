@@ -13,7 +13,6 @@ import {
 import { SelectEvent } from "../../../types";
 import { setOrUpdateUserData } from "@/firebase/firestore/model";
 import { useAuthContext } from "../../../context/AuthContext";
-import { group } from "console";
 
 const exampleGroups = ["GPHSB Group", "funemployment Group", "Quarantinos"];
 const exampleGroups2 = ["Dogs", "Cats", "Squirrels"];

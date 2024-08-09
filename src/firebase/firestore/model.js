@@ -40,6 +40,64 @@ export async function getMessages() {
   }
 }
 
+export async function getUserSnapshot() {
+  // only need to retrieve displayName when fetching data
+  const currentUser = auth.currentUser?.displayName;
+  const currentUserID = auth.currentUser?.uid;
+  try {
+    if (!currentUser) {
+      throw new Error("No current user found.");
+    }
+    const querySnapshot = await getDoc(doc(db, "users", `${currentUserID}`));
+    const res = querySnapshot.data();
+    console.log("res: ", res);
+
+    return {
+      success: true,
+      message: `Successfully fetched ${currentUser} data`,
+      error: null,
+      res,
+    };
+  } catch (e) {
+    return {
+      success: false,
+      message: `Error fetching ${currentUser || "unknown user"} data: ${e}`,
+      error: e,
+    };
+  }
+}
+
+// export async function getUserSnapshot() {
+//   // only need to retrieve displayName when fetching data
+//   const currentUser = auth.currentUser?.displayName;
+//   const currentUserID = auth.currentUser?.uid;
+//   console.log("currentUserID: ", currentUserID);
+//   try {
+//     if (!currentUser) {
+//       throw new Error("No current user found.");
+//     }
+//     const q = query(collection(db, "users"), where("uid", "==", currentUserID));
+//     const querySnapshot = await getDocs(q);
+
+//     const res = querySnapshot.docs.map((doc) => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+//     return {
+//       success: true,
+//       message: `Successfully fetched ${currentUser} data`,
+//       error: null,
+//       res,
+//     };
+//   } catch (e) {
+//     return {
+//       success: false,
+//       message: `Error fetching ${currentUser || "unknown user"} data: ${e}`,
+//       error: e,
+//     };
+//   }
+// }
+
 // addData is an example of how to add data to Firestore database.
 export async function addData(collection, id, data) {
   try {
@@ -59,8 +117,6 @@ export async function addData(collection, id, data) {
   }
 }
 
-// updateDoc is not destructively adding data - it is updating the data at the location specified by the docRef. The catch is that the data must already exist at that location. If it doesn't, then you will get an error. Using setDoc with the merge option (like my addData example above) is a better option if you are not sure if the data already exists at that location.
-
 // addDoc is similar to setDoc, but it will generate a unique id for the document. So you don't need to specify the id. It will also add the data destructively, so if there is already data at that location, it will be overwritten. It might look like this:
 // const someDoc = doc(db, "users/someName");
 // const collection = collection(db, "users");
@@ -70,41 +126,10 @@ export async function addData(collection, id, data) {
 // const someDoc = doc(db, "users/someName");
 // deleteDoc(someDoc);
 
-export async function getUserSnapshot() {
-  // only need to retrieve displayName when fetching data
-  const currentUser = auth.currentUser?.displayName;
-  const currentUserID = auth.currentUser?.uid;
-  console.log("currentUserID: ", currentUserID);
-  try {
-    if (!currentUser) {
-      throw new Error("No current user found.");
-    }
-    const q = query(collection(db, "users"), where("uid", "==", currentUserID));
-    const querySnapshot = await getDocs(q);
-
-    const res = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return {
-      success: true,
-      message: `Successfully fetched ${currentUser} data`,
-      error: null,
-      res,
-    };
-  } catch (e) {
-    return {
-      success: false,
-      message: `Error fetching ${currentUser || "unknown user"} data: ${e}`,
-      error: e,
-    };
-  }
-}
-
 async function setUserDataDoc(formInput, currentUser) {
   try {
     const currentUserID = auth.currentUser?.uid;
-    await setDoc(doc(db, `users/`, `${currentUserID}`), {
+    await setDoc(doc(db, "users", `${currentUserID}`), {
       ...formInput,
       createdAt: serverTimestamp(),
     });
@@ -118,7 +143,8 @@ async function setUserDataDoc(formInput, currentUser) {
 async function updateUserDataDoc(formInput, currentUser) {
   try {
     const currentUserID = auth.currentUser?.uid;
-    const docRef = doc(db, `users/`, `${currentUserID}`);
+    const docRef = doc(db, "users", `${currentUserID}`);
+    // updateDoc is not destructively adding data - it is updating the data at the location specified by the docRef. The catch is that the data must already exist at that location. If it doesn't, then you will get an error. Using setDoc with the merge option (like my addData example above) is a better option if you are not sure if the data already exists at that location.
     await updateDoc(docRef, {
       ...formInput,
       updatedAt: serverTimestamp(),
@@ -133,7 +159,7 @@ async function updateUserDataDoc(formInput, currentUser) {
 export async function setOrUpdateUserData(formInput, currentUser) {
   const currentUserID = auth.currentUser?.uid;
   try {
-    const docRef = doc(db, `users/`, `${currentUserID}`);
+    const docRef = doc(db, "users", `${currentUserID}`);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
