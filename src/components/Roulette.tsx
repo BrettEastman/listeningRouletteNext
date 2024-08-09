@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Container } from "../app/styles";
 import { RouletteProps } from "../types";
@@ -10,7 +10,7 @@ function getRandomInt(min: number, max: number) {
 }
 
 // Roulette is a spinning wheel that displays the top 6 albums from the database
-export default function Roulette({ albums, setViewState }: RouletteProps) {
+export default function Roulette({ albums }: RouletteProps) {
   const [number, setNumber] = useState(0);
   const [spinningStopped, setSpinningStopped] = useState(true);
 
@@ -24,7 +24,7 @@ export default function Roulette({ albums, setViewState }: RouletteProps) {
 
   return (
     <Container flexDirection="column">
-      <Countdown setViewState={setViewState} />
+      <Countdown />
       <div>
         <Container flexDirection="column" gap="0rem">
           <Stopper />

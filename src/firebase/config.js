@@ -24,7 +24,7 @@ export const db = getFirestore(FirebaseApp);
 
 export const auth = getAuth(FirebaseApp);
 
-export const messaging = getMessaging(FirebaseApp);
+// export const messaging = getMessaging(FirebaseApp);
 
 // not used yet
-export const analytics = getAnalytics(FirebaseApp);
+// export const analytics = getAnalytics(FirebaseApp);

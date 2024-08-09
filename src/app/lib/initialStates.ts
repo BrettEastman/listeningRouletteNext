@@ -1,22 +1,16 @@
 import {
   UserData,
-  Groups,
+  Group,
   RouletteProps,
   Message,
   AlbumEntry,
 } from "../../types";
 
 export const initialAlbumEntryState: AlbumEntry = {
-  _id: "",
-  name: "",
-  album: "",
-};
-
-export const initialMessageState: Message = {
-  createdAt: new Date(),
   uid: "",
-  text: "",
-  photoURL: "",
+  groupName: "",
+  artistName: "",
+  albumName: "",
 };
 
 export const initialRoulettePropsState: RouletteProps = {
@@ -25,9 +19,16 @@ export const initialRoulettePropsState: RouletteProps = {
   setViewState: () => {},
 };
 
-export const initialGroupsState: Groups = {
-  members: [],
-  messages: [],
+export const initialMessageState: Message = {
+  createdAt: new Date(),
+  uid: "",
+  text: "",
+};
+
+export const initialGroupState: Group = {
+  groupName: "",
+  groupMembers: [],
+  groupSessions: [],
 };
 
 export const initialUserDataState: UserData = {
@@ -36,11 +37,6 @@ export const initialUserDataState: UserData = {
   email: "",
   bio: "",
   photoURL: "",
-  listeningHistory: {
-    initialAlbumSelections: {
-      albums: [],
-      date: new Date(),
-    },
-    listeningGroups: [],
-  },
+  currentGroup: "",
+  listeningGroups: [],
 };

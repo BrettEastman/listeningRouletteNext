@@ -1,16 +1,16 @@
 "use client";
+import { Container, Form, Input, Paragraph, Stack } from "@/app/styles";
+import AddMessage from "@/components/AddMessage";
+import Feed from "@/components/Feed";
+import FormInput from "@/components/form/FormInput";
+import { addData, getMessages } from "@/firebase/firestore/model";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Message } from "../../../types";
-import { useAuthContext } from "../../../context/AuthContext";
-import { Container, Stack, Form, Input, Paragraph } from "@/app/styles";
-import Feed from "@/components/Feed";
-import AddMessage from "@/components/AddMessage";
-import FormInput from "@/components/form/FormInput";
 import styled from "styled-components";
+import { useAuthContext } from "../../../context/AuthContext";
 import sendInfluences from "../../../controller/sendInfluences";
+import { Message } from "../../../types";
 import { initialUserDataState } from "../../lib/initialStates.ts";
-import { addData, getMessages } from "@/firebase/firestore/model";
 
 export default function FeedPage() {
   const router = useRouter();

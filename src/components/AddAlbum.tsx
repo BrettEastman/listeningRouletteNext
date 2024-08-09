@@ -2,30 +2,25 @@
 import { ChangeEvent, useState } from "react";
 import { Form, Input, Subtitle } from "../app/styles";
 import FormInput from "./form/FormInput";
-
-const initialFormInput = {
-  _id: "",
-  name: "",
-  album: "",
-};
+import { initialAlbumEntryState } from "@/app/lib/initialStates";
 
 interface FormProps {
   handleSubmit: any;
-  currentUserId: string;
+  currentUserId: string | null | undefined;
 }
 
 // AddAlbum is a form that allows the user to add an album to the database. It is then displayed on the home page.
 export default function AddAlbum({ handleSubmit, currentUserId }: FormProps) {
-  const [formInput, setFormInput] = useState(initialFormInput);
+  const [albumFormInput, setAlbumFormInput] = useState(initialAlbumEntryState);
 
   const clearForm = () => {
-    setFormInput(initialFormInput);
+    setAlbumFormInput(initialAlbumEntryState);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFormInput({
-      ...formInput,
-      _id: currentUserId,
+    setAlbumFormInput({
+      ...albumFormInput,
+      uid: currentUserId,
       [event.target.name]: event.target.value,
     });
   };
@@ -34,27 +29,27 @@ export default function AddAlbum({ handleSubmit, currentUserId }: FormProps) {
     <Form
       onSubmit={(event) => {
         event.preventDefault();
-        handleSubmit(formInput);
+        handleSubmit(albumFormInput);
         clearForm();
       }}
     >
       <Subtitle>Enter your pick!</Subtitle>
       <div>
         <FormInput
-          labelText="Name"
+          labelText="Artist Name"
           type="text"
-          name="name"
-          value={formInput.name}
+          name="artistName"
+          value={albumFormInput.artistName}
           placeholder="Enter artist name"
           onChange={handleInputChange}
           autocomplete="on"
         />
         <br />
         <FormInput
-          labelText="Album"
+          labelText="Album Name"
           type="text"
-          name="album"
-          value={formInput.album}
+          name="albumName"
+          value={albumFormInput.albumName}
           placeholder="Enter album name"
           onChange={handleInputChange}
           autocomplete="on"

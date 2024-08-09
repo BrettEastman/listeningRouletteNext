@@ -53,17 +53,17 @@ export async function signOutOfApp() {
   return signOut(auth);
 }
 
-export async function updateDisplayName(displayName: string) {
-  try {
-    if (auth.currentUser !== null) {
-      await updateProfile(auth.currentUser, { displayName: displayName }).catch(
-        (err) => console.error("updateProfile error:", err)
-      );
-    }
-  } catch (err) {
-    console.error("updateDisplayName error:", err);
-  }
-}
+// export async function updateDisplayName(displayName: string) {
+//   try {
+//     if (auth.currentUser !== null) {
+//       await updateProfile(auth.currentUser, { displayName: displayName }).catch(
+//         (err) => console.error("updateProfile error:", err)
+//       );
+//     }
+//   } catch (err) {
+//     console.error("updateDisplayName error:", err);
+//   }
+// }
 
 export async function signUp(
   email: string,
