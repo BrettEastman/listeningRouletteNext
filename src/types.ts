@@ -40,14 +40,32 @@ export interface Group {
   groupSessions: Session[];
 }
 
+// export interface UserData {
+//   userId: string | null | undefined;
+//   user: string | null | undefined;
+//   email: string | null | undefined;
+//   bio: string | null | undefined;
+//   photoURL: string | null | undefined;
+//   currentGroup: string | null | undefined;
+//   listeningGroups: Group[];
+// }
+
 export interface UserData {
-  userId: string | null | undefined;
+  userId: string | undefined;
   user: string | null | undefined;
   email: string | null | undefined;
-  bio: string | null | undefined;
-  photoURL: string | null | undefined;
-  currentGroup: string | null | undefined;
-  listeningGroups: Group[];
+  bio: string;
+  photoURL: string;
+  currentGroup: string;
+  listeningGroups: string[];
+}
+
+export interface GroupStore {
+  groupName: string;
+  setGroupName: (groupName: string) => void;
+  userData: UserData;
+  setUserData: (userData: Partial<UserData>) => void;
+  handleGroup: (groupName: string) => void;
 }
 
 export type Users = UserData[];

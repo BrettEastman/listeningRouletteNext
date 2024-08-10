@@ -10,55 +10,19 @@ import {
   addData,
   getAlbums,
   setOrUpdateUserData,
-  getUserSnapshot,
 } from "../../../firebase/firestore/model";
 import { AlbumEntry, UserData } from "../../../types.js";
-import { initialUserDataState } from "../../lib/initialStates.ts";
-import { Container, Stack, Subtitle } from "../../styles";
+import { Container, Stack } from "../../styles";
+import { useGroupStore } from "../../../store/useGroupStore";
 
 export default function Home() {
   const router = useRouter();
-
   const { user } = useAuthContext();
-  const userName = user?.displayName;
-  const userEmail = user?.email;
-  const userId = user?.uid;
+  const { userData, setUserData } = useGroupStore();
 
-  const initialState = {
-    ...initialUserDataState,
-    user: userName,
-    email: userEmail,
-    userId: userId,
-  };
+  console.log("userData from home page:", userData);
 
-  const [currentUserData, setCurrentUserData] =
-    useState<UserData>(initialState);
   const [albums, setAlbums] = useState<AlbumEntry[]>([]);
-
-  useEffect(() => {
-    const fetchSnapshot = async () => {
-      try {
-        const { success, message, error, res } = await getUserSnapshot();
-        if (error) {
-          console.error(message);
-        } else if (res) {
-          console.log(success);
-          console.log("res from useEffect:", res);
-          // setCurrentUserData((prevCurrentUserData) => ({
-          //   ...prevCurrentUserData,
-          //   ...res[0],
-          // }));
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    if (user == null) {
-      return router.push("/signin");
-    } else {
-      fetchSnapshot();
-    }
-  }, [router, user]);
 
   const fetchAlbums = async () => {
     try {
@@ -78,7 +42,7 @@ export default function Home() {
   }, []);
 
   const handleAlbum = async (obj: AlbumEntry[]) => {
-    const { result, error } = await addData("lr", userId, obj);
+    const { result, error } = await addData("lr", userData.userId, obj);
     if (error) {
       console.log("add album error:", error);
     } else {
@@ -87,8 +51,8 @@ export default function Home() {
   };
 
   // const handleAlbum = (data: AlbumEntry[]) => {
-  //   currentUserData.listeningGroups[0].groupSessions[0].sessionAlbums = data;
-  //   // setOrUpdateUserData(currentUserData, userName);
+  //   userData.listeningGroups[0].groupSessions[0].sessionAlbums = data;
+  //   // setOrUpdateUserData(userData, userData.user);
   // };
 
   const handleSubmit = (data: AlbumEntry[]) => {
@@ -98,11 +62,11 @@ export default function Home() {
   };
 
   const handleUserData = async () => {
-    await setOrUpdateUserData(currentUserData, userName);
+    await setOrUpdateUserData(userData, userData.user);
   };
 
   const logUserData = () => {
-    console.log("userData:", currentUserData);
+    console.log("userData:", userData);
   };
 
   return (
@@ -111,7 +75,10 @@ export default function Home() {
         <Container gap="16rem">
           <div>
             <BoxWrapper>
-              <AddAlbum currentUserId={userId} handleSubmit={handleSubmit} />
+              <AddAlbum
+                currentUserId={userData.userId}
+                handleSubmit={handleSubmit}
+              />
               <AlbumList albums={albums} />
               <button onClick={handleUserData}>handle user data</button>
               <button onClick={logUserData}>log user data</button>

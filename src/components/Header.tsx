@@ -4,6 +4,10 @@ import { signOutOfApp } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
+import { useGroupStore } from "@/store/useGroupStore";
+
+// you can also use Zustand to get the state outside of the component using the .getState() method
+const userName = useGroupStore.getState().userData.user;
 
 export default function Header() {
   const router = useRouter();
@@ -29,7 +33,7 @@ export default function Header() {
               <NavButton>Groups</NavButton>
             </Link>
             <Stack gap="1rem">
-              <Span>{`Welcome ${user.displayName}!`}</Span>
+              <Span>{`Welcome ${userName}!`}</Span>
               <Button onClick={signOutOfAppButton}>Sign out</Button>
             </Stack>
           </>

@@ -67,37 +67,6 @@ export async function getUserSnapshot() {
   }
 }
 
-// export async function getUserSnapshot() {
-//   // only need to retrieve displayName when fetching data
-//   const currentUser = auth.currentUser?.displayName;
-//   const currentUserID = auth.currentUser?.uid;
-//   console.log("currentUserID: ", currentUserID);
-//   try {
-//     if (!currentUser) {
-//       throw new Error("No current user found.");
-//     }
-//     const q = query(collection(db, "users"), where("uid", "==", currentUserID));
-//     const querySnapshot = await getDocs(q);
-
-//     const res = querySnapshot.docs.map((doc) => ({
-//       id: doc.id,
-//       ...doc.data(),
-//     }));
-//     return {
-//       success: true,
-//       message: `Successfully fetched ${currentUser} data`,
-//       error: null,
-//       res,
-//     };
-//   } catch (e) {
-//     return {
-//       success: false,
-//       message: `Error fetching ${currentUser || "unknown user"} data: ${e}`,
-//       error: e,
-//     };
-//   }
-// }
-
 // addData is an example of how to add data to Firestore database.
 export async function addData(collection, id, data) {
   try {
@@ -164,8 +133,10 @@ export async function setOrUpdateUserData(formInput, currentUser) {
 
     if (docSnap.exists()) {
       await updateUserDataDoc(formInput, currentUser);
+      console.log("Document exists, updating data");
     } else {
       await setUserDataDoc(formInput, currentUser);
+      console.log("Document does not exist, creating new document");
     }
     return true;
   } catch (e) {

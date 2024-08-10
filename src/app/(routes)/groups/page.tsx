@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { useEffect, ChangeEvent } from "react";
 import {
   Button,
   Form,
@@ -10,55 +10,57 @@ import {
   StyledWrapper,
   Subtitle,
 } from "../../styles";
-import { SelectEvent } from "../../../types";
-import { setOrUpdateUserData } from "@/firebase/firestore/model";
+import { useGroupStore } from "@/store/useGroupStore";
+import {
+  getUserSnapshot,
+  setOrUpdateUserData,
+} from "@/firebase/firestore/model";
 import { useAuthContext } from "../../../context/AuthContext";
-
-const exampleGroups = ["GPHSB Group", "funemployment Group", "Quarantinos"];
-const exampleGroups2 = ["Dogs", "Cats", "Squirrels"];
 
 export default function Groups() {
   const router = useRouter();
-
   const { user } = useAuthContext();
-  const userName = user?.displayName;
-  const userEmail = user?.email;
-  const userId = user?.uid;
 
-  const [groupName, setGroupName] = useState("");
+  const { groupName, setGroupName, userData, setUserData, handleGroup } =
+    useGroupStore();
 
-  const [userData, setUserData] = useState({
-    userId: userId,
-    user: userName,
-    email: userEmail,
-    bio: "",
-    photoURL: "",
-    currentGroup: groupName,
-    listeningGroups: exampleGroups,
-  });
-
-  function handleGroup(event: SelectEvent) {
-    const selectedGroup = event.target.value as string;
-    setGroupName(selectedGroup);
-  }
-
-  function consoleLog() {
-    console.log("userData:", userData);
-  }
+  useEffect(() => {
+    const fetchSnapshot = async () => {
+      try {
+        const { success, message, error, res } = await getUserSnapshot();
+        if (error) {
+          console.error(message);
+        } else if (res) {
+          console.log(success);
+          console.log("res from useEffect:", res);
+          setUserData(res);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (user == null) {
+      return router.push("/signin");
+    } else {
+      fetchSnapshot();
+      console.log("snapshot fetched");
+    }
+  }, [router, setUserData, user]);
 
   const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (groupName === "") {
       alert("Please enter a group name");
+      return;
     }
-    if (!userData.listeningGroups.includes(groupName)) {
-      setUserData({
-        ...userData,
-        currentGroup: groupName,
-        listeningGroups: [...userData.listeningGroups, groupName],
-      });
-      await setOrUpdateUserData(userData, userName);
-    }
+
+    handleGroup(groupName);
+    setUserData({
+      userId: user?.uid,
+      user: user?.displayName,
+      email: user?.email,
+    });
+    // await setOrUpdateUserData(userData, user?.displayName);
     router.push("/home");
   };
 
@@ -78,14 +80,23 @@ export default function Groups() {
           >
             Choose previous group:
           </label>
-          <select name="groups" id="group-select" onChange={handleGroup}>
+          <select
+            name="groups"
+            id="group-select"
+            onChange={(e) => setGroupName(e.target.value)}
+          >
             {userData.listeningGroups.map((group, index) => (
               <option key={index} value={group.split(" ").join("-")}>
                 {group}
               </option>
             ))}
           </select>
-          <button onClick={consoleLog}>Console log</button>
+          <button
+            type="button"
+            onClick={() => console.log("userData:", userData)}
+          >
+            Console log
+          </button>
           <Label htmlFor="groupName">
             <Paragraph>Create New Group</Paragraph>
             <InputRectangle
