@@ -6,11 +6,12 @@ import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { useGroupStore } from "@/store/useGroupStore";
 
-// you can also use Zustand to get the state outside of the component using the .getState() method
-const userName = useGroupStore.getState().userData.user;
-
 export default function Header() {
   const router = useRouter();
+  const { userData } = useGroupStore();
+  const userName = userData.user;
+  console.log("userName from header:", userName);
+
   const signOutOfAppButton = () => {
     signOutOfApp();
     router.push("/");

@@ -2,18 +2,18 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import AddAlbum from "../../../components/AddAlbum";
-import AlbumList from "../../../components/AlbumList";
-import Roulette from "../../../components/Roulette";
-import { useAuthContext } from "../../../context/AuthContext";
+import AddAlbum from "@/components/AddAlbum";
+import AlbumList from "@/components/AlbumList";
+import Roulette from "@/components/Roulette";
+import { useAuthContext } from "@/context/AuthContext";
 import {
   addData,
   getAlbums,
   setOrUpdateUserData,
-} from "../../../firebase/firestore/model";
-import { AlbumEntry, UserData } from "../../../types.js";
+} from "@/firebase/firestore/model";
+import { AlbumEntry, UserData } from "@/types.js";
 import { Container, Stack } from "../../styles";
-import { useGroupStore } from "../../../store/useGroupStore";
+import { useGroupStore } from "@/store/useGroupStore";
 
 export default function Home() {
   const router = useRouter();
@@ -38,8 +38,9 @@ export default function Home() {
   };
 
   useEffect(() => {
+    setOrUpdateUserData(userData, user?.displayName);
     fetchAlbums();
-  }, []);
+  }, [user?.displayName, userData]);
 
   const handleAlbum = async (obj: AlbumEntry[]) => {
     const { result, error } = await addData("lr", userData.userId, obj);

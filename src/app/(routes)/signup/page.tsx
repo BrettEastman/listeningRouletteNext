@@ -12,6 +12,7 @@ import {
   StyledWrapper,
   Subtitle,
 } from "../../styles";
+import { useGroupStore } from "@/store/useGroupStore";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -20,10 +21,15 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+  const { setUserData } = useGroupStore();
 
   const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     await signUp(email, password, `${firstName} ${lastName}`);
+    setUserData({
+      user: `${firstName} ${lastName}`,
+      email,
+    });
     router.push("/groups");
   };
 

@@ -11,10 +11,7 @@ import {
   Subtitle,
 } from "../../styles";
 import { useGroupStore } from "@/store/useGroupStore";
-import {
-  getUserSnapshot,
-  setOrUpdateUserData,
-} from "@/firebase/firestore/model";
+import { getUserSnapshot } from "@/firebase/firestore/model";
 import { useAuthContext } from "../../../context/AuthContext";
 
 export default function Groups() {
@@ -60,7 +57,6 @@ export default function Groups() {
       user: user?.displayName,
       email: user?.email,
     });
-    // await setOrUpdateUserData(userData, user?.displayName);
     router.push("/home");
   };
 
