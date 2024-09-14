@@ -21,11 +21,11 @@ export interface RouletteProps {
   setViewState?: any;
 }
 
-export interface Message {
-  createdAt: Date | string;
-  uid: string;
-  text: string;
-}
+// export interface Message {
+//   createdAt: Date | string;
+//   uid: string;
+//   text: string;
+// }
 
 export interface Session {
   sessionId: string;
@@ -34,11 +34,11 @@ export interface Session {
   sessionMessages: Message[];
 }
 
-export interface Group {
-  groupName: string;
-  groupMembers: string[];
-  groupSessions: Session[];
-}
+// export interface Group {
+//   groupName: string;
+//   groupMembers: string[];
+//   groupSessions: Session[];
+// }
 
 export interface UserData {
   userId: string | null | undefined;
@@ -51,3 +51,30 @@ export interface UserData {
 }
 
 export type Users = UserData[];
+
+// Claude suggestions
+export interface User {
+  username: string;
+  name: string;
+  email: string;
+  bio: string;
+  photoURL: string;
+}
+
+export interface Group {
+  name: string;
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface Message {
+  text: string;
+  timestamp: string;
+  userId: string;
+}
+
+// You can then use these types with Firestore
+// For example:
+// const userRef = doc(db, 'users', userId);
+// const userData = await getDoc(userRef);
+// const user: User = userData.data() as User;

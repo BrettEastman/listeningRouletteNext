@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import {
   Button,
   Form,
@@ -11,94 +11,148 @@ import {
   Subtitle,
 } from "../../styles";
 import { SelectEvent } from "../../../types";
-import { setOrUpdateUserData } from "@/firebase/firestore/model";
 import { useAuthContext } from "../../../context/AuthContext";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
-const exampleGroups = ["GPHSB Group", "funemployment Group", "Quarantinos"];
-const exampleGroups2 = ["Dogs", "Cats", "Squirrels"];
+const db = getFirestore();
 
 export default function Groups() {
   const router = useRouter();
-
   const { user } = useAuthContext();
-  const userName = user?.displayName;
-  const userEmail = user?.email;
-  const userId = user?.uid;
-
   const [groupName, setGroupName] = useState("");
+  const [userGroups, setUserGroups] = useState<string[]>([]);
+  const [allGroups, setAllGroups] = useState<string[]>([]);
 
-  const [userData, setUserData] = useState({
-    userId: userId,
-    user: userName,
-    email: userEmail,
-    bio: "",
-    photoURL: "",
-    currentGroup: groupName,
-    listeningGroups: exampleGroups,
-  });
+  useEffect(() => {
+    if (user) {
+      fetchUserGroups();
+      fetchAllGroups();
+    }
+  }, [user]);
 
-  function handleGroup(event: SelectEvent) {
+  const fetchUserGroups = async () => {
+    if (!user) return;
+    const userGroupsRef = doc(db, "userGroups", user.uid);
+    const userGroupsSnap = await getDoc(userGroupsRef);
+    if (userGroupsSnap.exists()) {
+      const groups = Object.keys(userGroupsSnap.data());
+      setUserGroups(groups);
+    }
+  };
+
+  const fetchAllGroups = async () => {
+    const groupsRef = collection(db, "groups");
+    const groupsSnap = await getDocs(groupsRef);
+    const groups = groupsSnap.docs.map((doc) => doc.id);
+    setAllGroups(groups);
+  };
+
+  const handleGroupSelect = (event: SelectEvent) => {
     const selectedGroup = event.target.value as string;
     setGroupName(selectedGroup);
-  }
+  };
 
-  function consoleLog() {
-    console.log("userData:", userData);
-  }
-
-  const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
+  const handleCreateGroup = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (groupName === "") {
-      alert("Please enter a group name");
+    if (!user || !groupName.trim()) return;
+
+    // Create new group
+    await setDoc(doc(db, "groups", groupName), {
+      name: groupName,
+      createdAt: new Date().toISOString(),
+      createdBy: user.uid,
+    });
+
+    // Add user to group
+    await joinGroup(groupName);
+
+    setGroupName("");
+    fetchAllGroups();
+  };
+
+  const joinGroup = async (group: string) => {
+    if (!user) return;
+
+    // Add group to user's groups
+    const userGroupsRef = doc(db, "userGroups", user.uid);
+    await setDoc(userGroupsRef, { [group]: true }, { merge: true });
+
+    // Add user to group members
+    const groupMembersRef = doc(db, "groupMembers", group);
+    await setDoc(groupMembersRef, { [user.uid]: true }, { merge: true });
+
+    fetchUserGroups();
+  };
+
+  const handleJoinGroup = async () => {
+    if (!groupName) {
+      alert("Please select a group");
+      return;
     }
-    if (!userData.listeningGroups.includes(groupName)) {
-      setUserData({
-        ...userData,
-        currentGroup: groupName,
-        listeningGroups: [...userData.listeningGroups, groupName],
-      });
-      await setOrUpdateUserData(userData, userName);
-    }
-    router.push("/home");
+    await joinGroup(groupName);
+    router.push(`/chat/${groupName}`);
   };
 
   return (
     <StyledWrapper>
       <Subtitle>Groups</Subtitle>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleCreateGroup}>
         <StyledWrapper justifyContent="space-between" gap="2rem">
-          <label
-            style={{
-              marginLeft: "1rem",
-              marginTop: "1rem",
-              textAlign: "center",
-              fontSize: "1.25rem",
-            }}
-            htmlFor="level-select"
-          >
-            Choose previous group:
-          </label>
-          <select name="groups" id="group-select" onChange={handleGroup}>
-            {userData.listeningGroups.map((group, index) => (
-              <option key={index} value={group.split(" ").join("-")}>
-                {group}
-              </option>
-            ))}
-          </select>
-          <button onClick={consoleLog}>Console log</button>
-          <Label htmlFor="groupName">
+          <Label htmlFor="group-select">
+            <Paragraph>Choose a group to join:</Paragraph>
+            <select
+              name="groups"
+              id="group-select"
+              onChange={handleGroupSelect}
+              value={groupName}
+            >
+              <option value="">Select a group</option>
+              {allGroups.map((group) => (
+                <option key={group} value={group}>
+                  {group}
+                </option>
+              ))}
+            </select>
+          </Label>
+          <Button type="button" onClick={handleJoinGroup}>
+            Join Group
+          </Button>
+
+          <Label htmlFor="newGroupName">
             <Paragraph>Create New Group</Paragraph>
             <InputRectangle
               onChange={(e) => setGroupName(e.target.value)}
               type="text"
-              name="groupName"
-              id="groupName"
-              placeholder="Group Name"
+              name="newGroupName"
+              id="newGroupName"
+              placeholder="New Group Name"
+              value={groupName}
             />
           </Label>
-          <Button type="submit">Join Group</Button>
+          <Button type="submit">Create Group</Button>
         </StyledWrapper>
       </Form>
+
+      <Subtitle>Your Groups</Subtitle>
+      <ul>
+        {userGroups.map((group) => (
+          <li key={group}>
+            <Button onClick={() => router.push(`/chat/${group}`)}>
+              {group}
+            </Button>
+          </li>
+        ))}
+      </ul>
     </StyledWrapper>
   );
 }

@@ -2,6 +2,7 @@
 import { Container, Form, Input, Paragraph, Stack } from "@/app/styles";
 import AddMessage from "@/components/AddMessage";
 import Feed from "@/components/Feed";
+import ChatRoom from "@/components/ChatRoom.tsx";
 import FormInput from "@/components/form/FormInput";
 import { addData, getMessages } from "@/firebase/firestore/model";
 import { useRouter } from "next/navigation";
@@ -116,14 +117,15 @@ export default function FeedPage() {
         </BorderStack>
       </Stack>
       <Stack>
-        <BoxWrapper>
+        {/* <BoxWrapper>
           <AddMessage currentUser={currentUser} handleMessage={handleMessage} />
         </BoxWrapper>
         <BorderStack>
           <BoxWrapper>
             <Feed messages={messages} />
           </BoxWrapper>
-        </BorderStack>
+        </BorderStack> */}
+        <ChatRoom groupId={""} />
       </Stack>
     </Container>
   );
