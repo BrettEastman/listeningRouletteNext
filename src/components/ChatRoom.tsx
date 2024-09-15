@@ -22,15 +22,15 @@ interface Message {
 }
 
 interface ChatUser {
-  username: string;
+  user: string;
   name: string;
 }
 
 interface ChatRoomProps {
-  groupId: string;
+  groupName: string;
 }
 
-export default function ChatRoom({ groupId }: ChatRoomProps) {
+export default function ChatRoom({ groupName }: ChatRoomProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [users, setUsers] = useState<{ [key: string]: ChatUser }>({});
@@ -38,19 +38,17 @@ export default function ChatRoom({ groupId }: ChatRoomProps) {
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+      console.log("user from ChatRoom useEffect:", user);
       setCurrentUser(user);
     });
-
     return () => unsubscribeAuth();
   }, []);
 
   useEffect(() => {
-    if (!groupId) return;
-
+    if (!groupName) return;
     // Update this line to use the correct subcollection path
-    const messagesRef = collection(db, "groups", groupId, "messages");
+    const messagesRef = collection(db, "groups", groupName, "messages");
     const q = query(messagesRef, orderBy("timestamp", "asc"), limit(100));
-
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newMessages = snapshot.docs.map(
         (doc) =>
@@ -60,9 +58,9 @@ export default function ChatRoom({ groupId }: ChatRoomProps) {
           } as Message)
       );
       setMessages(newMessages);
-
       // Fetch user details for new users
       newMessages.forEach((message) => {
+        console.log("message from ChatRoom useEffect:", message);
         if (!users[message.userId]) {
           fetchUserDetails(message.userId);
         }
@@ -70,7 +68,10 @@ export default function ChatRoom({ groupId }: ChatRoomProps) {
     });
 
     return () => unsubscribe();
-  }, [groupId]);
+  }, [groupName]);
+
+  console.log("messages:", messages);
+  console.log("users:", users);
 
   const fetchUserDetails = async (userId: string) => {
     const userRef = doc(db, "users", userId);
@@ -86,7 +87,7 @@ export default function ChatRoom({ groupId }: ChatRoomProps) {
     if (newMessage.trim() && currentUser) {
       try {
         // Update this line to use the correct subcollection path
-        await addDoc(collection(db, "groups", groupId, "messages"), {
+        await addDoc(collection(db, "groups", groupName, "messages"), {
           text: newMessage,
           timestamp: new Date().toISOString(),
           userId: currentUser.uid,
@@ -104,13 +105,11 @@ export default function ChatRoom({ groupId }: ChatRoomProps) {
 
   return (
     <ChatRoomContainer>
-      <Title>Chat Room: {groupId}</Title>
+      <Title>Chat Room: {groupName}</Title>
       <MessagesContainer>
         {messages.map((message) => (
           <MessageItem key={message.id}>
-            <Username>
-              {users[message.userId]?.username || "Unknown"}:{" "}
-            </Username>
+            <Username>{users[message.userId]?.user || "Unknown"}: </Username>
             <MessageText>{message.text}</MessageText>
           </MessageItem>
         ))}

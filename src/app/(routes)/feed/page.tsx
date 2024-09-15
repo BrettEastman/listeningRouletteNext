@@ -125,7 +125,7 @@ export default function FeedPage() {
             <Feed messages={messages} />
           </BoxWrapper>
         </BorderStack> */}
-        <ChatRoom groupId={""} />
+        <ChatRoom groupName={""} />
       </Stack>
     </Container>
   );

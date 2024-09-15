@@ -1,38 +1,31 @@
-// File: app/chat/[groupId]/page.tsx
-
 "use client";
 
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
-import ChatRoom from "@/components/ChatRoom"; // Assuming you've moved the ChatRoom component to a separate file
-
-const db = getFirestore();
+import { doc, getDoc } from "firebase/firestore";
+import ChatRoom from "@/components/ChatRoom";
+import { db } from "@/firebase/config";
 
 export default function ChatPage() {
-  const { groupId } = useParams();
+  const { groupName } = useParams();
   const { user } = useAuthContext();
   const [isGroupMember, setIsGroupMember] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkGroupMembership = async () => {
-      if (!user || !groupId) return;
-
-      const groupMembersRef = doc(db, "groupMembers", groupId as string);
+      if (!user || !groupName) return;
+      const groupMembersRef = doc(db, "groupMembers", groupName as string);
       const groupMembersSnap = await getDoc(groupMembersRef);
-
       if (groupMembersSnap.exists()) {
         const members = groupMembersSnap.data();
         setIsGroupMember(!!members[user.uid]);
       }
-
       setLoading(false);
     };
-
     checkGroupMembership();
-  }, [user, groupId]);
+  }, [user, groupName]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -44,8 +37,8 @@ export default function ChatPage() {
 
   return (
     <div>
-      <h1>Chat Room: {groupId}</h1>
-      <ChatRoom groupId={groupId as string} />
+      <h1>Chat Room: {groupName}</h1>
+      <ChatRoom groupName={groupName as string} />
     </div>
   );
 }

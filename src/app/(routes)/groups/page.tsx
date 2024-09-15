@@ -12,19 +12,8 @@ import {
 } from "../../styles";
 import { SelectEvent } from "../../../types";
 import { useAuthContext } from "../../../context/AuthContext";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
-
-const db = getFirestore();
+import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 export default function Groups() {
   const router = useRouter();
@@ -32,6 +21,7 @@ export default function Groups() {
   const [groupName, setGroupName] = useState("");
   const [userGroups, setUserGroups] = useState<string[]>([]);
   const [allGroups, setAllGroups] = useState<string[]>([]);
+  // console.log("user.uid from groups", user?.uid); // good
 
   useEffect(() => {
     if (user) {
@@ -65,32 +55,26 @@ export default function Groups() {
   const handleCreateGroup = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!user || !groupName.trim()) return;
-
     // Create new group
     await setDoc(doc(db, "groups", groupName), {
       name: groupName,
       createdAt: new Date().toISOString(),
       createdBy: user.uid,
     });
-
     // Add user to group
     await joinGroup(groupName);
-
     setGroupName("");
     fetchAllGroups();
   };
 
   const joinGroup = async (group: string) => {
     if (!user) return;
-
     // Add group to user's groups
     const userGroupsRef = doc(db, "userGroups", user.uid);
     await setDoc(userGroupsRef, { [group]: true }, { merge: true });
-
     // Add user to group members
     const groupMembersRef = doc(db, "groupMembers", group);
     await setDoc(groupMembersRef, { [user.uid]: true }, { merge: true });
-
     fetchUserGroups();
   };
 
@@ -100,6 +84,7 @@ export default function Groups() {
       return;
     }
     await joinGroup(groupName);
+    console.log("groupName from handleJoinGroup:", groupName);
     router.push(`/chat/${groupName}`);
   };
 
