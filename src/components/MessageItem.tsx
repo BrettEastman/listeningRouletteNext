@@ -3,12 +3,12 @@ import { Message } from "../types";
 import { Stack, Paragraph, Container } from "../app/styles";
 
 // MessageItem is a single chat message
-export default function MessageItem({ uid, text, createdAt }: Message) {
+export default function MessageItem({ userName, text }: Message) {
   return (
     <MessageWrapper>
       <Stack justifyContent="space-around" gap="1rem">
         <div>
-          <Name>{uid}</Name>
+          <Name>{userName}</Name>
         </div>
         <Paragraph font-size="1rem">{text}</Paragraph>
         <div>

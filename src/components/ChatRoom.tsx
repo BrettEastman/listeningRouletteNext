@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { db } from "@/firebase/config";
 import { useAuthContext } from "@/context/AuthContext";
 import { Message } from "@/types";
+import MessageItem from "@/components/MessageItem";
 
 interface ChatRoomProps {
   groupName: string;
@@ -64,10 +65,15 @@ export default function ChatRoom({ groupName }: ChatRoomProps) {
       <Title>Chat Room: {groupName}</Title>
       <MessagesContainer>
         {messages.map((message) => (
-          <MessageItem key={message.id}>
-            <Username>{message.userName || "Unknown"}: </Username>
-            <MessageText>{message.text}</MessageText>
-          </MessageItem>
+          <MessageItem
+            key={message.id}
+            text={message.text}
+            userName={user.displayName}
+          />
+          // <MessageItem key={message.id}>
+          //   <Username>{message.userName || "Unknown"}: </Username>
+          //   <MessageText>{message.text}</MessageText>
+          // </MessageItem>
         ))}
       </MessagesContainer>
       <Form onSubmit={handleSendMessage}>
@@ -90,7 +96,7 @@ const ChatRoomContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-width: 28rem;
+  max-width: 48rem;
   margin: 0 auto;
   padding: 1rem;
   background-color: #f3f4f6;
@@ -111,9 +117,9 @@ const MessagesContainer = styled.div`
   padding: 0.5rem;
 `;
 
-const MessageItem = styled.div`
-  margin-bottom: 0.5rem;
-`;
+// const MessageItem = styled.div`
+//   margin-bottom: 0.5rem;
+// `;
 
 const Username = styled.span`
   font-weight: bold;

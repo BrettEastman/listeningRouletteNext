@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState, useEffect, use } from "react";
 import {
   Button,
   Form,
@@ -9,9 +9,9 @@ import {
   Paragraph,
   StyledWrapper,
   Subtitle,
-} from "../../styles";
-import { SelectEvent } from "../../../types";
-import { useAuthContext } from "../../../context/AuthContext";
+} from "@/app/styles";
+import { SelectEvent } from "@/types";
+import { useAuthContext } from "@/context/AuthContext";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/config";
 
@@ -27,6 +27,8 @@ export default function Groups() {
     if (user) {
       fetchUserGroups();
       fetchAllGroups();
+    } else {
+      router.push("/signin");
     }
   }, [user]);
 
@@ -49,6 +51,7 @@ export default function Groups() {
 
   const handleGroupSelect = (event: SelectEvent) => {
     const selectedGroup = event.target.value as string;
+    localStorage.setItem("currentGroup", selectedGroup);
     setGroupName(selectedGroup);
   };
 
@@ -63,6 +66,7 @@ export default function Groups() {
     });
     // Add user to group
     await joinGroup(groupName);
+    localStorage.setItem("currentGroup", groupName);
     setGroupName("");
     fetchAllGroups();
   };

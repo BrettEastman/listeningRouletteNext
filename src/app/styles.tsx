@@ -122,3 +122,16 @@ export const InputRectangle = styled.input`
   border-radius: 4px;
   letter-spacing: 0.025rem;
 `;
+
+export const BorderStack = styled.div`
+  border: 1.5px dashed white;
+  border-radius: 8px;
+  overflow: auto;
+`;
+
+export const BoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 36rem;
+`;

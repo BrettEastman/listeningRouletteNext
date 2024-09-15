@@ -3,6 +3,7 @@ import { useAuthContext } from "@/context/AuthContext";
 import { signOutOfApp } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 export default function Header() {
@@ -11,6 +12,8 @@ export default function Header() {
     signOutOfApp();
     router.push("/");
   };
+
+  const groupName = localStorage.getItem("currentGroup");
 
   const { user } = useAuthContext();
 
@@ -22,11 +25,11 @@ export default function Header() {
         </Link>
         {user !== null && (
           <>
-            <Link href="/feed" style={{ textDecoration: "none" }}>
-              <NavButton>Feed</NavButton>
-            </Link>
             <Link href="/groups" style={{ textDecoration: "none" }}>
               <NavButton>Groups</NavButton>
+            </Link>
+            <Link href={`chat/${groupName}`} style={{ textDecoration: "none" }}>
+              <NavButton>ChatRoom</NavButton>
             </Link>
             <Stack gap="1rem">
               <Span>{`Welcome ${user.displayName}!`}</Span>
