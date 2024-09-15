@@ -1,5 +1,4 @@
 "use client";
-
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@/context/AuthContext";

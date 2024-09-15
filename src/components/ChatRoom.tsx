@@ -6,25 +6,11 @@ import {
   query,
   orderBy,
   limit,
-  doc,
-  getDoc,
 } from "firebase/firestore";
-import { User } from "firebase/auth";
 import styled from "styled-components";
-import { db, auth } from "@/firebase/config";
-
-// TypeScript interfaces
-interface Message {
-  id: string;
-  text: string;
-  timestamp: string;
-  userId: string;
-}
-
-interface ChatUser {
-  user: string;
-  name: string;
-}
+import { db } from "@/firebase/config";
+import { useAuthContext } from "@/context/AuthContext";
+import { Message } from "@/types";
 
 interface ChatRoomProps {
   groupName: string;
@@ -33,20 +19,10 @@ interface ChatRoomProps {
 export default function ChatRoom({ groupName }: ChatRoomProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
-  const [users, setUsers] = useState<{ [key: string]: ChatUser }>({});
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
-      console.log("user from ChatRoom useEffect:", user);
-      setCurrentUser(user);
-    });
-    return () => unsubscribeAuth();
-  }, []);
+  const { user } = useAuthContext();
 
   useEffect(() => {
     if (!groupName) return;
-    // Update this line to use the correct subcollection path
     const messagesRef = collection(db, "groups", groupName, "messages");
     const q = query(messagesRef, orderBy("timestamp", "asc"), limit(100));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -58,39 +34,19 @@ export default function ChatRoom({ groupName }: ChatRoomProps) {
           } as Message)
       );
       setMessages(newMessages);
-      // Fetch user details for new users
-      newMessages.forEach((message) => {
-        console.log("message from ChatRoom useEffect:", message);
-        if (!users[message.userId]) {
-          fetchUserDetails(message.userId);
-        }
-      });
     });
-
     return () => unsubscribe();
   }, [groupName]);
 
-  console.log("messages:", messages);
-  console.log("users:", users);
-
-  const fetchUserDetails = async (userId: string) => {
-    const userRef = doc(db, "users", userId);
-    const userSnap = await getDoc(userRef);
-    if (userSnap.exists()) {
-      const userData = userSnap.data() as ChatUser;
-      setUsers((prevUsers) => ({ ...prevUsers, [userId]: userData }));
-    }
-  };
-
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newMessage.trim() && currentUser) {
+    if (newMessage.trim() && user) {
       try {
-        // Update this line to use the correct subcollection path
         await addDoc(collection(db, "groups", groupName, "messages"), {
           text: newMessage,
           timestamp: new Date().toISOString(),
-          userId: currentUser.uid,
+          userId: user.uid,
+          userName: user.displayName || "Anonymous",
         });
         setNewMessage("");
       } catch (error) {
@@ -99,7 +55,7 @@ export default function ChatRoom({ groupName }: ChatRoomProps) {
     }
   };
 
-  if (!currentUser) {
+  if (!user) {
     return <div>Please sign in to view the chat.</div>;
   }
 
@@ -109,7 +65,7 @@ export default function ChatRoom({ groupName }: ChatRoomProps) {
       <MessagesContainer>
         {messages.map((message) => (
           <MessageItem key={message.id}>
-            <Username>{users[message.userId]?.user || "Unknown"}: </Username>
+            <Username>{message.userName || "Unknown"}: </Username>
             <MessageText>{message.text}</MessageText>
           </MessageItem>
         ))}
@@ -129,7 +85,7 @@ export default function ChatRoom({ groupName }: ChatRoomProps) {
   );
 }
 
-// Styled Components (unchanged)
+// Styled components
 const ChatRoomContainer = styled.div`
   display: flex;
   flex-direction: column;

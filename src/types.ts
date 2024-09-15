@@ -68,9 +68,11 @@ export interface Group {
 }
 
 export interface Message {
+  id: string;
   text: string;
   timestamp: string;
   userId: string;
+  userName: string;
 }
 
 // You can then use these types with Firestore
