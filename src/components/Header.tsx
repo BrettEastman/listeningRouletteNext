@@ -3,14 +3,15 @@ import { useAuthContext } from "@/context/AuthContext";
 import { signOutOfApp } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import styled from "styled-components";
+import { useCurrentUser } from "@/context/CurrentUserContext";
 
 export default function Header() {
   const router = useRouter();
+  const { userName } = useCurrentUser();
   const signOutOfAppButton = () => {
     signOutOfApp();
-    router.push("/");
+    router.push("/signin");
   };
 
   const groupName = localStorage.getItem("currentGroup");
@@ -32,7 +33,7 @@ export default function Header() {
               <NavButton>ChatRoom</NavButton>
             </Link>
             <Stack gap="1rem">
-              <Span>{`Welcome ${user.displayName}!`}</Span>
+              <Span>{`Welcome ${userName}!`}</Span>
               <Button onClick={signOutOfAppButton}>Sign out</Button>
             </Stack>
           </>
