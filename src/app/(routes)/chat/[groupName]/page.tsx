@@ -71,7 +71,7 @@ export default function ChatPage() {
       <Stack>
         <BoxWrapper>
           <Form onSubmit={onSubmit}>
-            <Stack gap="1rem">
+            <Stack $gap="1rem">
               <FormInput
                 type="text"
                 name="artist"

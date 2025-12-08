@@ -18,41 +18,41 @@ export const Paragraph = styled.p<{
 `;
 
 export const Container = styled.div<{
-  flexDirection?: string;
-  justifyContent?: string;
-  gap?: string;
-  alignItems?: string;
+  $flexDirection?: string;
+  $justifyContent?: string;
+  $gap?: string;
+  $alignItems?: string;
 }>`
   display: flex;
-  flex-direction: ${(props) => props.flexDirection || "row"};
-  justify-content: ${(props) => props.justifyContent || "space-around"};
-  align-items: ${(props) => props.alignItems || "center"};
-  gap: ${(props) => props.gap || "1rem"};
+  flex-direction: ${(props) => props.$flexDirection || "row"};
+  justify-content: ${(props) => props.$justifyContent || "space-around"};
+  align-items: ${(props) => props.$alignItems || "center"};
+  gap: ${(props) => props.$gap || "1rem"};
 `;
 
 export const Stack = styled.div<{
-  justifyContent?: string;
-  flexDirection?: string;
-  gap?: string;
+  $justifyContent?: string;
+  $flexDirection?: string;
+  $gap?: string;
 }>`
   display: flex;
-  flex-direction: ${(props) => props.flexDirection || "column"};
-  justify-content: ${(props) => props.justifyContent || "flex-start"};
-  gap: ${(props) => props.gap || "2rem"};
+  flex-direction: ${(props) => props.$flexDirection || "column"};
+  justify-content: ${(props) => props.$justifyContent || "flex-start"};
+  gap: ${(props) => props.$gap || "2rem"};
 `;
 
 export const StyledWrapper = styled.div<{
-  justifyContent?: string;
-  gap?: string;
+  $justifyContent?: string;
+  $gap?: string;
 }>`
   display: flex;
   flex-direction: column;
-  justify-content: ${(props) => props.justifyContent || "flex-start"};
+  justify-content: ${(props) => props.$justifyContent || "flex-start"};
   align-items: center;
   color: #a7393d;
   padding: 1rem;
   width: 24rem;
-  gap: ${(props) => props.gap || "0rem"};
+  gap: ${(props) => props.$gap || "0rem"};
 `;
 
 export const Button = styled.button`

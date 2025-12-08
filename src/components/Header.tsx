@@ -20,7 +20,7 @@ export default function Header() {
 
   return (
     <header>
-      <Container justifyContent="space-between">
+      <Container $justifyContent="space-between">
         <Link href="/home" style={{ textDecoration: "none" }}>
           <Title>Listening Roulette</Title>
         </Link>
@@ -32,7 +32,7 @@ export default function Header() {
             <Link href={`chat/${groupName}`} style={{ textDecoration: "none" }}>
               <NavButton>ChatRoom</NavButton>
             </Link>
-            <Stack gap="1rem">
+            <Stack $gap="1rem">
               <Span>{`Welcome ${userName}!`}</Span>
               <Button onClick={signOutOfAppButton}>Sign out</Button>
             </Stack>

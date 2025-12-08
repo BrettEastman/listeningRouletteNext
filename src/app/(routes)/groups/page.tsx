@@ -96,7 +96,7 @@ export default function Groups() {
     <StyledWrapper>
       <Subtitle>Groups</Subtitle>
       <Form onSubmit={handleCreateGroup}>
-        <StyledWrapper justifyContent="space-between" gap="2rem">
+        <StyledWrapper $justifyContent="space-between" $gap="2rem">
           <Label htmlFor="group-select">
             <Paragraph>Choose a group to join:</Paragraph>
             <select

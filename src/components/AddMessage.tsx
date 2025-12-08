@@ -45,7 +45,7 @@ export default function AddMessage({ handleMessage }: any) {
         clearForm();
       }}
     >
-      <Stack gap="1rem">
+      <Stack $gap="1rem">
         <FormInput
           type="text"
           name="text"

@@ -106,9 +106,9 @@ export default function Home() {
   };
 
   return (
-    <Stack gap="6rem">
+    <Stack $gap="6rem">
       <Container>
-        <Container gap="16rem">
+        <Container $gap="16rem">
           <div>
             <BoxWrapper>
               <AddAlbum currentUserId={userId} handleSubmit={handleSubmit} />

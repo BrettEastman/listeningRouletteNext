@@ -6,11 +6,11 @@ import { Stack, Paragraph, Container } from "../app/styles";
 export default function MessageItem({ userName, text }: Message) {
   return (
     <MessageWrapper>
-      <Stack justifyContent="space-around" gap="1rem">
+      <Stack $justifyContent="space-around" $gap="1rem">
         <div>
           <Name>{userName}</Name>
         </div>
-        <Paragraph font-size="1rem">{text}</Paragraph>
+        <Paragraph size="1rem">{text}</Paragraph>
         <div>
           <Container>
             <EmotoSpan>❤️</EmotoSpan>

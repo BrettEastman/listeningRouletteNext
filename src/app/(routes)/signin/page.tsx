@@ -29,7 +29,7 @@ export default function SignIn() {
     <StyledWrapper>
       <Subtitle>Sign in</Subtitle>
       <Form onSubmit={handleSubmit}>
-        <StyledWrapper justifyContent="space-between" gap="2rem">
+        <StyledWrapper $justifyContent="space-between" $gap="2rem">
           <Label htmlFor="email">
             <Paragraph>Email</Paragraph>
             <InputRectangle
