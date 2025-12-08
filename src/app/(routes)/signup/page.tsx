@@ -31,7 +31,7 @@ export default function SignUp() {
     <StyledWrapper>
       <Subtitle>Sign up</Subtitle>
       <Form onSubmit={handleSubmit}>
-        <StyledWrapper justifyContent="space-between" gap="2rem">
+        <StyledWrapper $justifyContent="space-between" $gap="2rem">
           <Label htmlFor="firstName">
             <Paragraph>First Name</Paragraph>
             <InputRectangle

@@ -4,32 +4,36 @@ import { signOutOfApp } from "@/firebase/auth/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
+import { useCurrentUser } from "@/context/CurrentUserContext";
 
 export default function Header() {
   const router = useRouter();
+  const { userName } = useCurrentUser();
   const signOutOfAppButton = () => {
     signOutOfApp();
-    router.push("/");
+    router.push("/signin");
   };
+
+  const groupName = localStorage.getItem("currentGroup");
 
   const { user } = useAuthContext();
 
   return (
     <header>
-      <Container justifyContent="space-between">
+      <Container $justifyContent="space-between">
         <Link href="/home" style={{ textDecoration: "none" }}>
           <Title>Listening Roulette</Title>
         </Link>
         {user !== null && (
           <>
-            <Link href="/feed" style={{ textDecoration: "none" }}>
-              <NavButton>Feed</NavButton>
-            </Link>
             <Link href="/groups" style={{ textDecoration: "none" }}>
               <NavButton>Groups</NavButton>
             </Link>
-            <Stack gap="1rem">
-              <Span>{`Welcome ${user.displayName}!`}</Span>
+            <Link href={`chat/${groupName}`} style={{ textDecoration: "none" }}>
+              <NavButton>ChatRoom</NavButton>
+            </Link>
+            <Stack $gap="1rem">
+              <Span>{`Welcome ${userName}!`}</Span>
               <Button onClick={signOutOfAppButton}>Sign out</Button>
             </Stack>
           </>

@@ -18,41 +18,41 @@ export const Paragraph = styled.p<{
 `;
 
 export const Container = styled.div<{
-  flexDirection?: string;
-  justifyContent?: string;
-  gap?: string;
-  alignItems?: string;
+  $flexDirection?: string;
+  $justifyContent?: string;
+  $gap?: string;
+  $alignItems?: string;
 }>`
   display: flex;
-  flex-direction: ${(props) => props.flexDirection || "row"};
-  justify-content: ${(props) => props.justifyContent || "space-around"};
-  align-items: ${(props) => props.alignItems || "center"};
-  gap: ${(props) => props.gap || "1rem"};
+  flex-direction: ${(props) => props.$flexDirection || "row"};
+  justify-content: ${(props) => props.$justifyContent || "space-around"};
+  align-items: ${(props) => props.$alignItems || "center"};
+  gap: ${(props) => props.$gap || "1rem"};
 `;
 
 export const Stack = styled.div<{
-  justifyContent?: string;
-  flexDirection?: string;
-  gap?: string;
+  $justifyContent?: string;
+  $flexDirection?: string;
+  $gap?: string;
 }>`
   display: flex;
-  flex-direction: ${(props) => props.flexDirection || "column"};
-  justify-content: ${(props) => props.justifyContent || "flex-start"};
-  gap: ${(props) => props.gap || "2rem"};
+  flex-direction: ${(props) => props.$flexDirection || "column"};
+  justify-content: ${(props) => props.$justifyContent || "flex-start"};
+  gap: ${(props) => props.$gap || "2rem"};
 `;
 
 export const StyledWrapper = styled.div<{
-  justifyContent?: string;
-  gap?: string;
+  $justifyContent?: string;
+  $gap?: string;
 }>`
   display: flex;
   flex-direction: column;
-  justify-content: ${(props) => props.justifyContent || "flex-start"};
+  justify-content: ${(props) => props.$justifyContent || "flex-start"};
   align-items: center;
   color: #a7393d;
   padding: 1rem;
   width: 24rem;
-  gap: ${(props) => props.gap || "0rem"};
+  gap: ${(props) => props.$gap || "0rem"};
 `;
 
 export const Button = styled.button`
@@ -121,4 +121,17 @@ export const InputRectangle = styled.input`
   border: 0.5px solid black;
   border-radius: 4px;
   letter-spacing: 0.025rem;
+`;
+
+export const BorderStack = styled.div`
+  border: 1.5px dashed white;
+  border-radius: 8px;
+  overflow: auto;
+`;
+
+export const BoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 36rem;
 `;

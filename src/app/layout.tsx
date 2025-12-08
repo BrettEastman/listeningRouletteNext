@@ -6,6 +6,7 @@ import GlobalStyles from "../GlobalStyles";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import AuthContextProvider from "../context/AuthContext";
+import { CurrentUserContextProvider } from "@/context/CurrentUserContext";
 import { lexend_deca } from "./fonts";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -20,17 +21,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </Head>
       <body>
         <AuthContextProvider>
-          <GlobalStyles />
-          <ContainerWrapper>
-            <TitleGridColumn>
-              <Header />
-            </TitleGridColumn>
-            <ContentWrapper>{children}</ContentWrapper>
-            <FooterWrapper>
-              <Footer />
-            </FooterWrapper>
-            <Spacer></Spacer>
-          </ContainerWrapper>
+          <CurrentUserContextProvider>
+            <GlobalStyles />
+            <ContainerWrapper>
+              <TitleGridColumn>
+                <Header />
+              </TitleGridColumn>
+              <ContentWrapper>{children}</ContentWrapper>
+              <FooterWrapper>
+                <Footer />
+              </FooterWrapper>
+              <Spacer></Spacer>
+            </ContainerWrapper>
+          </CurrentUserContextProvider>
         </AuthContextProvider>
       </body>
     </html>

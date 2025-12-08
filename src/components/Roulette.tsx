@@ -23,10 +23,10 @@ export default function Roulette({ albums }: RouletteProps) {
   };
 
   return (
-    <Container flexDirection="column">
+    <Container $flexDirection="column">
       <Countdown />
       <div>
-        <Container flexDirection="column" gap="0rem">
+        <Container $flexDirection="column" $gap="0rem">
           <Stopper />
           <RouletteWheel>
             <div
