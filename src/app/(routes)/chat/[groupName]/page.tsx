@@ -105,8 +105,17 @@ export default function ChatPage() {
 }
 
 const ChatMainContainer = styled.div`
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 1rem;
-  margin-top: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+
+  h1 {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+  }
 `;

@@ -98,23 +98,42 @@ const ChatRoomContainer = styled.div`
   height: 100vh;
   max-width: 48rem;
   margin: 0 auto;
-  padding: 1rem;
-  background-color: #f3f4f6;
+  padding: var(--spacing-lg);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 `;
 
 const Title = styled.h1`
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-primary);
 `;
 
 const MessagesContainer = styled.div`
   flex-grow: 1;
   overflow-y: auto;
-  margin-bottom: 1rem;
-  background-color: white;
-  border: 1px solid #d1d5db;
-  padding: 0.5rem;
+  margin-bottom: var(--spacing-lg);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: var(--radius-sm);
+    &:hover {
+      background: var(--color-primary-light);
+    }
+  }
 `;
 
 // const MessageItem = styled.div`
@@ -122,10 +141,12 @@ const MessagesContainer = styled.div`
 // `;
 
 const Username = styled.span`
-  font-weight: bold;
+  font-weight: 600;
 `;
 
-const MessageText = styled.span``;
+const MessageText = styled.span`
+  color: var(--color-text-primary);
+`;
 
 const Form = styled.form`
   display: flex;
@@ -133,18 +154,45 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  margin-bottom: 0.5rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+  transition: all 0.2s ease;
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+  }
 `;
 
 const InputGroup = styled.div`
   display: flex;
+  gap: var(--spacing-sm);
 `;
 
 const Button = styled.button`
-  background-color: #3b82f6;
-  color: white;
-  padding: 0.5rem 1rem;
-  margin-left: 0.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 `;

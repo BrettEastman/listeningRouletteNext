@@ -53,12 +53,13 @@ const RouletteWheel = styled.div`
     height: 350px;
     width: 350px;
     position: relative;
-    border: 0.5px solid white;
-    letter-spacing: 1px;
+    border: 2px solid var(--color-border);
+    letter-spacing: 0.025em;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 0 10px hsl(358deg 99% 24% /0.3);
-    transition: 3s all;
+    box-shadow: var(--shadow-lg);
+    transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--color-surface);
   }
   .wheel div {
     height: 50%;
@@ -71,59 +72,70 @@ const RouletteWheel = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: var(--font-size-sm);
     transform-origin: bottom;
-    color: var(--text-color-light);
+    color: var(--color-text-inverse);
     writing-mode: vertical-rl;
+    font-weight: 500;
   }
   .wheel .one {
-    background: hsla(204deg 70% 70% / 0.9);
+    background: var(--color-primary);
     left: 50%;
   }
   .wheel .two {
-    background: hsla(204deg 70% 66% / 0.9);
+    background: var(--color-primary-light);
     transform: rotate(60deg);
   }
   .wheel .three {
-    background: hsla(204deg 70% 62% / 0.9);
+    background: var(--color-secondary);
     transform: rotate(120deg);
   }
   .wheel .four {
-    background: hsl(358deg 99% 64% /0.3);
+    background: var(--color-accent);
     transform: rotate(180deg);
   }
   .wheel .five {
-    background: hsl(358deg 99% 54% /0.3);
+    background: var(--color-accent-dark);
     transform: rotate(240deg);
   }
   .wheel .six {
-    background: hsl(358deg 99% 44% /0.3);
+    background: var(--color-primary-dark);
     transform: rotate(300deg);
   }
 `;
 
 const SpinButton = styled.button`
-  padding: 1rem;
-  border: 0.5px solid white;
-  border-radius: 50%;
-  background: radial-gradient(
-    hsl(358deg 99% 84% /0.3),
-    hsl(358deg 99% 64% /0.3)
-  );
-  letter-spacing: 2px;
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  transform: scale(1.1);
+  padding: var(--spacing-md) var(--spacing-xl);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  letter-spacing: 0.025em;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  box-shadow: var(--shadow-md);
   cursor: pointer;
-  transition: 0.2s all;
-  :hover {
-    box-shadow: none;
-    color: hsla(204deg 90% 66% / 0.9);
+  transition: all 0.2s ease;
+  &:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 `;
 
 const Stopper = styled.div`
   height: 20px;
   width: 15px;
-  background: #794244;
+  background: var(--color-accent);
   clip-path: polygon(100% 0, 50% 100%, 0 0);
+  box-shadow: var(--shadow-sm);
 `;
