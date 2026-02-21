@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Listening Roulette</h1>
 </div>
-An app for listening to music with friends. Listening Roulette presents a fun way to get several friends to pick an album of their choice, spin the wheel to decide which one to listen to, then listen together while chatting and commenting on the music.
+An app for listening to music with friends. Listening Roulette presents a fun way to get several friends to pick an album of their choice, then listen together while chatting and commenting on the music.
 
 ## Author
 - [Brett Eastman](https://github.com/BrettEastman)
@@ -28,36 +28,3 @@ An app for listening to music with friends. Listening Roulette presents a fun wa
 * Feed view:
   * Features a message board where the listening chat takes place
   * Features a ChatGPT-powered chatbot which will give listener the history and influences of a particular artist.
-
-## Preview
-
-<p float="left">
-  <img width="80%" alt="Listening Roulette Home Page view" src="https://github.com/BrettEastman/listeningRouletteNext/assets/76603041/af3663ab-3a05-4012-a63a-95495a955ea6"> 
-</p>
-
-<p float="left">
-  <img width="80%" alt="Listening Roulette Feed Page view" src="https://github.com/BrettEastman/listeningRouletteNext/assets/76603041/e0c11703-0fdb-4cf9-9299-f142b5cc59f8"> 
-</p>
-
-## Run Locally
-```bash
-  git clone https://github.com/BrettEastman/listeningRouletteNext.git
-```
-
-#### Go to the project directory
-```bash
-  cd listeningRouletteNext
-```
-- Create a `.env.local` file from `example.env` and input your own Firebase and OpenAI API keys and info
-
-#### Install dependencies
-```bash
-  npm install
-```
-
-#### Run the development server:
-```bash
-  npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
