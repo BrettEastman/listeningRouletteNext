@@ -137,11 +137,11 @@ a {
   color: var(--color-primary);
   text-decoration: none;
   transition: color 0.2s ease;
-  &:hover {
-    color: var(--color-primary-dark);
-  }
 }
 
+a:hover {
+  color: var(--color-primary-dark);
+}
 #root, #__next {
   isolation: isolate;
 }
