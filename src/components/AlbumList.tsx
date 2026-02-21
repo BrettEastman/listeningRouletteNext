@@ -43,11 +43,11 @@ const ListWrapper = styled.div`
       &:last-child {
         border-bottom: none;
       }
-    }
-    &::before {
-      content: "● ";
-      color: var(--color-primary);
-      margin-right: var(--spacing-sm);
+      &::before {
+        content: "● ";
+        color: var(--color-primary);
+        margin-right: var(--spacing-sm);
+      }
     }
   }
 `;
