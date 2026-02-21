@@ -44,60 +44,70 @@ export default function Header() {
 }
 
 const Title = styled.header`
-  color: var(--text-color-tuscan-red);
-  opacity: 0.9;
-  font-size: 5rem;
+  color: var(--color-accent);
+  font-size: var(--font-size-5xl);
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.025em;
 `;
 
 const Span = styled.span`
-  color: var(--text-color-tuscan-red);
-  opacity: 0.8;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  letter-spacing: 0.025em;
 `;
 
 export const Button = styled.button`
-  padding: 0.5rem;
-  color: var(--text-color-light);
-  border: 0.5px solid white;
-  font-size: 1rem;
-  border-radius: 20px;
-  background: transparent;
-  letter-spacing: 2px;
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  color: var(--color-text-inverse);
+  border: 1px solid var(--color-primary);
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  letter-spacing: 0.025em;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: 0.2s all;
-  :hover {
-    box-shadow: none;
-    color: hsla(204deg 90% 66% / 0.9);
-    background: radial-gradient(
-      hsl(358deg 99% 84% /0.3),
-      hsl(358deg 99% 64% /0.3)
-    );
+  transition: all 0.2s ease;
+  &:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 `;
 
 const NavButton = styled.button`
-  padding: 1.5rem;
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  color: var(--text-color-tuscan-red-dark);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.025em;
+  color: var(--color-text-primary);
   background: transparent;
-  border-radius: 50%;
-  border: none;
-  transition: all 0.4s ease-out;
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+  font-weight: 500;
   cursor: pointer;
-  :hover {
-    border: 0.5px solid white;
-    background: radial-gradient(
-      hsl(358deg 99% 84% /0.3),
-      hsl(358deg 99% 64% /0.3)
-    );
-    box-shadow: none;
-    color: hsla(204deg 90% 66% / 0.9);
+  &:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 `;

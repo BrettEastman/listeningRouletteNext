@@ -14,6 +14,7 @@ import { SelectEvent } from "@/types";
 import { useAuthContext } from "@/context/AuthContext";
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import styled from "styled-components";
 
 export default function Groups() {
   const router = useRouter();
@@ -99,7 +100,7 @@ export default function Groups() {
         <StyledWrapper $justifyContent="space-between" $gap="2rem">
           <Label htmlFor="group-select">
             <Paragraph>Choose a group to join:</Paragraph>
-            <select
+            <Select
               name="groups"
               id="group-select"
               onChange={handleGroupSelect}
@@ -111,7 +112,7 @@ export default function Groups() {
                   {group}
                 </option>
               ))}
-            </select>
+            </Select>
           </Label>
           <Button type="button" onClick={handleJoinGroup}>
             Join Group
@@ -133,15 +134,53 @@ export default function Groups() {
       </Form>
 
       <Subtitle>Your Groups</Subtitle>
-      <ul>
+      <GroupsList>
         {userGroups.map((group) => (
-          <li key={group}>
+          <GroupItem key={group}>
             <Button onClick={() => router.push(`/chat/${group}`)}>
               {group}
             </Button>
-          </li>
+          </GroupItem>
         ))}
-      </ul>
+      </GroupsList>
     </StyledWrapper>
   );
 }
+
+const Select = styled.select`
+  display: block;
+  font-family: inherit;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  letter-spacing: 0.025em;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin-top: var(--spacing-sm);
+  &:hover {
+    border-color: var(--color-primary-light);
+  }
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+    background: var(--color-surface-elevated);
+  }
+`;
+
+const GroupsList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+`;
+
+const GroupItem = styled.li`
+  width: 100%;
+`;

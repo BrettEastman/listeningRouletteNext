@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import AuthContextProvider from "../context/AuthContext";
 import { CurrentUserContextProvider } from "@/context/CurrentUserContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { lexend_deca } from "./fonts";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -20,21 +21,23 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </Head>
       <body>
-        <AuthContextProvider>
-          <CurrentUserContextProvider>
-            <GlobalStyles />
-            <ContainerWrapper>
-              <TitleGridColumn>
-                <Header />
-              </TitleGridColumn>
-              <ContentWrapper>{children}</ContentWrapper>
-              <FooterWrapper>
-                <Footer />
-              </FooterWrapper>
-              <Spacer></Spacer>
-            </ContainerWrapper>
-          </CurrentUserContextProvider>
-        </AuthContextProvider>
+        <ThemeProvider>
+          <AuthContextProvider>
+            <CurrentUserContextProvider>
+              <GlobalStyles />
+              <ContainerWrapper>
+                <TitleGridColumn>
+                  <Header />
+                </TitleGridColumn>
+                <ContentWrapper>{children}</ContentWrapper>
+                <FooterWrapper>
+                  <Footer />
+                </FooterWrapper>
+                <Spacer></Spacer>
+              </ContainerWrapper>
+            </CurrentUserContextProvider>
+          </AuthContextProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
@@ -50,20 +53,21 @@ const ContainerWrapper = styled.div`
     1fr;
   grid-template-rows: auto 1fr auto;
   min-height: 100dvh;
-  @media (max-width: 600px) {
+  padding: var(--spacing-md);
+  @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
+    padding: var(--spacing-sm);
   }
 `;
 
 const TitleGridColumn = styled.header`
   grid-column: 2 / 5;
-  color: var(--text-color-tuscan-red);
-  opacity: 0.8;
-  font-size: 5rem;
+  color: var(--color-accent);
+  font-size: var(--font-size-5xl);
   font-weight: 600;
-  letter-spacing: 1px;
-  padding-bottom: 4rem;
+  letter-spacing: 0.025em;
+  padding-bottom: var(--spacing-3xl);
 `;
 
 const ContentWrapper = styled.main`
@@ -72,8 +76,8 @@ const ContentWrapper = styled.main`
 
 const FooterWrapper = styled.div`
   grid-column: 2 / 5;
-  margin-top: 8rem;
-  margin-bottom: 4rem;
+  margin-top: var(--spacing-4xl);
+  margin-bottom: var(--spacing-3xl);
 `;
 
 const Spacer = styled.div`

@@ -21,17 +21,33 @@ export default function AlbumList({ albums }: AlbumProp) {
 }
 
 const ListWrapper = styled.div`
-  padding: 1rem;
-  border: 0.5px solid white;
-  border-radius: 8px;
-  letter-spacing: 1px;
-  margin-top: 2.8rem;
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  margin-top: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    border-color: var(--color-primary-light);
+    box-shadow: var(--shadow-md);
+  }
   ol {
-    color: var(--text-color-light);
+    color: var(--color-text-primary);
     padding-left: 0;
-    &::before {
-      content: "● ";
+    list-style: none;
+    margin: 0;
+    li {
+      padding: var(--spacing-sm) 0;
+      border-bottom: 1px solid var(--color-border-light);
+      &:last-child {
+        border-bottom: none;
+      }
+      &::before {
+        content: "● ";
+        color: var(--color-primary);
+        margin-right: var(--spacing-sm);
+      }
     }
   }
 `;

@@ -12,6 +12,7 @@ import {
   StyledWrapper,
   Subtitle,
 } from "../../styles";
+import styled from "styled-components";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -77,14 +78,31 @@ export default function SignUp() {
             />
           </Label>
           <Button type="submit">Sign up</Button>
-          <div>
+          <LinkText>
             Already have an account? Sign in{" "}
             <Link href={"/signin"}>
-              <span>here</span>
+              <LinkSpan>here</LinkSpan>
             </Link>
-          </div>
+          </LinkText>
         </StyledWrapper>
       </Form>
     </StyledWrapper>
   );
 }
+
+const LinkText = styled.div`
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+`;
+
+const LinkSpan = styled.span`
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+`;

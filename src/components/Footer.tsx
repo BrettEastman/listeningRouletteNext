@@ -61,14 +61,24 @@ export default function Footer() {
 const StyledFooter = styled.footer`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  color: #a7393d;
-  font-size: 0.8rem;
+  gap: var(--spacing-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
 `;
 
 const Icons = styled.div`
   display: flex;
   font-family: ${inter.className};
   flex-direction: row;
-  gap: 1rem;
+  gap: var(--spacing-md);
+  align-items: center;
+
+  a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
 `;

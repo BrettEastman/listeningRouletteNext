@@ -126,31 +126,16 @@ export default function Home() {
   );
 }
 
-const NavButton = styled.button`
-  padding: 1.5rem;
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  color: var(--text-color-tuscan-red-dark);
-  background: transparent;
-  border-radius: 50%;
-  border: none;
-  transition: all 0.4s ease-out;
-  box-shadow: 0 2px 4px hsl(358deg 99% 24% /0.3);
-  cursor: pointer;
-  :hover {
-    border: 0.5px solid white;
-    background: radial-gradient(
-      hsl(358deg 99% 84% /0.3),
-      hsl(358deg 99% 64% /0.3)
-    );
-    box-shadow: none;
-    color: hsla(204deg 90% 66% / 0.9);
-  }
-`;
 
 const BoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 36rem;
+  gap: var(--spacing-lg);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+  }
 `;

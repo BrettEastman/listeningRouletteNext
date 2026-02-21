@@ -26,16 +26,24 @@ export default function MessageItem({ userName, text }: Message) {
 }
 
 const MessageWrapper = styled.div`
-  padding: 1.5rem;
-  background: #9bc1d4;
-  color: var(--text-color-light);
-  border-radius: 8px;
-  margin: 8px;
+  padding: var(--spacing-md);
+  background: var(--color-primary-light);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-sm) 0;
+  border: 1px solid var(--color-primary);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+  }
 `;
 
 const Name = styled.span`
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-inverse);
 `;
 
 const EmotoSpan = styled.span`

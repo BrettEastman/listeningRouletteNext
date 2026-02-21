@@ -19,10 +19,20 @@ const StyledApp = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: inherit;
-  color: var(--text-color-tuscan-red);
-  opacity: 0.8;
-  font-size: 1rem;
-  text-shadow: 0.5px 0.5px 1px black;
-  padding: 1rem;
-  margin-top: 10rem;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-4xl);
+
+  h1 {
+    color: var(--color-accent);
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  h2 {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xl);
+  }
 `;

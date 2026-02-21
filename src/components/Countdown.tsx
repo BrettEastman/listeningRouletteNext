@@ -51,16 +51,15 @@ const CountdownWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  color: hsl(358deg 99% 44% /0.3);
-  font-size: 1rem;
-  padding: 1rem;
+  gap: var(--spacing-md);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  padding: var(--spacing-md);
 `;
 
 const CountStyle = styled.div`
-  font-size: 2rem;
-  color: var(--text-color-light);
-  margin-left: 1rem;
-  margin-right: 1rem;
-  transition: 1s all;
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  transition: all 0.3s ease;
 `;
