@@ -10,22 +10,21 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.7",
+    "@types/node": "^25.3.0",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "axios": "^1.13.2",
-    "dotenv": "^17.2.3",
-    "eslint": "^9.39.1",
-    "firebase": "^12.6.0",
-    "next": "^16.0.7",
-    "openai": "^6.10.0",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "styled-components": "^6.1.19",
+    "dotenv": "^17.3.1",
+    "eslint": "^10.0.1",
+    "firebase": "^12.9.0",
+    "next": "^16.1.6",
+    "openai": "^6.22.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "styled-components": "^6.3.11",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.36",
-    "eslint-config-next": "^16.0.7"
+    "eslint-config-next": "^0.2.4"
   }
 }
