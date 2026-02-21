@@ -25,6 +25,6 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.36",
-    "eslint-config-next": "^0.2.4"
+    "eslint-config-next": "^16.1.6"
   }
 }
